@@ -369,10 +369,13 @@ function layoutCity(){
   const list = byCity(c).concat(closedIn(c));
   const caps = list.map(v=>Math.log(Math.max(60,v.cap||300)));
   const lo = Math.min(...caps), hi = Math.max(...caps);
+
+  // as a city fills up, bubbles shrink and the field widens, so the cluster stays readable
+  const dens = Math.min(1.06, Math.sqrt(11 / Math.max(8, list.length)));
   const rOf = v => {
     const s = Math.log(Math.max(60,v.cap||300));
     const t = hi>lo ? (s-lo)/(hi-lo) : .5;
-    return (32 + t*44) * SC * (wide?1.04:1);
+    return (32 + t*44) * SC * dens * (wide?1.04:1);
   };
 
   const core = bodies.find(b=>b.kind==="core") || mkBody({kind:"core", id:"core:"+c});
@@ -383,17 +386,23 @@ function layoutCity(){
   const keep = new Map(bodies.filter(b=>b.kind==="venue").map(b=>[b.id,b]));
   const next = [core];
 
-  // golden-angle spiral, scaled to the field
+  // golden-angle spiral over an ellipse — wide screens have room sideways, not down
   const GA = Math.PI*(3-Math.sqrt(5));
-  const spread = Math.min(fieldW,H)*(wide?0.30:0.325);
+  const inner = core.tr*1.75;
+  const grow = Math.min(1.34, 2 - dens);
+  const base = Math.min(fieldW,H)*(wide?0.30:0.325)*grow;
+  const rx = Math.max(150, Math.min(fieldW/2 - 90, inner + base*(wide?1.55:1.02)));
+  const ry = Math.max(130, Math.min(H/2 - 104,     inner + base));
+  const u0 = inner/Math.max(rx,ry);
+
   list.forEach((v,i)=>{
     const b = keep.get(v.id) || mkBody({kind:"venue", id:v.id, x:core.x, y:core.y, r:1});
     b.kind="venue"; b.id=v.id; b.v=v;
     const t = (i+0.72)/list.length;
-    const rad = core.tr*1.75 + Math.sqrt(t)*spread;
+    const u = u0 + Math.sqrt(t)*(1-u0);
     const a = i*GA - Math.PI/2;
-    b.tx = cx + Math.cos(a)*rad;
-    b.ty = cy + Math.sin(a)*rad*0.94;
+    b.tx = cx + Math.cos(a)*u*rx;
+    b.ty = cy + Math.sin(a)*u*ry;
     b.tr = rOf(v);
     b.col = shade(c, v.intensity);
     b.closed = v.status==="closed";

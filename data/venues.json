@@ -1545,5 +1545,528 @@
     },
     "status": "open",
     "draft": false
+  },
+  {
+    "id": "rexclub",
+    "city": "paris",
+    "name": "Rex Club",
+    "area": "2e — Grands Boulevards",
+    "intensity": 4,
+    "cap": 700,
+    "hours": "Wed–Sat 23:30–06:00",
+    "line": "The best-sounding room in France, and it knows it.",
+    "note": "Laurent Garnier's home room and the spiritual centre of French techno since the late 80s. The system is the reason to go — you hear things in records here you have never heard. Low ceiling, black walls, no distractions.",
+    "tags": [
+      "heavy",
+      "techno",
+      "institution",
+      "soundsystem"
+    ],
+    "rooms": [],
+    "nights": [
+      "Wed–Sat, techno-led programming"
+    ],
+    "links": {
+      "web": "https://www.rexclub.com",
+      "ra": "https://ra.co/search?q=rex%20club",
+      "map": "https://www.google.com/maps/search/Rex+Club+5+Boulevard+Poissonni%C3%A8re+Paris"
+    },
+    "status": "open",
+    "draft": true
+  },
+  {
+    "id": "djoon",
+    "city": "paris",
+    "name": "Djoon",
+    "area": "13e — Quai d'Austerlitz",
+    "intensity": 3,
+    "cap": 300,
+    "hours": "Fri–Sat 23:30–06:00, occasional Sundays",
+    "line": "Soulful house for people who actually dance.",
+    "note": "The warm end of Paris. Deep, soulful, disco and Afro-house, and a crowd that dances properly rather than facing the booth. If you want the opposite of a techno night, this is it — and the Sunday sessions are the real thing.",
+    "tags": [
+      "warm",
+      "house",
+      "disco",
+      "soulful",
+      "dancers"
+    ],
+    "rooms": [],
+    "nights": [
+      "Fri–Sat house & disco",
+      "Sunday sessions when programmed"
+    ],
+    "links": {
+      "web": "https://www.djoon.com",
+      "ra": "https://ra.co/search?q=djoon",
+      "map": "https://www.google.com/maps/search/Djoon+22+Boulevard+Vincent+Auriol+Paris"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "badaboum",
+    "city": "paris",
+    "name": "Badaboum",
+    "area": "11e — Bastille",
+    "intensity": 3,
+    "cap": 300,
+    "hours": "Wed–Sat 23:30–06:00",
+    "line": "Small club, cocktail room next door, one of the best booths in Europe.",
+    "note": "The layout is the trick — a proper dark club room, and through a door, a completely separate cocktail bar with a totally different mood. You can reset and go back in. The booth is famously good and DJs love playing here.",
+    "tags": [
+      "house",
+      "techno",
+      "intimate",
+      "warm",
+      "central"
+    ],
+    "rooms": [
+      {
+        "name": "Club",
+        "intensity": 3,
+        "note": "Dark, low, proper dancefloor."
+      },
+      {
+        "name": "Bar",
+        "intensity": 1,
+        "note": "Separate cocktail room. Talk, reset, go back in."
+      }
+    ],
+    "nights": [
+      "Wed–Sat, house and techno leaning"
+    ],
+    "links": {
+      "web": "https://badaboum.paris",
+      "ra": "https://ra.co/search?q=badaboum",
+      "map": "https://www.google.com/maps/search/Badaboum+2+bis+Rue+des+Taillandiers+Paris"
+    },
+    "status": "open",
+    "draft": true
+  },
+  {
+    "id": "nuitsfauves",
+    "city": "paris",
+    "name": "Nuits Fauves",
+    "area": "13e — Gare d'Austerlitz",
+    "intensity": 4,
+    "cap": 500,
+    "hours": "Fri–Sat 23:30–06:00",
+    "line": "Under the bridge by the river, hard and late.",
+    "note": "Riverside, near the Austerlitz cluster, and harder than most of the city. Terrace on the Seine is a good escape valve. Pairs naturally with Djoon in the same area if you want two moods in one night.",
+    "tags": [
+      "heavy",
+      "techno",
+      "allnighter"
+    ],
+    "rooms": [
+      {
+        "name": "Main",
+        "intensity": 4,
+        "note": "Dark club room."
+      },
+      {
+        "name": "Terrasse",
+        "intensity": 2,
+        "note": "On the Seine. Sunrise here is worth staying for."
+      }
+    ],
+    "nights": [
+      "Fri–Sat techno programming"
+    ],
+    "links": {
+      "ra": "https://ra.co/search?q=nuits%20fauves",
+      "map": "https://www.google.com/maps/search/Nuits+Fauves+Paris"
+    },
+    "status": "open",
+    "draft": true
+  },
+  {
+    "id": "lajava",
+    "city": "paris",
+    "name": "La Java",
+    "area": "20e — Belleville",
+    "intensity": 4,
+    "cap": 400,
+    "hours": "Fri–Sat 23:30–06:00",
+    "line": "A 1920s dance hall basement in Belleville.",
+    "note": "Historic room — Piaf played here — now a sweaty basement with good leftfield and club bookings. Belleville location means the night can continue in every direction afterwards.",
+    "tags": [
+      "house",
+      "leftfield",
+      "intimate",
+      "warm"
+    ],
+    "rooms": [],
+    "nights": [
+      "Fri–Sat, promoter-led"
+    ],
+    "links": {
+      "ra": "https://ra.co/search?q=la%20java%20paris",
+      "map": "https://www.google.com/maps/search/La+Java+105+Rue+du+Faubourg+du+Temple+Paris"
+    },
+    "status": "open",
+    "draft": true
+  },
+  {
+    "id": "petitbain",
+    "city": "paris",
+    "name": "Petit Bain",
+    "area": "13e — Quai de la Gare",
+    "intensity": 2,
+    "cap": 300,
+    "hours": "Evenings into the night, rooftop in summer",
+    "line": "A floating barge with a rooftop and a garden.",
+    "note": "A boat moored on the Seine with a restaurant, a rooftop, and a club room in the hull. Lighter programming, great for an early-evening start before something heavier. Rooftop at sunset is the draw.",
+    "tags": [
+      "warm",
+      "outdoor",
+      "intimate",
+      "daytime"
+    ],
+    "rooms": [
+      {
+        "name": "Rooftop",
+        "intensity": 1,
+        "note": "Sunset, drinks, light selections."
+      },
+      {
+        "name": "Hull",
+        "intensity": 3,
+        "note": "The club room below deck."
+      }
+    ],
+    "nights": [
+      "Mixed live and club programming"
+    ],
+    "links": {
+      "web": "https://www.petitbain.org",
+      "ra": "https://ra.co/search?q=petit%20bain",
+      "map": "https://www.google.com/maps/search/Petit+Bain+Paris"
+    },
+    "status": "open",
+    "draft": true
+  },
+  {
+    "id": "dehorsbrut",
+    "city": "paris",
+    "name": "Dehors Brut",
+    "area": "12e — Bercy",
+    "intensity": 2,
+    "cap": 1500,
+    "hours": "Daytime — roughly 14:00 to midnight, summer season",
+    "line": "Open-air concrete under the Bercy arches, in daylight.",
+    "note": "The Paris day-party. Runs through the warm months in an open concrete space near Bercy. Different energy entirely — sunglasses, beers, house music, home by midnight.",
+    "tags": [
+      "outdoor",
+      "daytime",
+      "house",
+      "warm"
+    ],
+    "rooms": [],
+    "nights": [
+      "Summer season, weekend daytimes"
+    ],
+    "links": {
+      "ra": "https://ra.co/search?q=dehors%20brut",
+      "map": "https://www.google.com/maps/search/Dehors+Brut+Bercy+Paris"
+    },
+    "status": "open",
+    "draft": true
+  },
+  {
+    "id": "silencio",
+    "city": "paris",
+    "name": "Silencio",
+    "area": "2e — Grands Boulevards",
+    "intensity": 2,
+    "cap": 200,
+    "hours": "Members until midnight, then open to the public",
+    "line": "David Lynch designed a members' club and it looks like it.",
+    "note": "Gold-leafed, mirrored, six metres underground, designed by Lynch himself. Members only until midnight, public after — which is the move. Not a rave. Go for the room and a late drink, not for a peak-time set.",
+    "tags": [
+      "listening",
+      "warm",
+      "intimate",
+      "central",
+      "design"
+    ],
+    "rooms": [],
+    "nights": [
+      "Open to non-members after midnight"
+    ],
+    "links": {
+      "web": "https://silencio-club.com",
+      "ra": "https://ra.co/search?q=silencio%20paris",
+      "map": "https://www.google.com/maps/search/Silencio+142+Rue+Montmartre+Paris"
+    },
+    "status": "open",
+    "draft": true
+  },
+  {
+    "id": "t7",
+    "city": "paris",
+    "name": "T7",
+    "area": "15e — Paris Expo, Porte de Versailles",
+    "intensity": 4,
+    "cap": 1500,
+    "hours": "Fri–Sat, late into the morning",
+    "line": "A techno hall on the roof of the Paris Expo, terrace attached.",
+    "note": "Terminal 7, on top of the Paris Expo halls at Porte de Versailles — 1000m² indoors plus a 400m² terrace, programmed towards minimal and techno. Industrial scale without leaving the city.",
+    "tags": [
+      "heavy",
+      "techno",
+      "bigroom",
+      "industrial",
+      "allnighter"
+    ],
+    "rooms": [],
+    "nights": [
+      "Fri–Sat, hard techno programming"
+    ],
+    "links": {
+      "ra": "https://ra.co/search?q=t7%20paris",
+      "map": "https://www.google.com/maps/search/T7+Paris+Expo+Porte+de+Versailles"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "concrete",
+    "city": "paris",
+    "name": "Concrete",
+    "area": "12e — Port de la Rapée",
+    "intensity": 5,
+    "cap": 1200,
+    "hours": "Historically Saturday 07:00 through Sunday night",
+    "line": "The boat that invented the Paris after-hours.",
+    "note": "Closed in 2019. Listed because it changed the city — the Saturday-morning start and the 24-hour licence campaign that followed came out of here, and most of the current Paris scene grew from that crew. RIP.",
+    "tags": [
+      "heavy",
+      "techno",
+      "allnighter",
+      "historic"
+    ],
+    "rooms": [],
+    "nights": [
+      "—"
+    ],
+    "links": {
+      "ra": "https://ra.co/search?q=concrete%20paris",
+      "map": "https://www.google.com/maps/search/Port+de+la+Rap%C3%A9e+Paris"
+    },
+    "status": "closed",
+    "draft": true
+  },
+  {
+    "id": "thuishaven",
+    "city": "amsterdam",
+    "name": "Thuishaven",
+    "area": "Westpoort",
+    "intensity": 3,
+    "cap": 3000,
+    "hours": "24-hour licence — parties run from Saturday into Monday",
+    "line": "A permanent festival site on the industrial edge of the harbour.",
+    "note": "Tents, campfires, sculptures and a licence that lets it run for 48 hours. It's the closest thing to a permanent outdoor festival in a European city. Deeply un-serious in the best way — people are still there on Monday morning.",
+    "tags": [
+      "outdoor",
+      "daytime",
+      "allnighter",
+      "house",
+      "techno",
+      "24h"
+    ],
+    "rooms": [
+      {
+        "name": "Main tent",
+        "intensity": 4,
+        "note": "The big one. Techno-leaning."
+      },
+      {
+        "name": "Outdoor stages",
+        "intensity": 2,
+        "note": "Daylight, campfires, lighter."
+      }
+    ],
+    "nights": [
+      "Weekend-long, Saturday through Monday"
+    ],
+    "links": {
+      "web": "https://www.thuishaven.nl",
+      "ra": "https://ra.co/search?q=thuishaven",
+      "map": "https://www.google.com/maps/search/Thuishaven+Amsterdam"
+    },
+    "status": "open",
+    "draft": true
+  },
+  {
+    "id": "doka",
+    "city": "amsterdam",
+    "name": "Doka",
+    "area": "Oost — Volkshotel",
+    "intensity": 3,
+    "cap": 200,
+    "hours": "Most nights until 03:00–04:00",
+    "line": "A hotel basement bar with better music than it needs.",
+    "note": "In the basement of the Volkshotel — a former newspaper building. Cocktail bar energy with real DJs, open most nights of the week. The right answer on a Tuesday, and useful during ADE when everything else is sold out.",
+    "tags": [
+      "warm",
+      "house",
+      "intimate",
+      "listening",
+      "central"
+    ],
+    "rooms": [],
+    "nights": [
+      "Most nights — no need to plan"
+    ],
+    "links": {
+      "web": "https://www.volkshotel.nl/doka",
+      "ra": "https://ra.co/search?q=doka%20amsterdam",
+      "map": "https://www.google.com/maps/search/Volkshotel+Doka+Amsterdam"
+    },
+    "status": "open",
+    "draft": true
+  },
+  {
+    "id": "ot301",
+    "city": "amsterdam",
+    "name": "OT301",
+    "area": "Oud-West — Overtoom",
+    "intensity": 5,
+    "cap": 300,
+    "hours": "Varies — cinema, studios, club nights",
+    "line": "A legalised squat that still behaves like one.",
+    "note": "Former film academy, squatted in 1999, now a legal cultural centre with a cinema, studios, a vegan restaurant and a club room. Cheap, political, unpolished, and programming you won't find anywhere commercial.",
+    "tags": [
+      "diy",
+      "leftfield",
+      "cheap",
+      "queer"
+    ],
+    "rooms": [],
+    "nights": [
+      "Varies widely — check the calendar"
+    ],
+    "links": {
+      "web": "https://www.ot301.nl",
+      "ra": "https://ra.co/search?q=ot301",
+      "map": "https://www.google.com/maps/search/OT301+Overtoom+Amsterdam"
+    },
+    "status": "open",
+    "draft": true
+  },
+  {
+    "id": "sexyland",
+    "city": "amsterdam",
+    "name": "Sexyland World",
+    "area": "Noord",
+    "intensity": 5,
+    "cap": 400,
+    "hours": "Varies wildly",
+    "line": "A different owner every day of the year. Genuinely.",
+    "note": "Started as a club where 365 different members each programmed one day of the year, and kept the spirit. Queer, chaotic, unpredictable. You cannot know what you're walking into, which is exactly why you should.",
+    "tags": [
+      "queer",
+      "leftfield",
+      "diy",
+      "adventurous"
+    ],
+    "rooms": [],
+    "nights": [
+      "Unpredictable by design — check the calendar"
+    ],
+    "links": {
+      "web": "https://sexylandworld.com",
+      "ra": "https://ra.co/search?q=sexyland%20amsterdam",
+      "map": "https://www.google.com/maps/search/Sexyland+World+Amsterdam+Noord"
+    },
+    "status": "open",
+    "draft": true
+  },
+  {
+    "id": "bitterzoet",
+    "city": "amsterdam",
+    "name": "Bitterzoet",
+    "area": "Centrum",
+    "intensity": 3,
+    "cap": 300,
+    "hours": "Most nights until 04:00",
+    "line": "Small central room, hip-hop and broken beats as often as house.",
+    "note": "One of the few central rooms still worth going to. Wider than four-four — soul, hip-hop, Afrobeat, broken beat. Good for a night that isn't about techno.",
+    "tags": [
+      "warm",
+      "intimate",
+      "central",
+      "leftfield"
+    ],
+    "rooms": [],
+    "nights": [
+      "Most nights, broad programming"
+    ],
+    "links": {
+      "web": "https://www.bitterzoet.com",
+      "ra": "https://ra.co/search?q=bitterzoet",
+      "map": "https://www.google.com/maps/search/Bitterzoet+Amsterdam"
+    },
+    "status": "open",
+    "draft": true
+  },
+  {
+    "id": "elementenstraat",
+    "city": "amsterdam",
+    "name": "Warehouse Elementenstraat",
+    "area": "Westpoort",
+    "intensity": 3,
+    "cap": 3000,
+    "hours": "Event-dependent, ADE and Awakenings dates",
+    "line": "The big industrial hall. Where ADE goes properly loud.",
+    "note": "A raw warehouse in the western docklands used for the largest techno events in the city — Awakenings and the biggest ADE nights. Not a club with a calendar; it's a shell that gets built out per event. Check what's on rather than turning up.",
+    "tags": [
+      "heavy",
+      "techno",
+      "bigroom",
+      "industrial",
+      "festival"
+    ],
+    "rooms": [],
+    "nights": [
+      "Event-only — Awakenings, ADE, large one-offs"
+    ],
+    "links": {
+      "ra": "https://ra.co/search?q=elementenstraat%20amsterdam",
+      "map": "https://www.google.com/maps/search/Elementenstraat+Amsterdam"
+    },
+    "status": "open",
+    "draft": true
+  },
+  {
+    "id": "yoyo",
+    "city": "paris",
+    "name": "YOYO — Palais de Tokyo",
+    "area": "16e — Avenue du Président Wilson",
+    "intensity": 2,
+    "cap": 500,
+    "hours": "Thu–Sat 23:00–05:00",
+    "draft": false,
+    "line": "A stripped-concrete club under the west wing of a contemporary art museum.",
+    "note": "Tucked beneath the west wing of the Palais de Tokyo, bare concrete walls, with a programme built around the young contemporary scene — sound and visual experimentation, dance, electronic music. The art institution above lends it a prestige most club rooms cannot buy. Scales past a thousand for the bigger nights.",
+    "tags": [
+      "institution",
+      "artschool",
+      "experimental",
+      "central",
+      "prestige"
+    ],
+    "rooms": [],
+    "nights": [
+      "Thu–Sat"
+    ],
+    "links": {
+      "web": "https://palaisdetokyo.com/en/the-yoyo/",
+      "ra": "https://ra.co/search?q=yoyo%20palais%20de%20tokyo",
+      "map": "https://www.google.com/maps/search/Palais+de+Tokyo+13+Avenue+du+Pr%C3%A9sident+Wilson+Paris"
+    },
+    "status": "open"
   }
 ]
