@@ -1,6 +1,6 @@
 {
-  "name": "Nightform",
-  "short_name": "Nightform",
+  "name": "netherRealm",
+  "short_name": "netherRealm",
   "description": "Electronic music venues in London, Paris, Berlin and Amsterdam, mapped by city colour and intensity.",
   "start_url": "./",
   "scope": "./",

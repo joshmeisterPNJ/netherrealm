@@ -1,4 +1,4 @@
-// Nightform build — one source, two targets.
+// netherRealm build — one source, two targets.
 //   dist/nightform.html  fragment, for publishing as a Claude Artifact (has cross-device sync)
 //   docs/index.html      standalone page, for GitHub Pages (per-device storage)
 import fs from "node:fs";
@@ -32,7 +32,7 @@ const standalone = `<!doctype html>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Nightform">
+<meta name="apple-mobile-web-app-title" content="netherRealm">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png" sizes="192x192">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -49,7 +49,7 @@ fs.mkdirSync("docs", { recursive: true });
 fs.writeFileSync("docs/index.html", standalone);
 fs.writeFileSync("docs/.nojekyll", "");
 fs.writeFileSync("docs/manifest.webmanifest", JSON.stringify({
-  name: "Nightform", short_name: "Nightform", description: DESC,
+  name: "netherRealm", short_name: "netherRealm", description: DESC,
   start_url: "./", scope: "./", display: "standalone",
   background_color: "#050506", theme_color: "#050506", orientation: "any",
   icons: [

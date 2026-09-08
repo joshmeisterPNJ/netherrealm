@@ -1,4 +1,4 @@
-# Nightform
+# netherRealm
 
 Electronic music venues in London, Paris, Berlin and Amsterdam — as living organisms.
 Tap a city and its tentacles push the others out, splitting into venue bubbles.
@@ -52,12 +52,12 @@ Two targets from one source (`src/app.html`):
 ## Deploy to GitHub Pages
 
 ```sh
-git remote add origin git@github.com:<you>/nightform.git
+git remote add origin git@github.com:joshmeisterPNJ/netherrealm.git
 git push -u origin main
 ```
 
 Then: repo **Settings → Pages → Source: Deploy from a branch → `main` / `/docs`**.
-Live at `https://<you>.github.io/nightform/` within a minute or two.
+Live at `https://joshmeisterpnj.github.io/netherrealm/` within a minute or two.
 
 On iPhone, open it in Safari and **Share → Add to Home Screen** — it installs
 fullscreen with its own icon, no browser chrome.
