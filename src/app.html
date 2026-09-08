@@ -146,6 +146,16 @@ body{
 .nights{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px}
 .nights li{font-family:var(--read);font-size:14.5px;color:#c8c6ca;padding-left:16px;position:relative}
 .nights li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:1px;background:var(--city);opacity:.8}
+.equiv{display:flex;align-items:center;gap:12px;width:100%;text-align:left;cursor:pointer;
+  background:#0a0a0d;border:1px solid var(--line);padding:13px 14px;transition:border-color .2s,background .2s}
+.equiv:hover{border-color:var(--city);background:#101015}
+.equiv .dot{width:16px;height:16px;border-radius:50%;flex:none}
+.equiv .t{flex:1;display:block}
+.equiv .cn{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-faint)}
+.equiv .vn{display:block;font-family:var(--disp);font-variation-settings:"wdth" 104,"wght" 600;
+  font-size:14px;margin-top:4px;color:var(--ink)}
+.equiv .ar{color:var(--ink-faint);font-size:15px}
 
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 0}
 .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
@@ -860,6 +870,18 @@ function openVenue(id){
     ${(v.nights&&v.nights.length&&v.nights[0]!=="—")?`<div class="p-h">When</div>
       <ul class="nights">${v.nights.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`:""}
 
+    ${(() => {
+      const e = v.equiv && VENUES.find(x => x.id === v.equiv);
+      if(!e) return "";
+      const ek = shade(e.city, e.intensity);
+      return `<div class="p-h">Counterpart</div>
+      <button class="equiv" data-go="${esc(e.id)}">
+        <span class="dot" style="background:${css(ek)}${ek.rim?";box-shadow:inset 0 0 0 1px hsl(205 26% 80% / .55)":""}"></span>
+        <span class="t"><span class="cn">${esc(CITIES[e.city].name)}</span><span class="vn">${esc(e.name)}</span></span>
+        <span class="ar">→</span>
+      </button>`;
+    })()}
+
     ${(v.tags&&v.tags.length)?`<div class="tags">${v.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>`:""}
 
     <div class="links">
@@ -872,6 +894,13 @@ function openVenue(id){
     <div id="editor"></div>
   `;
   document.getElementById("edtog").onclick=()=>toggleEditor(v);
+  const eq = pscroll.querySelector(".equiv[data-go]");
+  if(eq) eq.onclick = () => {
+    const t = VENUES.find(x => x.id === eq.dataset.go);
+    if(!t) return;
+    if(t.city !== activeCity) openCity(t.city);
+    openVenue(t.id);
+  };
   panel.classList.add("on"); panel.setAttribute("aria-hidden","false");
   pscroll.scrollTop=0;
   if(W>820) layout();

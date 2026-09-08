@@ -432,440 +432,6 @@
     "draft": true
   },
   {
-    "id": "rexclub",
-    "city": "paris",
-    "name": "Rex Club",
-    "area": "2e — Grands Boulevards",
-    "intensity": 4,
-    "cap": 700,
-    "hours": "Wed–Sat 23:30–06:00",
-    "line": "The best-sounding room in France, and it knows it.",
-    "note": "Laurent Garnier's home room and the spiritual centre of French techno since the late 80s. The system is the reason to go — you hear things in records here you have never heard. Low ceiling, black walls, no distractions.",
-    "tags": [
-      "heavy",
-      "techno",
-      "institution",
-      "soundsystem"
-    ],
-    "rooms": [],
-    "nights": [
-      "Wed–Sat, techno-led programming"
-    ],
-    "links": {
-      "web": "https://www.rexclub.com",
-      "ra": "https://ra.co/search?q=rex%20club",
-      "map": "https://www.google.com/maps/search/Rex+Club+5+Boulevard+Poissonni%C3%A8re+Paris"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "djoon",
-    "city": "paris",
-    "name": "Djoon",
-    "area": "13e — Quai d'Austerlitz",
-    "intensity": 2,
-    "cap": 400,
-    "hours": "Fri–Sat 23:30–06:00, occasional Sundays",
-    "line": "Soulful house for people who actually dance.",
-    "note": "The warm end of Paris. Deep, soulful, disco and Afro-house, and a crowd that dances properly rather than facing the booth. If you want the opposite of a techno night, this is it — and the Sunday sessions are the real thing.",
-    "tags": [
-      "warm",
-      "house",
-      "disco",
-      "soulful",
-      "dancers"
-    ],
-    "rooms": [],
-    "nights": [
-      "Fri–Sat house & disco",
-      "Sunday sessions when programmed"
-    ],
-    "links": {
-      "web": "https://www.djoon.com",
-      "ra": "https://ra.co/search?q=djoon",
-      "map": "https://www.google.com/maps/search/Djoon+22+Boulevard+Vincent+Auriol+Paris"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "badaboum",
-    "city": "paris",
-    "name": "Badaboum",
-    "area": "11e — Bastille",
-    "intensity": 3,
-    "cap": 300,
-    "hours": "Wed–Sat 23:30–06:00",
-    "line": "Small club, cocktail room next door, one of the best booths in Europe.",
-    "note": "The layout is the trick — a proper dark club room, and through a door, a completely separate cocktail bar with a totally different mood. You can reset and go back in. The booth is famously good and DJs love playing here.",
-    "tags": [
-      "house",
-      "techno",
-      "intimate",
-      "warm",
-      "central"
-    ],
-    "rooms": [
-      {
-        "name": "Club",
-        "intensity": 3,
-        "note": "Dark, low, proper dancefloor."
-      },
-      {
-        "name": "Bar",
-        "intensity": 1,
-        "note": "Separate cocktail room. Talk, reset, go back in."
-      }
-    ],
-    "nights": [
-      "Wed–Sat, house and techno leaning"
-    ],
-    "links": {
-      "web": "https://badaboum.paris",
-      "ra": "https://ra.co/search?q=badaboum",
-      "map": "https://www.google.com/maps/search/Badaboum+2+bis+Rue+des+Taillandiers+Paris"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "lastation",
-    "city": "paris",
-    "name": "La Station — Gare des Mines",
-    "area": "18e — Porte d'Aubervilliers",
-    "intensity": 4,
-    "cap": 800,
-    "hours": "Fri–Sat, often free entry, outdoor yard in summer",
-    "line": "A disused freight station run like a squat, and better for it.",
-    "note": "Cheap or free, on the edge of the périphérique, run as a collective. Programming is the most adventurous in Paris — experimental, club, noise, whatever. Outdoor courtyard makes it a great summer daytime option.",
-    "tags": [
-      "leftfield",
-      "diy",
-      "outdoor",
-      "queer",
-      "cheap"
-    ],
-    "rooms": [
-      {
-        "name": "Indoor",
-        "intensity": 4,
-        "note": "The warehouse room."
-      },
-      {
-        "name": "Cour",
-        "intensity": 2,
-        "note": "Outdoor yard, daytime, lighter."
-      }
-    ],
-    "nights": [
-      "Fri–Sat, collective-programmed, often free before midnight"
-    ],
-    "links": {
-      "ra": "https://ra.co/search?q=la%20station%20gare%20des%20mines",
-      "map": "https://www.google.com/maps/search/La+Station+Gare+des+Mines+Paris"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "lamachine",
-    "city": "paris",
-    "name": "La Machine du Moulin Rouge",
-    "area": "18e — Pigalle",
-    "intensity": 3,
-    "cap": 1000,
-    "hours": "Fri–Sat 23:30–06:00",
-    "line": "Three floors attached to the Moulin Rouge, oddly enough.",
-    "note": "Central, big, three levels each with its own character, plus a rooftop bar. Touristy location but the bookings are serious. Good option when you want scale without going to the suburbs.",
-    "tags": [
-      "house",
-      "techno",
-      "bigroom",
-      "central"
-    ],
-    "rooms": [
-      {
-        "name": "La Chaufferie",
-        "intensity": 4,
-        "note": "Basement. The dark one."
-      },
-      {
-        "name": "Le Central",
-        "intensity": 3,
-        "note": "Main floor, bigger bookings."
-      },
-      {
-        "name": "Le Bar à Bulles",
-        "intensity": 1,
-        "note": "Rooftop terrace. Air and a cigarette."
-      }
-    ],
-    "nights": [
-      "Fri–Sat multi-room programming"
-    ],
-    "links": {
-      "web": "https://www.lamachinedumoulinrouge.com",
-      "ra": "https://ra.co/search?q=la%20machine%20du%20moulin%20rouge",
-      "map": "https://www.google.com/maps/search/La+Machine+du+Moulin+Rouge+Paris"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "dehorsbrut",
-    "city": "paris",
-    "name": "Dehors Brut",
-    "area": "12e — Bercy",
-    "intensity": 3,
-    "cap": 1500,
-    "hours": "Daytime — roughly 14:00 to midnight, summer season",
-    "line": "Open-air concrete under the Bercy arches, in daylight.",
-    "note": "The Paris day-party. Runs through the warm months in an open concrete space near Bercy. Different energy entirely — sunglasses, beers, house music, home by midnight.",
-    "tags": [
-      "outdoor",
-      "daytime",
-      "house",
-      "warm"
-    ],
-    "rooms": [],
-    "nights": [
-      "Summer season, weekend daytimes"
-    ],
-    "links": {
-      "ra": "https://ra.co/search?q=dehors%20brut",
-      "map": "https://www.google.com/maps/search/Dehors+Brut+Bercy+Paris"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "nuitsfauves",
-    "city": "paris",
-    "name": "Nuits Fauves",
-    "area": "13e — Gare d'Austerlitz",
-    "intensity": 4,
-    "cap": 500,
-    "hours": "Fri–Sat 23:30–06:00",
-    "line": "Under the bridge by the river, hard and late.",
-    "note": "Riverside, near the Austerlitz cluster, and harder than most of the city. Terrace on the Seine is a good escape valve. Pairs naturally with Djoon in the same area if you want two moods in one night.",
-    "tags": [
-      "heavy",
-      "techno",
-      "allnighter"
-    ],
-    "rooms": [
-      {
-        "name": "Main",
-        "intensity": 4,
-        "note": "Dark club room."
-      },
-      {
-        "name": "Terrasse",
-        "intensity": 2,
-        "note": "On the Seine. Sunrise here is worth staying for."
-      }
-    ],
-    "nights": [
-      "Fri–Sat techno programming"
-    ],
-    "links": {
-      "ra": "https://ra.co/search?q=nuits%20fauves",
-      "map": "https://www.google.com/maps/search/Nuits+Fauves+Paris"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "glazart",
-    "city": "paris",
-    "name": "Glazart",
-    "area": "19e — Porte de la Villette",
-    "intensity": 3,
-    "cap": 700,
-    "hours": "Indoor late; La Plage outdoor daytime in summer",
-    "line": "An actual sand beach on the edge of the ring road.",
-    "note": "They trucked in sand and made a beach in a car park by the périphérique, and it works. Free or cheap outdoor sessions all summer. Indoor room runs harder and later the rest of the year.",
-    "tags": [
-      "outdoor",
-      "daytime",
-      "cheap",
-      "leftfield"
-    ],
-    "rooms": [
-      {
-        "name": "La Plage",
-        "intensity": 2,
-        "note": "The sand. Summer daytime, often free."
-      },
-      {
-        "name": "Indoor",
-        "intensity": 4,
-        "note": "Darker, harder, year-round."
-      }
-    ],
-    "nights": [
-      "Summer: outdoor daytime. Year-round: indoor weekends."
-    ],
-    "links": {
-      "web": "https://www.glazart.com",
-      "ra": "https://ra.co/search?q=glazart",
-      "map": "https://www.google.com/maps/search/Glazart+Paris"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "petitbain",
-    "city": "paris",
-    "name": "Petit Bain",
-    "area": "13e — Quai de la Gare",
-    "intensity": 2,
-    "cap": 300,
-    "hours": "Evenings into the night, rooftop in summer",
-    "line": "A floating barge with a rooftop and a garden.",
-    "note": "A boat moored on the Seine with a restaurant, a rooftop, and a club room in the hull. Lighter programming, great for an early-evening start before something heavier. Rooftop at sunset is the draw.",
-    "tags": [
-      "warm",
-      "outdoor",
-      "intimate",
-      "daytime"
-    ],
-    "rooms": [
-      {
-        "name": "Rooftop",
-        "intensity": 1,
-        "note": "Sunset, drinks, light selections."
-      },
-      {
-        "name": "Hull",
-        "intensity": 3,
-        "note": "The club room below deck."
-      }
-    ],
-    "nights": [
-      "Mixed live and club programming"
-    ],
-    "links": {
-      "web": "https://www.petitbain.org",
-      "ra": "https://ra.co/search?q=petit%20bain",
-      "map": "https://www.google.com/maps/search/Petit+Bain+Paris"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "lajava",
-    "city": "paris",
-    "name": "La Java",
-    "area": "20e — Belleville",
-    "intensity": 3,
-    "cap": 400,
-    "hours": "Fri–Sat 23:30–06:00",
-    "line": "A 1920s dance hall basement in Belleville.",
-    "note": "Historic room — Piaf played here — now a sweaty basement with good leftfield and club bookings. Belleville location means the night can continue in every direction afterwards.",
-    "tags": [
-      "house",
-      "leftfield",
-      "intimate",
-      "warm"
-    ],
-    "rooms": [],
-    "nights": [
-      "Fri–Sat, promoter-led"
-    ],
-    "links": {
-      "ra": "https://ra.co/search?q=la%20java%20paris",
-      "map": "https://www.google.com/maps/search/La+Java+105+Rue+du+Faubourg+du+Temple+Paris"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "silencio",
-    "city": "paris",
-    "name": "Silencio",
-    "area": "2e — Grands Boulevards",
-    "intensity": 1,
-    "cap": 200,
-    "hours": "Members until midnight, then open to the public",
-    "line": "David Lynch designed a members' club and it looks like it.",
-    "note": "Gold-leafed, mirrored, six metres underground, designed by Lynch himself. Members only until midnight, public after — which is the move. Not a rave. Go for the room and a late drink, not for a peak-time set.",
-    "tags": [
-      "listening",
-      "warm",
-      "intimate",
-      "central",
-      "design"
-    ],
-    "rooms": [],
-    "nights": [
-      "Open to non-members after midnight"
-    ],
-    "links": {
-      "web": "https://silencio-club.com",
-      "ra": "https://ra.co/search?q=silencio%20paris",
-      "map": "https://www.google.com/maps/search/Silencio+142+Rue+Montmartre+Paris"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "t7",
-    "city": "paris",
-    "name": "T7",
-    "area": "Ivry-sur-Seine (banlieue sud)",
-    "intensity": 5,
-    "cap": 1500,
-    "hours": "Fri–Sat, late into the morning",
-    "line": "Warehouse techno on the southern edge, no pretence.",
-    "note": "Out past the périphérique in Ivry — a proper industrial box for hard techno and big lineups. The Paris answer to a Berlin warehouse. Plan the journey home; it's not central.",
-    "tags": [
-      "heavy",
-      "techno",
-      "bigroom",
-      "industrial",
-      "allnighter"
-    ],
-    "rooms": [],
-    "nights": [
-      "Fri–Sat, hard techno programming"
-    ],
-    "links": {
-      "ra": "https://ra.co/search?q=t7%20paris",
-      "map": "https://www.google.com/maps/search/T7+Ivry-sur-Seine"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "concrete",
-    "city": "paris",
-    "name": "Concrete",
-    "area": "12e — Port de la Rapée",
-    "intensity": 4,
-    "cap": 1200,
-    "hours": "Historically Saturday 07:00 through Sunday night",
-    "line": "The boat that invented the Paris after-hours.",
-    "note": "Closed in 2019. Listed because it changed the city — the Saturday-morning start and the 24-hour licence campaign that followed came out of here, and most of the current Paris scene grew from that crew. RIP.",
-    "tags": [
-      "heavy",
-      "techno",
-      "allnighter",
-      "historic"
-    ],
-    "rooms": [],
-    "nights": [
-      "—"
-    ],
-    "links": {
-      "ra": "https://ra.co/search?q=concrete%20paris",
-      "map": "https://www.google.com/maps/search/Port+de+la+Rap%C3%A9e+Paris"
-    },
-    "status": "closed",
-    "draft": true
-  },
-  {
     "id": "berghain",
     "city": "berlin",
     "name": "Berghain / Panorama Bar",
@@ -1364,7 +930,8 @@
       "map": "https://www.google.com/maps/search/Amsterdam"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "equiv": "carbone"
   },
   {
     "id": "garagenoord",
@@ -1391,7 +958,8 @@
       "map": "https://www.google.com/maps/search/Garage+Noord+Amsterdam"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "equiv": "lastation"
   },
   {
     "id": "parallel",
@@ -1418,7 +986,8 @@
       "map": "https://www.google.com/maps/search/Parallel+Tolhuistuin+Amsterdam+Noord"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "equiv": "lamachine"
   },
   {
     "id": "radion",
@@ -1445,7 +1014,8 @@
       "map": "https://www.google.com/maps/search/Radion+Louwesweg+Amsterdam"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "equiv": "glazart"
   },
   {
     "id": "paradiso",
@@ -1483,7 +1053,8 @@
       "map": "https://www.google.com/maps/search/Paradiso+Weteringschans+Amsterdam"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "equiv": "olympia"
   },
   {
     "id": "melkweg",
@@ -1521,7 +1092,8 @@
       "map": "https://www.google.com/maps/search/Melkweg+Amsterdam"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "equiv": "elysee"
   },
   {
     "id": "lofi",
@@ -1549,7 +1121,8 @@
       "map": "https://www.google.com/maps/search/Lofi+Amsterdam+Sloterdijk"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "equiv": "virage"
   },
   {
     "id": "shelter",
@@ -1577,7 +1150,8 @@
       "map": "https://www.google.com/maps/search/Shelter+A%27DAM+Toren+Amsterdam"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "equiv": "fvtvr"
   },
   {
     "id": "ndsm",
@@ -1605,7 +1179,8 @@
       "map": "https://www.google.com/maps/search/NDSM+Loods+Amsterdam"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "equiv": "kilowatt"
   },
   {
     "id": "amaze",
@@ -1630,6 +1205,343 @@
       "web": "https://www.amaze-amsterdam.com",
       "ra": "https://ra.co/search?q=amaze%20amsterdam",
       "map": "https://www.google.com/maps/search/AMAZE+Amsterdam"
+    },
+    "status": "open",
+    "draft": false,
+    "equiv": "atelier"
+  },
+  {
+    "id": "carbone",
+    "city": "paris",
+    "name": "Carbone",
+    "area": "10e — sous La Caserne",
+    "intensity": 5,
+    "cap": 500,
+    "hours": "",
+    "equiv": "deschool",
+    "line": "Ring a phone number to find out who is playing. No presale, no cameras.",
+    "note": "An enclave run by underground promoters in the basement of La Caserne, between Gare du Nord and Gare de l'Est. Photos are banned, there is no presale, and you call a phone number to learn the lineup. Prioritises dancefloor intimacy and local electronic talent over commercial hype — the Paris answer to the no-camera, dark-room, raw-community ethos.",
+    "tags": [
+      "nophones",
+      "techno",
+      "intimate",
+      "anti-mainstream",
+      "promoter-run"
+    ],
+    "rooms": [],
+    "nights": [
+      "No presale — the lineup is a phone call"
+    ],
+    "links": {
+      "ra": "https://ra.co/search?q=carbone%20paris",
+      "map": "https://www.google.com/maps/search/La+Caserne+Paris+10e"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "lastation",
+    "city": "paris",
+    "name": "La Station — Gare des Mines",
+    "area": "18e — Porte d'Aubervilliers",
+    "intensity": 5,
+    "cap": 800,
+    "hours": "",
+    "equiv": "garagenoord",
+    "line": "A converted freight station for everything the mainstream will not touch.",
+    "note": "The exact spatial and musical mirror of a rugged, gritty hotbed — a converted suburban railway station dedicated to raw experimental electronic genres, leftfield mutations, industrial noise and rapid tempos, with an uncompromisingly anti-mainstream crowd. Outdoor yard runs in summer.",
+    "tags": [
+      "leftfield",
+      "experimental",
+      "industrial",
+      "fast",
+      "diy",
+      "anti-mainstream"
+    ],
+    "rooms": [
+      {
+        "name": "Indoor",
+        "intensity": 5,
+        "note": "The warehouse room."
+      },
+      {
+        "name": "La Cour",
+        "intensity": 3,
+        "note": "Outdoor yard, daytime, lighter."
+      }
+    ],
+    "nights": [],
+    "links": {
+      "ra": "https://ra.co/search?q=la%20station%20gare%20des%20mines",
+      "map": "https://www.google.com/maps/search/La+Station+Gare+des+Mines+Paris"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "lamachine",
+    "city": "paris",
+    "name": "La Machine du Moulin Rouge",
+    "area": "18e — Pigalle",
+    "intensity": 3,
+    "cap": 1000,
+    "hours": "",
+    "equiv": "parallel",
+    "line": "The dual-room launching pad for whatever breaks next.",
+    "note": "Shares the multi-genre incubator role exactly — the essential launching pad for emerging global electronic trends. High-tempo edits, hybrid bass and forward-thinking club sounds across four levels attached to the Moulin Rouge.",
+    "tags": [
+      "incubator",
+      "bass",
+      "global",
+      "forward",
+      "crossover",
+      "multiroom"
+    ],
+    "rooms": [
+      {
+        "name": "Le Central",
+        "intensity": 3,
+        "note": "The vast main room. Where the bigger bookings land."
+      },
+      {
+        "name": "La Chaufferie",
+        "intensity": 4,
+        "note": "Basement level. The dark one."
+      },
+      {
+        "name": "Le Bar à Bulles",
+        "intensity": 1,
+        "note": "Terrace bar. Air and a cigarette."
+      }
+    ],
+    "nights": [],
+    "links": {
+      "web": "https://www.lamachinedumoulinrouge.com",
+      "ra": "https://ra.co/search?q=la%20machine%20du%20moulin%20rouge",
+      "map": "https://www.google.com/maps/search/La+Machine+du+Moulin+Rouge+Paris"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "glazart",
+    "city": "paris",
+    "name": "Glazart",
+    "area": "19e — Porte de la Villette",
+    "intensity": 5,
+    "cap": 1500,
+    "hours": "Extended club hours",
+    "equiv": "radion",
+    "line": "Raw concrete on the ring road, plus a beach they trucked the sand in for.",
+    "note": "A gritty industrial staple that captures the same energy — raw concrete feel, a dedication to intense hypnotic techno, and extended club hours. In summer the car park becomes La Plage, an actual sand beach on the edge of the périphérique.",
+    "tags": [
+      "industrial",
+      "techno",
+      "hypnotic",
+      "outdoor",
+      "longhours",
+      "cheap"
+    ],
+    "rooms": [
+      {
+        "name": "Indoor",
+        "intensity": 5,
+        "note": "570 capacity. Darker, harder, year-round."
+      },
+      {
+        "name": "La Plage",
+        "intensity": 3,
+        "note": "1500 outdoors. Sand, summer daytime, often free."
+      }
+    ],
+    "nights": [],
+    "links": {
+      "web": "https://www.glazart.com",
+      "ra": "https://ra.co/search?q=glazart",
+      "map": "https://www.google.com/maps/search/Glazart+Paris"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "olympia",
+    "city": "paris",
+    "name": "L'Olympia",
+    "area": "9e — Boulevard des Capucines",
+    "intensity": 2,
+    "cap": 2000,
+    "hours": "",
+    "equiv": "paradiso",
+    "line": "The legendary music hall. A rite of passage on the way to headlining.",
+    "note": "A converted historic institution and the ultimate prestigious mid-sized rite of passage for global acts transitioning into headliners. Same cultural function as a converted church — the room confers status.",
+    "tags": [
+      "institution",
+      "prestige",
+      "musichall",
+      "rite-of-passage"
+    ],
+    "rooms": [],
+    "nights": [],
+    "links": {
+      "web": "https://www.olympiahall.com",
+      "ra": "https://ra.co/search?q=olympia%20paris",
+      "map": "https://www.google.com/maps/search/L%27Olympia+Boulevard+des+Capucines+Paris"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "elysee",
+    "city": "paris",
+    "name": "Élysée Montmartre / Le Trianon",
+    "area": "18e — Bd de Rochechouart",
+    "intensity": 2,
+    "cap": 1380,
+    "hours": "",
+    "equiv": "melkweg",
+    "line": "Two historic halls on one boulevard, balconies intact.",
+    "note": "The connected complex matches it perfectly — historic architectural prestige and structural balconies, balancing live touring bands with diverse electronic club bills. The Trianon was built in 1894 in the garden of the Élysée Montmartre, and the two still run together for larger events.",
+    "tags": [
+      "institution",
+      "multiroom",
+      "prestige",
+      "balconies",
+      "historic"
+    ],
+    "rooms": [
+      {
+        "name": "Élysée Montmartre",
+        "intensity": 2,
+        "note": "1380 capacity. Opened 1807, burned down 2011, reopened 2016."
+      },
+      {
+        "name": "Le Trianon",
+        "intensity": 2,
+        "note": "1091 capacity. The 1894 café-concert next door."
+      }
+    ],
+    "nights": [],
+    "links": {
+      "ra": "https://ra.co/search?q=elysee%20montmartre",
+      "map": "https://www.google.com/maps/search/Elys%C3%A9e+Montmartre+Boulevard+de+Rochechouart+Paris"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "virage",
+    "city": "paris",
+    "name": "Virage",
+    "area": "17e — sous le périphérique",
+    "intensity": 4,
+    "cap": 1200,
+    "hours": "",
+    "equiv": "lofi",
+    "line": "Semi-open-air under the ring road, built out of scrapped cars.",
+    "note": "Built under the open-air périphérique on the grounds of a former car pound, where the abandoned carcasses were reused for the decor. Mirrors the format completely — industrial aesthetic, open-air transitions, high-energy electronic programming and a community-driven dance culture, with a strong focus on LGBTQIA+ communities.",
+    "tags": [
+      "industrial",
+      "outdoor",
+      "queer",
+      "community",
+      "daytime",
+      "house"
+    ],
+    "rooms": [],
+    "nights": [
+      "Seasonal — spring through summer"
+    ],
+    "links": {
+      "ra": "https://ra.co/search?q=virage%20paris",
+      "map": "https://www.google.com/maps/search/Virage+Paris+17e+p%C3%A9riph%C3%A9rique"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "fvtvr",
+    "city": "paris",
+    "name": "FVTVR",
+    "area": "13e — sous la Cité de la Mode",
+    "intensity": 4,
+    "cap": 700,
+    "hours": "",
+    "equiv": "shelter",
+    "line": "Brutalist, dark, minimal — and one of the best rigs in the country.",
+    "note": "The exact layout sibling: raw and minimalist, tucked underneath the Cité de la Mode et du Design on the Quai d'Austerlitz. Brutalist, dark, minimal visual clutter, and built around a premium latest-generation L-Acoustics system widely called one of the most sophisticated in the capital.",
+    "tags": [
+      "soundsystem",
+      "brutalist",
+      "techno",
+      "house",
+      "dark",
+      "dancers"
+    ],
+    "rooms": [],
+    "nights": [],
+    "links": {
+      "ra": "https://ra.co/search?q=fvtvr",
+      "map": "https://www.google.com/maps/search/FVTVR+34+Quai+d%27Austerlitz+Paris"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "kilowatt",
+    "city": "paris",
+    "name": "Le Kilowatt",
+    "area": "Vitry-sur-Seine (banlieue sud)",
+    "intensity": 3,
+    "cap": 3000,
+    "hours": "",
+    "equiv": "ndsm",
+    "line": "Where Paris goes when the event needs a hangar, not a club.",
+    "note": "Large-scale industrial events that keep real underground credibility rely on spaces like this, plus specialised takeovers at the Le Bourget exhibition centre — treating the massive scale with architectural awe rather than a corny EDM festival vibe. Bar, club and open-air on one site south of the city.",
+    "tags": [
+      "industrial",
+      "scale",
+      "outdoor",
+      "techno",
+      "takeovers"
+    ],
+    "rooms": [],
+    "nights": [
+      "Event-led, plus Le Bourget takeovers for the largest bills"
+    ],
+    "links": {
+      "web": "https://lekilowatt.fr",
+      "ra": "https://ra.co/search?q=kilowatt%20vitry",
+      "map": "https://www.google.com/maps/search/Le+Kilowatt+Vitry-sur-Seine"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "atelier",
+    "city": "paris",
+    "name": "Atelier des Lumières",
+    "area": "11e — ancienne fonderie",
+    "intensity": 1,
+    "cap": 1200,
+    "hours": "",
+    "equiv": "amaze",
+    "line": "140 projectors in a former foundry. Immersion first, clubbing second.",
+    "note": "Paris has no static, fully electronic venue of this kind — but the high-concept electronic live shows staged inside these immersive projection rooms capture the same multi-sensory execution. 3,300m² of former foundry, walls ten metres high, 140 video projectors and a spatialised sound system.",
+    "tags": [
+      "immersive",
+      "audiovisual",
+      "premium",
+      "spatial",
+      "projection"
+    ],
+    "rooms": [],
+    "nights": [
+      "Electronic takeovers and one-off live shows, not a weekly club"
+    ],
+    "links": {
+      "web": "https://www.atelier-lumieres.com",
+      "ra": "https://ra.co/search?q=atelier%20des%20lumieres",
+      "map": "https://www.google.com/maps/search/Atelier+des+Lumi%C3%A8res+Paris"
     },
     "status": "open",
     "draft": false
