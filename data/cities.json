@@ -1,0 +1,46 @@
+{
+  "london": {
+    "name": "London",
+    "hue": 356,
+    "sat": 82,
+    "lightLo": 66,
+    "lightHi": 20,
+    "rim": false,
+    "tz": "Europe/London",
+    "colourName": "red",
+    "blurb": "Scattered across zones 1–3. The night follows promoters, not buildings."
+  },
+  "paris": {
+    "name": "Paris",
+    "hue": 218,
+    "sat": 78,
+    "lightLo": 66,
+    "lightHi": 19,
+    "rim": false,
+    "tz": "Europe/Paris",
+    "colourName": "blue",
+    "blurb": "Small rooms, deep booths, a crowd that will stand still and listen."
+  },
+  "berlin": {
+    "name": "Berlin",
+    "hue": 220,
+    "sat": 10,
+    "lightLo": 48,
+    "lightHi": 6,
+    "rim": true,
+    "tz": "Europe/Berlin",
+    "colourName": "black",
+    "blurb": "No curfew. Nothing peaks before four. Sunday is a real night out."
+  },
+  "amsterdam": {
+    "name": "Amsterdam",
+    "hue": 47,
+    "sat": 94,
+    "lightLo": 68,
+    "lightHi": 24,
+    "rim": false,
+    "tz": "Europe/Amsterdam",
+    "colourName": "yellow",
+    "blurb": "The 24-hour licences moved everything out of the centre. Noord and West now."
+  }
+}

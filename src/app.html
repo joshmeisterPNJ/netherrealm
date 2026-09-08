@@ -1,0 +1,834 @@
+<title>Nightform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=DM+Mono:wght@300;400;500&family=Newsreader:opsz,wght@6..72,200..600&display=swap">
+<style>
+:root{
+  --void:#050506; --void-2:#0b0b0d; --ink:#f2f0ee; --ink-dim:#9b9a9e; --ink-faint:#5e5d63;
+  --line:#22222a; --panel:#0e0e11; --warn:#c9a227;
+  --disp:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --read:"Newsreader",Georgia,serif;
+  --mono:"DM Mono",ui-monospace,Menlo,monospace;
+  --city:#888; --city-soft:#888;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--void);color:var(--ink);
+  font-family:var(--disp);overscroll-behavior:none;
+  -webkit-font-smoothing:antialiased;
+}
+#stage{position:fixed;inset:0;display:block;touch-action:none;cursor:grab}
+#stage.grabbing{cursor:grabbing}
+#labels{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+
+.lbl{position:absolute;top:0;left:0;will-change:transform;transform:translate3d(-9999px,0,0);
+  text-align:center;white-space:nowrap;pointer-events:none}
+.lbl-city .n{font-family:var(--disp);font-variation-settings:"wdth" 118,"wght" 700;
+  font-size:clamp(18px,4.2vw,30px);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink);text-shadow:0 2px 24px rgba(0,0,0,.9)}
+.lbl-city .c{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.42);margin-top:6px}
+.lbl-ven{transform-origin:50% 0}
+.lbl-ven .n{font-family:var(--disp);font-variation-settings:"wdth" 96,"wght" 600;
+  font-size:12.5px;letter-spacing:.055em;color:var(--ink);text-shadow:0 1px 10px #000,0 0 22px #000}
+.lbl-ven .a{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-faint);margin-top:3px}
+.lbl-ven.is-draft .n::after{content:"";display:inline-block;width:4px;height:4px;border-radius:50%;
+  border:1px solid var(--warn);margin-left:6px;vertical-align:middle;opacity:.75}
+.lbl.dim{opacity:.18;transition:opacity .3s}
+@media (max-width:640px){ .lbl-ven .a{display:none} .lbl-ven .n{font-size:11.5px} }
+
+/* ---------- chrome ---------- */
+#top{position:fixed;top:0;left:0;right:0;padding:calc(16px + env(safe-area-inset-top)) calc(18px + env(safe-area-inset-right)) 16px calc(18px + env(safe-area-inset-left));display:flex;align-items:flex-start;
+  justify-content:space-between;gap:12px;pointer-events:none;z-index:5}
+#brand{font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--ink-faint);pointer-events:auto}
+#brand b{color:var(--ink-dim);font-weight:400}
+#clock{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-align:right;color:var(--ink-faint);
+  pointer-events:auto;line-height:1.7}
+#clock .t{color:var(--city-soft);font-variant-numeric:tabular-nums}
+#clock .ph{text-transform:uppercase;letter-spacing:.2em}
+
+#back{position:fixed;top:calc(52px + env(safe-area-inset-top));left:calc(18px + env(safe-area-inset-left));z-index:6;display:none;align-items:center;gap:9px;
+  background:none;border:0;padding:8px 0;color:var(--ink-dim);cursor:pointer;
+  font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase}
+#back.on{display:flex}
+#back:hover{color:var(--ink)}
+#back .ar{display:inline-block;width:16px;height:1px;background:currentColor;position:relative}
+#back .ar::before{content:"";position:absolute;left:0;top:-3px;width:7px;height:7px;
+  border-left:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg)}
+
+#hint{position:fixed;left:50%;bottom:calc(26px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:5;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--ink-faint);pointer-events:none;transition:opacity .5s}
+
+/* intensity legend, city view */
+#legend{position:fixed;right:calc(18px + env(safe-area-inset-right));bottom:calc(24px + env(safe-area-inset-bottom));z-index:5;display:none;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint)}
+#legend.on{display:flex}
+#legend .ramp{display:flex;gap:3px}
+#legend .ramp i{width:13px;height:13px;border-radius:50%;display:block}
+
+/* ---------- panel ---------- */
+#panel{position:fixed;z-index:20;background:var(--panel);border:1px solid var(--line);
+  display:flex;flex-direction:column;visibility:hidden;opacity:0;
+  transition:opacity .34s ease, transform .34s cubic-bezier(.16,.84,.34,1), visibility .34s}
+@media (max-width:820px){
+  #panel{left:0;right:0;bottom:0;max-height:82svh;padding-bottom:env(safe-area-inset-bottom);border-radius:20px 20px 0 0;border-bottom:0;
+    transform:translateY(14px)}
+}
+@media (min-width:821px){
+  #panel{top:0;right:0;bottom:0;width:min(460px,42vw);border-radius:0;border-right:0;border-top:0;border-bottom:0;
+    transform:translateX(16px)}
+}
+#panel.on{visibility:visible;opacity:1;transform:none}
+#panel::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:var(--city);opacity:.85}
+.pscroll{overflow-y:auto;overscroll-behavior:contain;padding:26px 24px 34px}
+@media (max-width:820px){.pscroll{padding-top:20px}}
+
+.grip{width:36px;height:3px;border-radius:2px;background:#2a2a32;margin:10px auto 0;flex:none}
+@media (min-width:821px){.grip{display:none}}
+
+#pclose{position:absolute;top:14px;right:14px;z-index:2;width:32px;height:32px;border-radius:50%;
+  border:1px solid var(--line);background:#141419;color:var(--ink-dim);cursor:pointer;font-size:15px;line-height:1}
+#pclose:hover{color:var(--ink);border-color:#39394a}
+
+.p-eyebrow{font-family:var(--mono);font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--city-soft);display:flex;align-items:center;gap:8px}
+.p-name{font-family:var(--disp);font-variation-settings:"wdth" 112,"wght" 700;
+  font-size:clamp(26px,6vw,38px);line-height:1.02;letter-spacing:-.005em;text-transform:uppercase;
+  margin:12px 0 0;text-wrap:balance}
+.p-line{font-family:var(--read);font-size:17px;line-height:1.45;color:var(--ink-dim);margin:12px 0 0;max-width:38ch}
+
+.p-meter{display:flex;align-items:center;gap:11px;margin:20px 0 0}
+.p-meter .bars{display:flex;gap:4px}
+.p-meter .bars i{width:26px;height:6px;border-radius:1px;background:#1c1c22;display:block}
+.p-meter .cap{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint)}
+
+.p-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);margin:22px 0 0}
+.p-facts div{background:var(--panel);padding:12px 13px}
+.p-facts dt{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint)}
+.p-facts dd{margin:6px 0 0;font-family:var(--disp);font-variation-settings:"wdth" 100,"wght" 500;
+  font-size:13px;color:var(--ink);font-variant-numeric:tabular-nums}
+
+.p-h{font-family:var(--mono);font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--ink-faint);margin:28px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.p-body{font-family:var(--read);font-size:15.5px;line-height:1.62;color:#c8c6ca;max-width:42ch}
+
+.rooms{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line)}
+.room{background:var(--panel);padding:13px 14px;display:grid;grid-template-columns:14px 1fr;gap:12px;align-items:start}
+.room .dot{width:14px;height:14px;border-radius:50%;margin-top:3px}
+.room .rn{font-family:var(--disp);font-variation-settings:"wdth" 100,"wght" 600;font-size:13.5px;letter-spacing:.02em}
+.room .rt{font-family:var(--read);font-size:14px;line-height:1.5;color:var(--ink-dim);margin-top:4px}
+
+.nights{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px}
+.nights li{font-family:var(--read);font-size:14.5px;color:#c8c6ca;padding-left:16px;position:relative}
+.nights li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:1px;background:var(--city);opacity:.8}
+
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 0}
+.tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  padding:5px 9px;border:1px solid var(--line);border-radius:999px;color:var(--ink-dim)}
+
+.links{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.links a{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  padding:11px 15px;border:1px solid var(--line);color:var(--ink);text-decoration:none;
+  display:flex;align-items:center;gap:8px;transition:border-color .2s,background .2s}
+.links a:hover{border-color:var(--city);background:#141419}
+.links a::after{content:"↗";opacity:.4;font-size:11px}
+
+.flagbar{display:flex;gap:9px;align-items:flex-start;margin:22px 0 0;padding:12px 13px;
+  border:1px solid #2a2410;background:#14120a}
+.flagbar .k{width:6px;height:6px;border-radius:50%;border:1px solid var(--warn);margin-top:5px;flex:none}
+.flagbar p{margin:0;font-family:var(--read);font-size:13.5px;line-height:1.5;color:#a99a6a}
+
+/* editor */
+.edtoggle{margin:26px 0 0;width:100%;padding:12px;background:none;border:1px dashed #2c2c36;color:var(--ink-faint);
+  font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;cursor:pointer}
+.edtoggle:hover{color:var(--ink-dim);border-color:#3a3a48}
+#editor{display:none;margin-top:18px;flex-direction:column;gap:16px}
+#editor.on{display:flex}
+.f label{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-faint);margin-bottom:7px}
+.f input[type=text],.f textarea{width:100%;background:#0a0a0d;border:1px solid var(--line);color:var(--ink);
+  font-family:var(--read);font-size:15px;padding:10px 11px;border-radius:0;resize:vertical}
+.f input[type=text]{font-family:var(--disp);font-size:14px}
+.f input:focus,.f textarea:focus{outline:2px solid var(--city);outline-offset:-1px;border-color:transparent}
+.pick{display:flex;gap:6px}
+.pick button{flex:1;aspect-ratio:1.6;border:1px solid var(--line);cursor:pointer;position:relative;background:#0a0a0d}
+.pick button span{position:absolute;inset:5px;border-radius:2px}
+.pick button[aria-pressed=true]{border-color:var(--ink)}
+.pick button:focus-visible{outline:2px solid var(--city);outline-offset:2px}
+.erow{display:flex;gap:8px}
+.erow button{flex:1;padding:12px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+.btn-save{background:var(--city);border:0;color:#08080a;font-weight:500}
+.btn-ghost{background:none;border:1px solid var(--line);color:var(--ink-dim)}
+.btn-ghost:hover{color:var(--ink)}
+#esave{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);min-height:12px}
+
+/* city toolbar */
+#tools{position:fixed;left:calc(18px + env(safe-area-inset-left));bottom:calc(24px + env(safe-area-inset-bottom));z-index:6;display:none;gap:8px}
+#tools.on{display:flex}
+#tools button{background:#0d0d10;border:1px solid var(--line);color:var(--ink-dim);cursor:pointer;
+  padding:10px 13px;font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase}
+#tools button:hover{color:var(--ink);border-color:#3a3a48}
+#toast{position:fixed;left:50%;bottom:76px;transform:translate(-50%,8px);z-index:30;opacity:0;
+  background:#16161b;border:1px solid var(--line);padding:11px 16px;pointer-events:none;
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);
+  transition:opacity .25s,transform .25s}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+
+:focus-visible{outline:2px solid var(--city);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms !important}}
+</style>
+
+<canvas id="stage"></canvas>
+<div id="labels"></div>
+
+<header id="top">
+  <div id="brand">Nightform &nbsp;<b>4 cities</b></div>
+  <div id="clock"><div class="t" id="clockT">—</div><div class="ph" id="clockP"></div></div>
+</header>
+
+<button id="back"><span class="ar"></span>All cities</button>
+
+<div id="legend">
+  <span>light</span>
+  <span class="ramp" id="ramp"></span>
+  <span>heavy</span>
+</div>
+
+<div id="tools">
+  <button id="btnAdd">+ Venue</button>
+  <button id="btnExport">Export JSON</button>
+</div>
+
+<div id="hint">Tap a city</div>
+<div id="toast"></div>
+
+<aside id="panel" aria-hidden="true">
+  <div class="grip"></div>
+  <button id="pclose" aria-label="Close">✕</button>
+  <div class="pscroll" id="pscroll"></div>
+</aside>
+
+<script>
+"use strict";
+const RAW = /*__DATA__*/;
+const CITIES = RAW.cities, BASE = RAW.venues;
+const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------------- persistence ---------------- */
+let DB = null, EDITS = {}, ADDED = [];
+const LS = "nightform.v1";
+function loadLocal(){ try{ const s=JSON.parse(localStorage.getItem(LS)||"{}");
+  EDITS=s.edits||{}; ADDED=s.added||[]; }catch(e){} }
+function saveLocal(){ try{ localStorage.setItem(LS,JSON.stringify({edits:EDITS,added:ADDED})); }catch(e){} }
+loadLocal();
+
+(async ()=>{
+  try{
+    DB = await claude.use("db");
+    if(!DB) return;
+    DB.doc("edits/venues").onSnapshot(s=>{
+      if(s.exists){ EDITS = s.data().map || {}; saveLocal(); rebuild(true); }
+    }, ()=>{});
+    DB.doc("edits/added").onSnapshot(s=>{
+      if(s.exists){ ADDED = s.data().list || []; saveLocal(); rebuild(true); }
+    }, ()=>{});
+  }catch(e){}
+})();
+async function persist(){
+  saveLocal();
+  if(!DB) return false;
+  try{
+    await DB.doc("edits/venues").set({map:EDITS});
+    await DB.doc("edits/added").set({list:ADDED});
+    return true;
+  }catch(e){ return false; }
+}
+
+/* ---------------- data model ---------------- */
+let VENUES = [];
+function compose(){
+  const all = BASE.concat(ADDED);
+  VENUES = all.map(v=>{
+    const e = EDITS[v.id];
+    return e ? Object.assign({},v,e,{draft:false}) : v;
+  }).filter(v=>!v.hidden);
+}
+compose();
+const byCity = c => VENUES.filter(v=>v.city===c && v.status!=="closed")
+  .sort((a,b)=>b.cap-a.cap);
+const closedIn = c => VENUES.filter(v=>v.city===c && v.status==="closed");
+
+/* colour: intensity 1..5 -> light..dark within the city hue */
+function shade(cityId, intensity){
+  const c = CITIES[cityId];
+  const t = (Math.min(5,Math.max(1,intensity||3))-1)/4;
+  const l = c.lightLo + (c.lightHi-c.lightLo)*t;
+  const s = c.sat * (0.62 + 0.38*t);
+  return {h:c.hue, s:s, l:l, rim:c.rim};
+}
+const css = k => `hsl(${k.h} ${k.s.toFixed(1)}% ${k.l.toFixed(1)}%)`;
+const cssA = (k,a) => `hsl(${k.h} ${k.s.toFixed(1)}% ${k.l.toFixed(1)}% / ${a})`;
+
+/* ---------------- stage ---------------- */
+const cv = document.getElementById("stage");
+const ctx = cv.getContext("2d");
+const labelsEl = document.getElementById("labels");
+let W=0,H=0,DPR=1,SC=1;
+function resize(){
+  DPR = Math.min(2, devicePixelRatio||1);
+  W = innerWidth; H = innerHeight;
+  cv.width = W*DPR; cv.height = H*DPR;
+  cv.style.width = W+"px"; cv.style.height = H+"px";
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  SC = Math.min(W,H)/720;
+  layout();
+}
+addEventListener("resize", resize);
+
+let bodies = [];
+let view = "cities";       // cities | city
+let activeCity = null;
+let activeVenue = null;
+let pan = {x:0,y:0,tx:0,ty:0};
+
+function mkBody(o){
+  return Object.assign({
+    x:W/2 + (Math.random()-.5)*60, y:H/2 + (Math.random()-.5)*60,
+    vx:0, vy:0, r:1, tr:40, tx:W/2, ty:H/2,
+    ph:Math.random()*Math.PI*2, spin:0.6+Math.random()*0.8,
+    alpha:0, ta:1, tether:null
+  }, o);
+}
+
+function layout(){
+  if(view==="cities") layoutCities(); else layoutCity();
+}
+
+function layoutCities(){
+  const ids = Object.keys(CITIES);
+  const wide = W>820;
+  const R = Math.min(W,H)*(wide?0.27:0.255);
+  const cx = W/2, cy = H/2 + (wide?0:-8);
+  const keep = new Map(bodies.filter(b=>b.kind==="city").map(b=>[b.id,b]));
+  bodies = ids.map((id,i)=>{
+    const a = -Math.PI/2 + i/ids.length*Math.PI*2 + Math.PI/4;
+    const b = keep.get(id) || mkBody({kind:"city", id});
+    b.kind="city"; b.id=id;
+    b.tx = cx + Math.cos(a)*R * (wide?1.15:0.86);
+    b.ty = cy + Math.sin(a)*R * (wide?0.92:1.02);
+    b.tr = Math.min(W,H)*(wide?0.115:0.125);
+    b.col = shade(id, 3.4);
+    b.ta = 1; b.tether=null;
+    return b;
+  });
+  pan.tx=0; pan.ty=0;
+}
+
+function layoutCity(){
+  const c = activeCity;
+  const wide = W>820;
+  const panelW = (wide && activeVenue) ? Math.min(460, W*0.42) : 0;
+  const fieldW = W - panelW;
+  const cx = fieldW/2, cy = H*(wide?0.5:0.46);
+
+  const list = byCity(c).concat(closedIn(c));
+  const caps = list.map(v=>Math.log(Math.max(60,v.cap||300)));
+  const lo = Math.min(...caps), hi = Math.max(...caps);
+  const rOf = v => {
+    const s = Math.log(Math.max(60,v.cap||300));
+    const t = hi>lo ? (s-lo)/(hi-lo) : .5;
+    return (32 + t*44) * SC * (wide?1.04:1);
+  };
+
+  const core = bodies.find(b=>b.kind==="core") || mkBody({kind:"core", id:"core:"+c});
+  core.kind="core"; core.id="core:"+c;
+  core.tx=cx; core.ty=cy; core.tr = Math.min(fieldW,H)*0.072;
+  core.col = shade(c, 3.6); core.ta=1; core.tether=null;
+
+  const keep = new Map(bodies.filter(b=>b.kind==="venue").map(b=>[b.id,b]));
+  const next = [core];
+
+  // golden-angle spiral, scaled to the field
+  const GA = Math.PI*(3-Math.sqrt(5));
+  const spread = Math.min(fieldW,H)*(wide?0.30:0.325);
+  list.forEach((v,i)=>{
+    const b = keep.get(v.id) || mkBody({kind:"venue", id:v.id, x:core.x, y:core.y, r:1});
+    b.kind="venue"; b.id=v.id; b.v=v;
+    const t = (i+0.72)/list.length;
+    const rad = core.tr*1.75 + Math.sqrt(t)*spread;
+    const a = i*GA - Math.PI/2;
+    b.tx = cx + Math.cos(a)*rad;
+    b.ty = cy + Math.sin(a)*rad*0.94;
+    b.tr = rOf(v);
+    b.col = shade(c, v.intensity);
+    b.closed = v.status==="closed";
+    b.unsure = v.status==="unsure";
+    b.draft = !!v.draft;
+    b.ta = b.closed ? .38 : 1;
+    b.tether = core;
+    next.push(b);
+  });
+
+  // exiled cities keep drifting outward
+  bodies.filter(b=>b.kind==="city").forEach(b=>{
+    if(b.id===c) return;
+    const dx=b.x-W/2, dy=b.y-H/2, d=Math.hypot(dx,dy)||1;
+    b.tx = W/2 + dx/d * Math.max(W,H)*1.15;
+    b.ty = H/2 + dy/d * Math.max(W,H)*1.15;
+    b.ta = 0; b.tr = b.tr*0.7; b.tether=null;
+    next.push(b);
+  });
+  bodies = next;
+}
+
+/* ---------------- physics ---------------- */
+function step(dt){
+  const K = 0.052, D = 0.855;
+  for(const b of bodies){
+    b.vx += (b.tx + (b.kind==="city"?0:pan.x) - b.x)*K;
+    b.vy += (b.ty + (b.kind==="city"?0:pan.y) - b.y)*K;
+    b.vx *= D; b.vy *= D;
+    b.x += b.vx; b.y += b.vy;
+    b.r += (b.tr - b.r)*0.13;
+    b.alpha += (b.ta - b.alpha)*0.10;
+  }
+  // repulsion — only among venue bubbles, keeps the cluster jostling
+  for(let i=0;i<bodies.length;i++){
+    const a=bodies[i]; if(a.kind==="city") continue;
+    for(let j=i+1;j<bodies.length;j++){
+      const b=bodies[j]; if(b.kind==="city") continue;
+      const dx=b.x-a.x, dy=b.y-a.y;
+      let d=Math.hypot(dx,dy); if(d<0.01) d=0.01;
+      const min=(a.r+b.r)*1.32;
+      if(d<min){
+        const push=(min-d)/min*1.9;
+        const ux=dx/d, uy=dy/d;
+        const ma = a.kind==="core"?0.15:1, mb = b.kind==="core"?0.15:1;
+        a.vx-=ux*push*ma; a.vy-=uy*push*ma;
+        b.vx+=ux*push*mb; b.vy+=uy*push*mb;
+      }
+    }
+  }
+  pan.x += (pan.tx-pan.x)*0.16; pan.y += (pan.ty-pan.y)*0.16;
+}
+
+/* ---------------- render ---------------- */
+function blob(b,t,scale){
+  const N=44, R=b.r*(scale||1);
+  const w = REDUCED ? ()=>1 : a =>
+    1 + 0.052*Math.sin(a*3 + t*0.00085*b.spin + b.ph)
+      + 0.036*Math.sin(a*5 - t*0.00121*b.spin + b.ph*1.7)
+      + 0.026*Math.sin(a*2 + t*0.00062 + b.ph*0.6);
+  ctx.beginPath();
+  for(let i=0;i<=N;i++){
+    const a=i/N*Math.PI*2, rr=R*w(a);
+    const x=b.x+Math.cos(a)*rr, y=b.y+Math.sin(a)*rr;
+    i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+  }
+  ctx.closePath();
+}
+
+function tentacle(from,to,t,col,alpha){
+  const dx=to.x-from.x, dy=to.y-from.y, d=Math.hypot(dx,dy)||1;
+  const ux=dx/d, uy=dy/d, px=-uy, py=ux;
+  const sway = REDUCED?0:Math.sin(t*0.0011 + to.ph*3)*d*0.10;
+  const cx=(from.x+to.x)/2 + px*sway, cy=(from.y+to.y)/2 + py*sway;
+  const M=14, w0=Math.min(from.r*0.5, to.r*0.62);
+  const L=[],Rr=[];
+  for(let i=0;i<=M;i++){
+    const s=i/M, is=1-s;
+    const x=is*is*from.x + 2*is*s*cx + s*s*to.x;
+    const y=is*is*from.y + 2*is*s*cy + s*s*to.y;
+    const tx=2*is*(cx-from.x)+2*s*(to.x-cx), ty=2*is*(cy-from.y)+2*s*(to.y-cy);
+    const tl=Math.hypot(tx,ty)||1;
+    const nx=-ty/tl, ny=tx/tl;
+    const w=w0*(1-s*0.82)*(0.55+0.45*Math.sin(s*Math.PI));
+    L.push([x+nx*w,y+ny*w]); Rr.push([x-nx*w,y-ny*w]);
+  }
+  ctx.beginPath();
+  ctx.moveTo(L[0][0],L[0][1]);
+  for(let i=1;i<=M;i++) ctx.lineTo(L[i][0],L[i][1]);
+  for(let i=M;i>=0;i--) ctx.lineTo(Rr[i][0],Rr[i][1]);
+  ctx.closePath();
+  ctx.fillStyle = cssA(col, 0.22*alpha);
+  ctx.fill();
+}
+
+function paintBody(b,t){
+  if(b.alpha<0.01 || b.r<0.5) return;
+  const k = b.col, A = b.alpha;
+
+  // outer glow
+  ctx.save();
+  ctx.globalCompositeOperation = "lighter";
+  const gr = b.r*2.9;
+  const g = ctx.createRadialGradient(b.x,b.y,b.r*0.3,b.x,b.y,gr);
+  const gl = Math.min(72, k.l+26);
+  g.addColorStop(0, `hsl(${k.h} ${k.s}% ${gl}% / ${0.36*A})`);
+  g.addColorStop(0.45, `hsl(${k.h} ${k.s}% ${gl}% / ${0.09*A})`);
+  g.addColorStop(1, `hsl(${k.h} ${k.s}% ${gl}% / 0)`);
+  ctx.fillStyle=g; ctx.beginPath(); ctx.arc(b.x,b.y,gr,0,7); ctx.fill();
+  ctx.restore();
+
+  // body — volumetric fill
+  ctx.save();
+  blob(b,t);
+  const off = b.r*0.34;
+  const f = ctx.createRadialGradient(b.x-off, b.y-off, b.r*0.08, b.x, b.y, b.r*1.22);
+  f.addColorStop(0, `hsl(${k.h} ${Math.min(100,k.s*1.05)}% ${Math.min(90,k.l+25)}% / ${A})`);
+  f.addColorStop(0.55, `hsl(${k.h} ${k.s}% ${k.l}% / ${A})`);
+  f.addColorStop(1, `hsl(${k.h} ${k.s*0.9}% ${Math.max(3,k.l-13)}% / ${A})`);
+  ctx.fillStyle=f; ctx.fill();
+
+  // rim light — carries Berlin, and edges everything else
+  ctx.lineWidth = Math.max(1, b.r*0.035);
+  ctx.strokeStyle = k.rim
+    ? `hsl(205 26% 84% / ${0.60*A})`
+    : `hsl(${k.h} ${Math.min(100,k.s+8)}% ${Math.min(90,k.l+34)}% / ${0.42*A})`;
+  ctx.stroke();
+  ctx.restore();
+
+  // draft ring
+  if(b.draft && !b.closed){
+    ctx.save();
+    ctx.setLineDash([2, 5]);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = `hsl(45 60% 62% / ${0.34*A})`;
+    ctx.beginPath(); ctx.arc(b.x,b.y,b.r+7,0,7); ctx.stroke();
+    ctx.restore();
+  }
+  if(b.closed){
+    ctx.save();
+    ctx.setLineDash([1, 4]);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = `hsl(0 0% 60% / ${0.30*A})`;
+    ctx.beginPath(); ctx.arc(b.x,b.y,b.r+6,0,7); ctx.stroke();
+    ctx.restore();
+  }
+  if(activeVenue===b.id){
+    ctx.save();
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = `hsl(0 0% 100% / ${0.85*A})`;
+    ctx.beginPath(); ctx.arc(b.x,b.y,b.r+11,0,7); ctx.stroke();
+    ctx.restore();
+  }
+}
+
+let hoverId=null, last=0;
+function frame(t){
+  requestAnimationFrame(frame);
+  const dt = Math.min(40, t-last); last=t;
+  step(dt);
+
+  ctx.clearRect(0,0,W,H);
+  // ambient ground
+  const bg = ctx.createRadialGradient(W/2,H*0.42,0,W/2,H*0.42,Math.max(W,H)*0.75);
+  bg.addColorStop(0,"#0a0a0d"); bg.addColorStop(1,"#050506");
+  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+
+  const core = bodies.find(b=>b.kind==="core");
+  if(core) for(const b of bodies) if(b.tether && b.alpha>0.02) tentacle(core,b,t,b.col,b.alpha);
+
+  for(const b of bodies) if(b.kind!=="venue" && b.kind!=="core") paintBody(b,t);
+  if(core) paintBody(core,t);
+  for(const b of bodies) if(b.kind==="venue") paintBody(b,t);
+
+  positionLabels();
+}
+
+/* ---------------- labels ---------------- */
+const lmap = new Map();
+function syncLabels(){
+  const want = new Set();
+  for(const b of bodies){
+    if(b.kind==="core") continue;
+    if(b.kind==="city" && view==="city") continue;
+    want.add(b.id);
+    if(lmap.has(b.id)) continue;
+    const el = document.createElement("div");
+    if(b.kind==="city"){
+      el.className="lbl lbl-city";
+      el.innerHTML = `<div class="n"></div><div class="c"></div>`;
+      el.querySelector(".n").textContent = CITIES[b.id].name;
+      el.querySelector(".c").textContent = CITIES[b.id].colourName + " · " + byCity(b.id).length + " venues";
+    }else{
+      el.className="lbl lbl-ven"+(b.draft?" is-draft":"");
+      el.innerHTML = `<div class="n"></div><div class="a"></div>`;
+      el.querySelector(".n").textContent = b.v.name;
+      el.querySelector(".a").textContent = b.closed ? "closed" : (b.v.area||"");
+    }
+    labelsEl.appendChild(el); lmap.set(b.id, el);
+  }
+  for(const [id,el] of lmap) if(!want.has(id)){ el.remove(); lmap.delete(id); }
+}
+function positionLabels(){
+  for(const b of bodies){
+    const el = lmap.get(b.id); if(!el) continue;
+    const a = b.alpha;
+    if(a<0.03){ el.style.transform="translate3d(-9999px,0,0)"; continue; }
+    const y = b.y + b.r + (b.kind==="city" ? 18 : 11);
+    el.style.transform = `translate3d(${(b.x)|0}px,${y|0}px,0) translate(-50%,0)`;
+    el.style.opacity = (b.closed?0.45:1) * a;
+  }
+}
+
+/* ---------------- interaction ---------------- */
+function hit(px,py){
+  for(let i=bodies.length-1;i>=0;i--){
+    const b=bodies[i];
+    if(b.alpha<0.35) continue;
+    if(b.kind==="core") continue;
+    if(view==="cities" && b.kind!=="city") continue;
+    if(view==="city" && b.kind!=="venue") continue;
+    if(Math.hypot(px-b.x,py-b.y) <= b.r+10) return b;
+  }
+  return null;
+}
+let down=null, moved=0, panning=false;
+cv.addEventListener("pointerdown", e=>{
+  down={x:e.clientX,y:e.clientY,px:pan.tx,py:pan.ty}; moved=0; panning=false;
+  cv.setPointerCapture(e.pointerId);
+});
+cv.addEventListener("pointermove", e=>{
+  if(!down){
+    const b=hit(e.clientX,e.clientY);
+    const id=b?b.id:null;
+    if(id!==hoverId){ hoverId=id; cv.style.cursor = id?"pointer":"grab"; }
+    return;
+  }
+  const dx=e.clientX-down.x, dy=e.clientY-down.y;
+  moved=Math.max(moved,Math.hypot(dx,dy));
+  if(view==="city" && moved>10){
+    panning=true; cv.classList.add("grabbing");
+    pan.tx = down.px+dx; pan.ty = down.py+dy;
+  }
+});
+cv.addEventListener("pointerup", e=>{
+  cv.classList.remove("grabbing");
+  if(down && moved<9){
+    const b=hit(e.clientX,e.clientY);
+    if(b && b.kind==="city") openCity(b.id);
+    else if(b && b.kind==="venue") openVenue(b.id);
+    else closePanel();
+  }
+  down=null;
+});
+cv.addEventListener("pointercancel", ()=>{ down=null; cv.classList.remove("grabbing"); });
+addEventListener("keydown", e=>{
+  if(e.key==="Escape"){ if(activeVenue) closePanel(); else if(view==="city") goHome(); }
+});
+
+/* ---------------- views ---------------- */
+const backEl=document.getElementById("back"), hintEl=document.getElementById("hint");
+const legendEl=document.getElementById("legend"), toolsEl=document.getElementById("tools");
+
+function setCityVars(id){
+  const r = document.documentElement;
+  if(!id){ r.style.setProperty("--city","#8a8a95"); r.style.setProperty("--city-soft","#8a8a95"); return; }
+  const c=CITIES[id];
+  r.style.setProperty("--city", `hsl(${c.hue} ${Math.min(90,c.sat)}% ${c.rim?70:58}%)`);
+  r.style.setProperty("--city-soft", `hsl(${c.hue} ${Math.min(70,c.sat*0.7)}% ${c.rim?66:64}%)`);
+}
+
+function openCity(id){
+  activeCity=id; view="city"; activeVenue=null;
+  setCityVars(id);
+  layout(); syncLabels();
+  backEl.classList.add("on"); legendEl.classList.add("on"); toolsEl.classList.add("on");
+  hintEl.textContent="Tap a venue · drag to move the cluster";
+  buildRamp(id);
+  closePanel();
+  history.replaceState(null,"","#"+id);
+}
+function goHome(){
+  view="cities"; activeCity=null; activeVenue=null;
+  setCityVars(null);
+  layout(); syncLabels();
+  backEl.classList.remove("on"); legendEl.classList.remove("on"); toolsEl.classList.remove("on");
+  hintEl.textContent="Tap a city"; hintEl.style.opacity="";
+  closePanel();
+  history.replaceState(null,"","#");
+}
+backEl.onclick=goHome;
+
+function buildRamp(id){
+  const r=document.getElementById("ramp"); r.innerHTML="";
+  for(let i=1;i<=5;i++){
+    const s=shade(id,i); const el=document.createElement("i");
+    el.style.background=css(s);
+    if(s.rim) el.style.boxShadow="inset 0 0 0 1px hsl(205 26% 80% / .55)";
+    r.appendChild(el);
+  }
+}
+
+/* ---------------- panel ---------------- */
+const panel=document.getElementById("panel"), pscroll=document.getElementById("pscroll");
+document.getElementById("pclose").onclick=()=>closePanel();
+function closePanel(){
+  if(!activeVenue) { panel.classList.remove("on"); panel.setAttribute("aria-hidden","true"); return; }
+  activeVenue=null; panel.classList.remove("on"); panel.setAttribute("aria-hidden","true");
+  if(view==="city") layout();
+}
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+const INTENSITY_WORD = ["","light","easy","mid","heavy","brutal"];
+
+function openVenue(id){
+  const v = VENUES.find(x=>x.id===id); if(!v) return;
+  activeVenue=id;
+  const k = shade(v.city, v.intensity);
+  const bars = [1,2,3,4,5].map(i=>{
+    const s=shade(v.city,i);
+    return `<i style="background:${i<=v.intensity?css(s):"#1c1c22"}${s.rim&&i<=v.intensity?";box-shadow:inset 0 0 0 1px hsl(205 26% 80% / .5)":""}"></i>`;
+  }).join("");
+
+  pscroll.innerHTML = `
+    <div class="p-eyebrow">${esc(CITIES[v.city].name)}${v.area?" — "+esc(v.area):""}</div>
+    <h1 class="p-name">${esc(v.name)}</h1>
+    ${v.line?`<p class="p-line">${esc(v.line)}</p>`:""}
+
+    <div class="p-meter"><span class="bars">${bars}</span>
+      <span class="cap">${INTENSITY_WORD[Math.min(5,Math.max(1,v.intensity||3))]} · ${v.intensity||"?"}/5</span></div>
+
+    <dl class="p-facts">
+      <div><dt>Capacity</dt><dd>${v.cap?Number(v.cap).toLocaleString():"—"}</dd></div>
+      <div><dt>Hours</dt><dd style="font-size:12px">${esc(v.hours||"—")}</dd></div>
+      <div><dt>Status</dt><dd style="text-transform:capitalize">${esc(v.status||"open")}</dd></div>
+    </dl>
+
+    ${v.status==="closed"?`<div class="flagbar"><span class="k" style="border-color:#777"></span><p>Closed. Kept here for the record.</p></div>`:""}
+    ${v.status==="unsure"?`<div class="flagbar"><span class="k"></span><p>Status unconfirmed — check before you build a night around it.</p></div>`:""}
+    ${v.draft?`<div class="flagbar"><span class="k"></span><p>Placeholder text and intensity. Yours to overwrite — hit Edit below.</p></div>`:""}
+
+    ${v.note?`<div class="p-h">The room</div><p class="p-body">${esc(v.note)}</p>`:""}
+
+    ${(v.rooms&&v.rooms.length)?`<div class="p-h">Rooms — each its own vibe</div>
+      <div class="rooms">${v.rooms.map(r=>{
+        const rk=shade(v.city,r.intensity);
+        return `<div class="room"><span class="dot" style="background:${css(rk)}${rk.rim?";box-shadow:inset 0 0 0 1px hsl(205 26% 80% / .55)":""}"></span>
+        <div><div class="rn">${esc(r.name)}</div><div class="rt">${esc(r.note||"")}</div></div></div>`;
+      }).join("")}</div>`:""}
+
+    ${(v.nights&&v.nights.length&&v.nights[0]!=="—")?`<div class="p-h">When</div>
+      <ul class="nights">${v.nights.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`:""}
+
+    ${(v.tags&&v.tags.length)?`<div class="tags">${v.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>`:""}
+
+    <div class="links">
+      ${v.links&&v.links.web?`<a href="${esc(v.links.web)}" target="_blank" rel="noopener">Site</a>`:""}
+      ${v.links&&v.links.ra?`<a href="${esc(v.links.ra)}" target="_blank" rel="noopener">Lineups</a>`:""}
+      ${v.links&&v.links.map?`<a href="${esc(v.links.map)}" target="_blank" rel="noopener">Map</a>`:""}
+    </div>
+
+    <button class="edtoggle" id="edtog">Edit this venue</button>
+    <div id="editor"></div>
+  `;
+  document.getElementById("edtog").onclick=()=>toggleEditor(v);
+  panel.classList.add("on"); panel.setAttribute("aria-hidden","false");
+  pscroll.scrollTop=0;
+  if(W>820) layout();
+  hintEl.style.opacity="0";
+}
+
+/* ---------------- editor ---------------- */
+function toggleEditor(v){
+  const ed=document.getElementById("editor");
+  if(ed.classList.contains("on")){ ed.classList.remove("on"); return; }
+  ed.classList.add("on");
+  ed.innerHTML = `
+    <div class="f"><label>Intensity — light to heavy</label>
+      <div class="pick" id="pk">${[1,2,3,4,5].map(i=>{
+        const s=shade(v.city,i);
+        return `<button data-i="${i}" aria-pressed="${i===v.intensity}"><span style="background:${css(s)}${s.rim?";box-shadow:inset 0 0 0 1px hsl(205 26% 80% / .5)":""}"></span></button>`;
+      }).join("")}</div></div>
+    <div class="f"><label>Name</label><input type="text" id="e-name" value="${esc(v.name)}"></div>
+    <div class="f"><label>Area</label><input type="text" id="e-area" value="${esc(v.area||"")}"></div>
+    <div class="f"><label>Capacity — sets bubble size</label><input type="text" id="e-cap" value="${esc(v.cap||"")}" inputmode="numeric"></div>
+    <div class="f"><label>One line</label><input type="text" id="e-line" value="${esc(v.line||"")}"></div>
+    <div class="f"><label>The room</label><textarea id="e-note" rows="5">${esc(v.note||"")}</textarea></div>
+    <div class="f"><label>Tags — comma separated</label><input type="text" id="e-tags" value="${esc((v.tags||[]).join(", "))}"></div>
+    <div class="f"><label>Site URL</label><input type="text" id="e-web" value="${esc(v.links&&v.links.web||"")}"></div>
+    <div class="f"><label>Lineups URL</label><input type="text" id="e-ra" value="${esc(v.links&&v.links.ra||"")}"></div>
+    <div class="erow"><button class="btn-save" id="e-save">Save</button><button class="btn-ghost" id="e-del">Hide venue</button></div>
+    <div id="esave"></div>`;
+  let pick = v.intensity||3;
+  ed.querySelector("#pk").onclick = e=>{
+    const b=e.target.closest("button[data-i]"); if(!b) return;
+    pick = +b.dataset.i;
+    ed.querySelectorAll("#pk button").forEach(x=>x.setAttribute("aria-pressed", x===b));
+  };
+  ed.querySelector("#e-save").onclick = async ()=>{
+    const g=id=>ed.querySelector(id).value.trim();
+    EDITS[v.id] = Object.assign({}, EDITS[v.id], {
+      intensity:pick, name:g("#e-name")||v.name, area:g("#e-area"),
+      cap: parseInt(g("#e-cap").replace(/\D/g,""),10) || v.cap,
+      line:g("#e-line"), note:g("#e-note"),
+      tags:g("#e-tags").split(",").map(s=>s.trim()).filter(Boolean),
+      links:{ web:g("#e-web")||undefined, ra:g("#e-ra")||undefined, map:v.links&&v.links.map }
+    });
+    const ok = await persist();
+    ed.querySelector("#esave").textContent = ok?"Saved to your library":"Saved on this device";
+    rebuild(); openVenue(v.id);
+  };
+  ed.querySelector("#e-del").onclick = async ()=>{
+    EDITS[v.id]=Object.assign({},EDITS[v.id],{hidden:true});
+    await persist(); rebuild(); closePanel(); toast("Hidden");
+  };
+}
+
+function rebuild(silent){
+  compose();
+  if(view==="city"){ layout(); syncLabels(); }
+  else { syncLabels(); }
+}
+
+/* ---------------- add + export ---------------- */
+document.getElementById("btnAdd").onclick = async ()=>{
+  const name = prompt("Venue name");
+  if(!name) return;
+  const id = "user-"+name.toLowerCase().replace(/[^a-z0-9]+/g,"-").slice(0,32)+"-"+Date.now().toString(36);
+  ADDED.push({id, city:activeCity, name, area:"", intensity:3, cap:500, hours:"",
+    line:"", note:"", tags:[], rooms:[], nights:[], links:{}, status:"open", draft:true});
+  await persist(); rebuild(); toast("Added — tap it to fill in");
+};
+document.getElementById("btnExport").onclick = async ()=>{
+  const out = JSON.stringify({cities:CITIES, venues:VENUES}, null, 2);
+  try{ await navigator.clipboard.writeText(out); toast("JSON copied to clipboard"); }
+  catch(e){ console.log(out); toast("Printed to console"); }
+};
+let tt;
+function toast(msg){
+  const el=document.getElementById("toast");
+  el.textContent=msg; el.classList.add("on");
+  clearTimeout(tt); tt=setTimeout(()=>el.classList.remove("on"),2200);
+}
+
+/* ---------------- clock ---------------- */
+function phaseOf(h){
+  if(h>=5&&h<11) return "after hours";
+  if(h>=11&&h<17) return "daylight";
+  if(h>=17&&h<22) return "warm up";
+  if(h>=22||h<1) return "doors";
+  return "peak";
+}
+function tick(){
+  const tz = activeCity ? CITIES[activeCity].tz : "Europe/London";
+  const now = new Date();
+  const s = new Intl.DateTimeFormat("en-GB",{timeZone:tz,hour:"2-digit",minute:"2-digit",hour12:false}).format(now);
+  const h = +new Intl.DateTimeFormat("en-GB",{timeZone:tz,hour:"2-digit",hour12:false}).format(now);
+  document.getElementById("clockT").textContent = s + " " + (activeCity?CITIES[activeCity].name.slice(0,3).toUpperCase():"LDN");
+  document.getElementById("clockP").textContent = phaseOf(h);
+}
+setInterval(tick, 20000);
+
+/* ---------------- boot ---------------- */
+resize(); syncLabels(); tick(); setCityVars(null);
+requestAnimationFrame(frame);
+const h = location.hash.replace("#","");
+if(CITIES[h]) openCity(h);
+</script>

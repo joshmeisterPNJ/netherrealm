@@ -1,0 +1,25 @@
+{
+  "name": "Nightform",
+  "short_name": "Nightform",
+  "description": "Electronic music venues in London, Paris, Berlin and Amsterdam, mapped by city colour and intensity.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#050506",
+  "theme_color": "#050506",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
