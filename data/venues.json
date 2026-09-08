@@ -866,423 +866,6 @@
     "draft": true
   },
   {
-    "id": "radion",
-    "city": "amsterdam",
-    "name": "Radion",
-    "area": "Nieuw-West",
-    "intensity": 4,
-    "cap": 700,
-    "hours": "24-hour licence — weekends run continuously",
-    "line": "An old dental school turned into a 24-hour techno building.",
-    "note": "Ex-dental-academy, artist studios upstairs, club below, and a licence that lets it run all weekend. Sunday daytime is when it's actually best — the crowd that stayed is the crowd you want. Multiple rooms with genuinely different moods.",
-    "tags": [
-      "heavy",
-      "techno",
-      "allnighter",
-      "industrial",
-      "24h"
-    ],
-    "rooms": [
-      {
-        "name": "Basement",
-        "intensity": 5,
-        "note": "Dark, industrial, fast. The reason people come."
-      },
-      {
-        "name": "Ground floor",
-        "intensity": 3,
-        "note": "Warmer, house-leaning, windows."
-      },
-      {
-        "name": "Garden",
-        "intensity": 2,
-        "note": "Outdoor, daylight, recovery."
-      }
-    ],
-    "nights": [
-      "Weekend-long — Fri night through Sunday night"
-    ],
-    "links": {
-      "web": "https://radion.amsterdam",
-      "ra": "https://ra.co/search?q=radion%20amsterdam",
-      "map": "https://www.google.com/maps/search/Radion+Amsterdam+Louwesweg"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "garagenoord",
-    "city": "amsterdam",
-    "name": "Garage Noord",
-    "area": "Noord",
-    "intensity": 3,
-    "cap": 400,
-    "hours": "Café by day; club Fri–Sat until late",
-    "line": "Coffee and a canteen by day, the city's best bookings by night.",
-    "note": "The most consistently interesting programming in Amsterdam — deconstructed club, Afro-diasporic, experimental, and a crowd that shows up for artists they've never heard of. Also a genuinely good café and kitchen, so you can start the day here and end it here.",
-    "tags": [
-      "leftfield",
-      "queer",
-      "intimate",
-      "warm",
-      "adventurous"
-    ],
-    "rooms": [],
-    "nights": [
-      "Fri–Sat club nights; café Wed–Sun daytime"
-    ],
-    "links": {
-      "web": "https://garagenoord.com",
-      "ra": "https://ra.co/search?q=garage%20noord",
-      "map": "https://www.google.com/maps/search/Garage+Noord+Amsterdam"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "lofi",
-    "city": "amsterdam",
-    "name": "Lofi",
-    "area": "Noord — Overhoeks",
-    "intensity": 3,
-    "cap": 800,
-    "hours": "Fri–Sat late, occasional daytime",
-    "line": "Built by people who cared about the room before the lights.",
-    "note": "Purpose-built with acoustics as the first priority, which is rarer than it should be. Big windows, high ceiling, and a system that stays clean at volume. Programming spans house, techno and live electronics.",
-    "tags": [
-      "house",
-      "techno",
-      "soundsystem",
-      "warm"
-    ],
-    "rooms": [],
-    "nights": [
-      "Fri–Sat, mixed electronic programming"
-    ],
-    "links": {
-      "web": "https://lofi.amsterdam",
-      "ra": "https://ra.co/search?q=lofi%20amsterdam",
-      "map": "https://www.google.com/maps/search/Lofi+Amsterdam+Overhoeks"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "thuishaven",
-    "city": "amsterdam",
-    "name": "Thuishaven",
-    "area": "Westpoort",
-    "intensity": 3,
-    "cap": 3000,
-    "hours": "24-hour licence — parties run from Saturday into Monday",
-    "line": "A permanent festival site on the industrial edge of the harbour.",
-    "note": "Tents, campfires, sculptures and a licence that lets it run for 48 hours. It's the closest thing to a permanent outdoor festival in a European city. Deeply un-serious in the best way — people are still there on Monday morning.",
-    "tags": [
-      "outdoor",
-      "daytime",
-      "allnighter",
-      "house",
-      "techno",
-      "24h"
-    ],
-    "rooms": [
-      {
-        "name": "Main tent",
-        "intensity": 4,
-        "note": "The big one. Techno-leaning."
-      },
-      {
-        "name": "Outdoor stages",
-        "intensity": 2,
-        "note": "Daylight, campfires, lighter."
-      }
-    ],
-    "nights": [
-      "Weekend-long, Saturday through Monday"
-    ],
-    "links": {
-      "web": "https://www.thuishaven.nl",
-      "ra": "https://ra.co/search?q=thuishaven",
-      "map": "https://www.google.com/maps/search/Thuishaven+Amsterdam"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "doka",
-    "city": "amsterdam",
-    "name": "Doka",
-    "area": "Oost — Volkshotel",
-    "intensity": 2,
-    "cap": 200,
-    "hours": "Most nights until 03:00–04:00",
-    "line": "A hotel basement bar with better music than it needs.",
-    "note": "In the basement of the Volkshotel — a former newspaper building. Cocktail bar energy with real DJs, open most nights of the week. The right answer on a Tuesday, and useful during ADE when everything else is sold out.",
-    "tags": [
-      "warm",
-      "house",
-      "intimate",
-      "listening",
-      "central"
-    ],
-    "rooms": [],
-    "nights": [
-      "Most nights — no need to plan"
-    ],
-    "links": {
-      "web": "https://www.volkshotel.nl/doka",
-      "ra": "https://ra.co/search?q=doka%20amsterdam",
-      "map": "https://www.google.com/maps/search/Volkshotel+Doka+Amsterdam"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "ot301",
-    "city": "amsterdam",
-    "name": "OT301",
-    "area": "Oud-West — Overtoom",
-    "intensity": 3,
-    "cap": 300,
-    "hours": "Varies — cinema, studios, club nights",
-    "line": "A legalised squat that still behaves like one.",
-    "note": "Former film academy, squatted in 1999, now a legal cultural centre with a cinema, studios, a vegan restaurant and a club room. Cheap, political, unpolished, and programming you won't find anywhere commercial.",
-    "tags": [
-      "diy",
-      "leftfield",
-      "cheap",
-      "queer"
-    ],
-    "rooms": [],
-    "nights": [
-      "Varies widely — check the calendar"
-    ],
-    "links": {
-      "web": "https://www.ot301.nl",
-      "ra": "https://ra.co/search?q=ot301",
-      "map": "https://www.google.com/maps/search/OT301+Overtoom+Amsterdam"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "paradiso",
-    "city": "amsterdam",
-    "name": "Paradiso",
-    "area": "Centrum — Leidseplein",
-    "intensity": 2,
-    "cap": 1500,
-    "hours": "Live shows early, club nights after",
-    "line": "A 19th-century church with a balcony and stained glass.",
-    "note": "An actual converted church, and the room does something to music that a black box can't. Mostly live programming with club nights after. The small upstairs room is where the more interesting electronic bookings happen.",
-    "tags": [
-      "warm",
-      "bigroom",
-      "central",
-      "institution"
-    ],
-    "rooms": [
-      {
-        "name": "Grote Zaal",
-        "intensity": 2,
-        "note": "The main church hall. Balconies, stained glass."
-      },
-      {
-        "name": "Kleine Zaal",
-        "intensity": 3,
-        "note": "Upstairs. Smaller, more club-shaped."
-      }
-    ],
-    "nights": [
-      "Live shows most nights, club nights after"
-    ],
-    "links": {
-      "web": "https://www.paradiso.nl",
-      "ra": "https://ra.co/search?q=paradiso%20amsterdam",
-      "map": "https://www.google.com/maps/search/Paradiso+Amsterdam"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "melkweg",
-    "city": "amsterdam",
-    "name": "Melkweg",
-    "area": "Centrum — Leidseplein",
-    "intensity": 2,
-    "cap": 1500,
-    "hours": "Live early, club late",
-    "line": "An old dairy, now several rooms of everything at once.",
-    "note": "Former milk factory, now a multi-room cultural complex — live music, club nights, cinema, gallery. Central and reliable rather than thrilling, but the smaller rooms get good electronic bookings, especially during ADE.",
-    "tags": [
-      "warm",
-      "bigroom",
-      "central",
-      "institution"
-    ],
-    "rooms": [
-      {
-        "name": "Max",
-        "intensity": 2,
-        "note": "Big hall, live-leaning."
-      },
-      {
-        "name": "Oude Zaal / Rabozaal",
-        "intensity": 3,
-        "note": "Club-shaped rooms."
-      }
-    ],
-    "nights": [
-      "Nightly programming, club nights weekends"
-    ],
-    "links": {
-      "web": "https://www.melkweg.nl",
-      "ra": "https://ra.co/search?q=melkweg",
-      "map": "https://www.google.com/maps/search/Melkweg+Amsterdam"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "elementenstraat",
-    "city": "amsterdam",
-    "name": "Warehouse Elementenstraat",
-    "area": "Westpoort",
-    "intensity": 5,
-    "cap": 4000,
-    "hours": "Event-dependent, ADE and Awakenings dates",
-    "line": "The big industrial hall. Where ADE goes properly loud.",
-    "note": "A raw warehouse in the western docklands used for the largest techno events in the city — Awakenings and the biggest ADE nights. Not a club with a calendar; it's a shell that gets built out per event. Check what's on rather than turning up.",
-    "tags": [
-      "heavy",
-      "techno",
-      "bigroom",
-      "industrial",
-      "festival"
-    ],
-    "rooms": [],
-    "nights": [
-      "Event-only — Awakenings, ADE, large one-offs"
-    ],
-    "links": {
-      "ra": "https://ra.co/search?q=elementenstraat%20amsterdam",
-      "map": "https://www.google.com/maps/search/Elementenstraat+Amsterdam"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "shelter",
-    "city": "amsterdam",
-    "name": "Shelter",
-    "area": "Noord — under A'DAM Toren",
-    "intensity": 5,
-    "cap": 500,
-    "hours": "24-hour licence, weekend-long",
-    "line": "A concrete bunker underneath the tower, no daylight, no phones.",
-    "note": "Underground in the literal sense — beneath the A'DAM Toren, low ceiling, no windows, hard techno. Reported to have closed; VERIFY before building a night around it. If it's running, it's the hardest room in the centre.",
-    "tags": [
-      "heavy",
-      "techno",
-      "industrial",
-      "allnighter",
-      "24h"
-    ],
-    "rooms": [],
-    "nights": [
-      "Weekend-long when operating"
-    ],
-    "links": {
-      "ra": "https://ra.co/search?q=shelter%20amsterdam",
-      "map": "https://www.google.com/maps/search/Shelter+Amsterdam+Noord"
-    },
-    "status": "unsure",
-    "draft": true
-  },
-  {
-    "id": "sexyland",
-    "city": "amsterdam",
-    "name": "Sexyland World",
-    "area": "Noord",
-    "intensity": 3,
-    "cap": 400,
-    "hours": "Varies wildly",
-    "line": "A different owner every day of the year. Genuinely.",
-    "note": "Started as a club where 365 different members each programmed one day of the year, and kept the spirit. Queer, chaotic, unpredictable. You cannot know what you're walking into, which is exactly why you should.",
-    "tags": [
-      "queer",
-      "leftfield",
-      "diy",
-      "adventurous"
-    ],
-    "rooms": [],
-    "nights": [
-      "Unpredictable by design — check the calendar"
-    ],
-    "links": {
-      "web": "https://sexylandworld.com",
-      "ra": "https://ra.co/search?q=sexyland%20amsterdam",
-      "map": "https://www.google.com/maps/search/Sexyland+World+Amsterdam+Noord"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "bitterzoet",
-    "city": "amsterdam",
-    "name": "Bitterzoet",
-    "area": "Centrum",
-    "intensity": 2,
-    "cap": 300,
-    "hours": "Most nights until 04:00",
-    "line": "Small central room, hip-hop and broken beats as often as house.",
-    "note": "One of the few central rooms still worth going to. Wider than four-four — soul, hip-hop, Afrobeat, broken beat. Good for a night that isn't about techno.",
-    "tags": [
-      "warm",
-      "intimate",
-      "central",
-      "leftfield"
-    ],
-    "rooms": [],
-    "nights": [
-      "Most nights, broad programming"
-    ],
-    "links": {
-      "web": "https://www.bitterzoet.com",
-      "ra": "https://ra.co/search?q=bitterzoet",
-      "map": "https://www.google.com/maps/search/Bitterzoet+Amsterdam"
-    },
-    "status": "open",
-    "draft": true
-  },
-  {
-    "id": "deschool",
-    "city": "amsterdam",
-    "name": "De School",
-    "area": "Nieuw-West",
-    "intensity": 4,
-    "cap": 600,
-    "hours": "Was 24-hour, Friday through Monday",
-    "line": "The room everyone still measures Amsterdam against.",
-    "note": "Closed in 2023. A former technical school with a 24-hour licence, a restaurant, a gym, an exhibition space and the best-programmed dancefloor in the Netherlands. Everything good in Amsterdam now is downstream of it. RIP.",
-    "tags": [
-      "heavy",
-      "techno",
-      "allnighter",
-      "historic"
-    ],
-    "rooms": [],
-    "nights": [
-      "—"
-    ],
-    "links": {
-      "ra": "https://ra.co/search?q=de%20school%20amsterdam",
-      "map": "https://www.google.com/maps/search/De+School+Amsterdam+Doctor+Jan+van+Breemenstraat"
-    },
-    "status": "closed",
-    "draft": true
-  },
-  {
     "id": "berghain",
     "city": "berlin",
     "name": "Berghain / Panorama Bar",
@@ -1753,5 +1336,302 @@
     },
     "status": "closed",
     "draft": true
+  },
+  {
+    "id": "deschool",
+    "city": "amsterdam",
+    "name": "De School",
+    "area": "Nomadic — pop-ups & takeovers",
+    "intensity": 5,
+    "cap": 600,
+    "hours": "",
+    "line": "The building went. The crew, the ethos and the standard did not.",
+    "note": "The physical school closed, but the collective and its programming continue through pop-ups and curated takeovers across the city. This is the crew that set the Amsterdam standard — zero phones, pure music, dark room — and that prioritised local resident selectors over guest-name booking. Uncompromising techno and house.",
+    "tags": [
+      "nophones",
+      "techno",
+      "house",
+      "residents",
+      "pop-ups",
+      "uncompromising"
+    ],
+    "rooms": [],
+    "nights": [
+      "Pop-ups and takeovers — follow the crew, not an address"
+    ],
+    "links": {
+      "ra": "https://ra.co/search?q=de%20school%20amsterdam",
+      "map": "https://www.google.com/maps/search/Amsterdam"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "garagenoord",
+    "city": "amsterdam",
+    "name": "Garage Noord",
+    "area": "Noord",
+    "intensity": 5,
+    "cap": 400,
+    "hours": "",
+    "line": "Land a gig here and you have the stamp of cool.",
+    "note": "An old car repair shop in Amsterdam-Noord, and the absolute hotbed for leftfield and experimental club music, industrial rhythms and fast-tempo sounds. If you are an underground artist and you land a gig here, you have officially earned the ultimate stamp of cool among music lovers.",
+    "tags": [
+      "leftfield",
+      "experimental",
+      "industrial",
+      "fast",
+      "tastemaker"
+    ],
+    "rooms": [],
+    "nights": [],
+    "links": {
+      "web": "https://garagenoord.com",
+      "ra": "https://ra.co/search?q=garage%20noord",
+      "map": "https://www.google.com/maps/search/Garage+Noord+Amsterdam"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "parallel",
+    "city": "amsterdam",
+    "name": "Parallel",
+    "area": "Noord — Tolhuistuin",
+    "intensity": 3,
+    "cap": 750,
+    "hours": "",
+    "line": "Paradiso's incubator in the North. Where underground crosses over.",
+    "note": "Paradiso's sister venue in the North, acting as a dedicated incubator that bridges raw underground talent and mid-sized club spaces. Leans hard into forward-thinking club sounds and global electronic mutations — electronic Amapiano, high-tempo edits, hybrid bass — and serves as the launchpad for acts moving into the mainstream.",
+    "tags": [
+      "incubator",
+      "bass",
+      "global",
+      "forward",
+      "crossover"
+    ],
+    "rooms": [],
+    "nights": [],
+    "links": {
+      "web": "https://parallel.am",
+      "ra": "https://ra.co/search?q=parallel%20amsterdam",
+      "map": "https://www.google.com/maps/search/Parallel+Tolhuistuin+Amsterdam+Noord"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "radion",
+    "city": "amsterdam",
+    "name": "Radion",
+    "area": "Nieuw-West — Louwesweg",
+    "intensity": 5,
+    "cap": 1500,
+    "hours": "24-hour permit",
+    "line": "A former dental clinic running 24 hours on raw concrete.",
+    "note": "A former dental clinic turned 24-hour cultural sanctuary, highly respected for its raw industrial concrete aesthetic and deep, hypnotic techno bookings. They don't chase radio hits — they book artists who master the art of the extended storytelling set.",
+    "tags": [
+      "industrial",
+      "techno",
+      "hypnotic",
+      "24h",
+      "longsets"
+    ],
+    "rooms": [],
+    "nights": [],
+    "links": {
+      "web": "https://radion.amsterdam",
+      "ra": "https://ra.co/search?q=radion%20amsterdam",
+      "map": "https://www.google.com/maps/search/Radion+Louwesweg+Amsterdam"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "paradiso",
+    "city": "amsterdam",
+    "name": "Paradiso",
+    "area": "Centrum — Weteringschans",
+    "intensity": 2,
+    "cap": 1500,
+    "hours": "",
+    "line": "A 19th-century church that is still a rite of passage.",
+    "note": "A converted 19th-century church that remains a sacred rite of passage. For electronic music lovers its late-night transformations and specialised ADE curations — the STOOR live hardware jams among them — prove it still holds immense cultural capital and respect.",
+    "tags": [
+      "institution",
+      "church",
+      "ade",
+      "livehardware",
+      "prestige"
+    ],
+    "rooms": [
+      {
+        "name": "Grote Zaal",
+        "intensity": 2,
+        "note": "The main church hall — balconies, stained glass, the room everyone means."
+      },
+      {
+        "name": "Kleine Zaal",
+        "intensity": 3,
+        "note": "Upstairs. Smaller and more club-shaped."
+      }
+    ],
+    "nights": [],
+    "links": {
+      "web": "https://www.paradiso.nl",
+      "ra": "https://ra.co/search?q=paradiso%20amsterdam",
+      "map": "https://www.google.com/maps/search/Paradiso+Weteringschans+Amsterdam"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "melkweg",
+    "city": "amsterdam",
+    "name": "Melkweg",
+    "area": "Centrum — Lijnbaansgracht",
+    "intensity": 2,
+    "cap": 1400,
+    "hours": "",
+    "line": "A dairy factory big enough to host the niche room and the huge one at once.",
+    "note": "A historic former dairy factory that has championed electronic music since the dawn of the Dutch rave scene. It hosts massive names, but the multi-room layout lets it run niche, cutting-edge underground nights — drum & bass, specialised techno, UK garage — on the same weekend.",
+    "tags": [
+      "institution",
+      "multiroom",
+      "dnb",
+      "garage",
+      "prestige"
+    ],
+    "rooms": [
+      {
+        "name": "Max",
+        "intensity": 2,
+        "note": "The big hall. Where the massive names land."
+      },
+      {
+        "name": "Oude Zaal / Rabozaal",
+        "intensity": 3,
+        "note": "The smaller rooms, where the cutting-edge nights run."
+      }
+    ],
+    "nights": [],
+    "links": {
+      "web": "https://www.melkweg.nl",
+      "ra": "https://ra.co/search?q=melkweg",
+      "map": "https://www.google.com/maps/search/Melkweg+Amsterdam"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "lofi",
+    "city": "amsterdam",
+    "name": "Lofi",
+    "area": "West — Sloterdijk",
+    "intensity": 4,
+    "cap": 1500,
+    "hours": "",
+    "line": "A bus garage rebuilt for house and techno purists.",
+    "note": "A relatively young but massively influential industrial warehouse space in the West, in a repurposed GVB bus garage. It has quickly become a premier destination for house and techno purists — exceptional sound design, extended daytime raves, and community-driven lineups.",
+    "tags": [
+      "industrial",
+      "house",
+      "techno",
+      "soundsystem",
+      "daytime",
+      "purist"
+    ],
+    "rooms": [],
+    "nights": [],
+    "links": {
+      "web": "https://lofi.amsterdam",
+      "ra": "https://ra.co/search?q=lofi%20amsterdam",
+      "map": "https://www.google.com/maps/search/Lofi+Amsterdam+Sloterdijk"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "shelter",
+    "city": "amsterdam",
+    "name": "Shelter",
+    "area": "Noord — under A'DAM Toren",
+    "intensity": 4,
+    "cap": 1100,
+    "hours": "",
+    "line": "Down a hatch into a pitch-black basement. Nothing to look at, by design.",
+    "note": "Directly underneath the A'DAM Tower, you descend a hatch into a pitch-black concrete basement. World-class Funktion-One, zero visual distractions, no phones. Entirely dedicated to the depths of house and techno, and built specifically for the dancers.",
+    "tags": [
+      "nophones",
+      "house",
+      "techno",
+      "soundsystem",
+      "basement",
+      "dancers"
+    ],
+    "rooms": [],
+    "nights": [],
+    "links": {
+      "web": "https://www.shelteramsterdam.nl",
+      "ra": "https://ra.co/search?q=shelter%20amsterdam",
+      "map": "https://www.google.com/maps/search/Shelter+A%27DAM+Toren+Amsterdam"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "ndsm",
+    "city": "amsterdam",
+    "name": "NDSM Warehouse",
+    "area": "Noord — NDSM Docklands",
+    "intensity": 3,
+    "cap": 10000,
+    "hours": "",
+    "line": "A shipbuilding hangar the size of a district. Scale without the sellout.",
+    "note": "The sprawling industrial docklands venue that hosts festivals like DGTL. Despite the scale it keeps real prestige, because the programming stays fiercely focused on high-concept melodic techno, raw industrial beats and underground legends rather than commercial EDM.",
+    "tags": [
+      "industrial",
+      "festival",
+      "docklands",
+      "techno",
+      "scale"
+    ],
+    "rooms": [],
+    "nights": [
+      "Event-only — DGTL and large one-offs"
+    ],
+    "links": {
+      "ra": "https://ra.co/search?q=ndsm%20amsterdam",
+      "map": "https://www.google.com/maps/search/NDSM+Loods+Amsterdam"
+    },
+    "status": "open",
+    "draft": false
+  },
+  {
+    "id": "amaze",
+    "city": "amsterdam",
+    "name": "AMAZE",
+    "area": "Noord — Papaverweg",
+    "intensity": 1,
+    "cap": 1500,
+    "hours": "",
+    "line": "Eight stages of ID&T spectacle, built for total sensory immersion.",
+    "note": "A high-tech multi-room audiovisual labyrinth created by ID&T. Futuristic and premium, but it bypasses cheap club tropes by focusing on complete sensory immersion, spatial 11D sound, and booking refined, deep electronic selectors who use the technology to tell a complex sonic story.",
+    "tags": [
+      "immersive",
+      "audiovisual",
+      "premium",
+      "spatial",
+      "multiroom"
+    ],
+    "rooms": [],
+    "nights": [],
+    "links": {
+      "web": "https://www.amaze-amsterdam.com",
+      "ra": "https://ra.co/search?q=amaze%20amsterdam",
+      "map": "https://www.google.com/maps/search/AMAZE+Amsterdam"
+    },
+    "status": "open",
+    "draft": false
   }
 ]

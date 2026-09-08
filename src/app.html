@@ -214,9 +214,9 @@ body{
 <button id="back"><span class="ar"></span>All cities</button>
 
 <div id="legend">
-  <span>light</span>
+  <span>commercial</span>
   <span class="ramp" id="ramp"></span>
-  <span>heavy</span>
+  <span>underground</span>
 </div>
 
 <div id="tools">
@@ -771,7 +771,7 @@ function closePanel(){
   if(had && view==="city") layout();
 }
 const esc = s => String(s==null?"":s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
-const INTENSITY_WORD = ["","light","easy","mid","heavy","brutal"];
+const INTENSITY_WORD = ["","commercial","crossover","balanced","niche","deep underground"];
 
 function openCityInfo(){
   const c = CITIES[activeCity];
@@ -796,7 +796,7 @@ function openCityInfo(){
         </div>`;
       }).join("")}
     </div>
-    <div class="dlegend"><span>light</span><span>heavy</span></div>
+    <div class="dlegend"><span>commercial</span><span>underground</span></div>
 
     <dl class="p-facts">
       <div><dt>Venues</dt><dd>${open.length}</dd></div>
@@ -884,7 +884,7 @@ function toggleEditor(v){
   if(ed.classList.contains("on")){ ed.classList.remove("on"); return; }
   ed.classList.add("on");
   ed.innerHTML = `
-    <div class="f"><label>Intensity — light to heavy</label>
+    <div class="f"><label>Commercial → niche / industrial</label>
       <div class="pick" id="pk">${[1,2,3,4,5].map(i=>{
         const s=shade(v.city,i);
         return `<button data-i="${i}" aria-pressed="${i===v.intensity}"><span style="background:${css(s)}${s.rim?";box-shadow:inset 0 0 0 1px hsl(205 26% 80% / .5)":""}"></span></button>`;

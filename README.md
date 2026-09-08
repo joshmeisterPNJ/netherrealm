@@ -2,15 +2,15 @@
 
 Electronic music venues in London, Paris, Berlin and Amsterdam — as living organisms.
 Tap a city and its tentacles push the others out, splitting into venue bubbles.
-Bubble **size** = capacity. Bubble **darkness** = intensity.
+Bubble **size** = capacity. Bubble **darkness** = how far from commercial it sits —
+light is commercial, dark is niche or industrial.
 
 ## Editing the data
 
 Everything lives in two files. Change them, rebuild, done.
 
 - `data/cities.json` — one entry per city: hue, saturation, and the `lightLo` → `lightHi`
-  ramp that maps intensity 1–5 onto light → dark. `rim: true` gives a cold edge light
-  (Berlin needs it, being black on black).
+  ramp. `rim: true` gives a cold edge light (Berlin needs it, being black on black).
 - `data/venues.json` — one flat object per venue:
 
 ```json
