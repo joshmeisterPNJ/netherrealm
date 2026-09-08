@@ -39,6 +39,25 @@ body{
   border:1px solid var(--warn);margin-left:6px;vertical-align:middle;opacity:.75}
 .lbl.dim{opacity:.18;transition:opacity .3s}
 @media (max-width:640px){ .lbl-ven .a{display:none} .lbl-ven .n{font-size:11.5px} }
+.lbl-core{text-align:center}
+.lbl-core .n{font-family:var(--disp);font-variation-settings:"wdth" 106,"wght" 700;
+  font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);
+  text-shadow:0 1px 12px #000}
+.lbl-core .c{font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-faint);margin-top:5px}
+@media (max-width:640px){
+  .lbl-core .n{font-size:10px;letter-spacing:.1em;font-variation-settings:"wdth" 92,"wght" 700}
+  .lbl-core .c{display:none}
+}
+.lbl-ven.is-hot .n{color:#fff}
+.lbl-ven.is-hot .a{color:var(--ink-dim)}
+.dist{display:flex;align-items:flex-end;gap:6px;height:92px}
+.dcol{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px}
+.dbar{width:100%;border-radius:1px}
+.dn{font-family:var(--mono);font-size:11px;color:var(--ink);font-variant-numeric:tabular-nums}
+.dk{font-family:var(--mono);font-size:8.5px;color:var(--ink-faint)}
+.dlegend{display:flex;justify-content:space-between;margin-top:8px;
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint)}
 
 /* ---------- chrome ---------- */
 #top{position:fixed;top:0;left:0;right:0;padding:calc(16px + env(safe-area-inset-top)) calc(18px + env(safe-area-inset-right)) 16px calc(18px + env(safe-area-inset-left));display:flex;align-items:flex-start;
@@ -348,7 +367,7 @@ function layoutCity(){
 
   const core = bodies.find(b=>b.kind==="core") || mkBody({kind:"core", id:"core:"+c});
   core.kind="core"; core.id="core:"+c;
-  core.tx=cx; core.ty=cy; core.tr = Math.min(fieldW,H)*0.072;
+  core.tx=cx; core.ty=cy; core.tr = Math.max(46, Math.min(fieldW,H)*0.086);
   core.col = shade(c, 3.6); core.ta=1; core.tether=null;
 
   const keep = new Map(bodies.filter(b=>b.kind==="venue").map(b=>[b.id,b]));
@@ -397,6 +416,7 @@ function step(dt){
     b.x += b.vx; b.y += b.vy;
     b.r += (b.tr - b.r)*0.13;
     b.alpha += (b.ta - b.alpha)*0.10;
+    b.hov = (b.hov||0) + ((hoverId===b.id?1:0) - (b.hov||0))*0.18;
   }
   // repulsion — only among venue bubbles, keeps the cluster jostling
   for(let i=0;i<bodies.length;i++){
@@ -462,15 +482,15 @@ function tentacle(from,to,t,col,alpha){
 
 function paintBody(b,t){
   if(b.alpha<0.01 || b.r<0.5) return;
-  const k = b.col, A = b.alpha;
+  const k = b.col, A = b.alpha, hs = 1 + 0.055*(b.hov||0);
 
   // outer glow
   ctx.save();
   ctx.globalCompositeOperation = "lighter";
-  const gr = b.r*2.9;
+  const gr = b.r*hs*2.9;
   const g = ctx.createRadialGradient(b.x,b.y,b.r*0.3,b.x,b.y,gr);
   const gl = Math.min(72, k.l+26);
-  g.addColorStop(0, `hsl(${k.h} ${k.s}% ${gl}% / ${0.36*A})`);
+  g.addColorStop(0, `hsl(${k.h} ${k.s}% ${gl}% / ${(0.36+0.30*(b.hov||0))*A})`);
   g.addColorStop(0.45, `hsl(${k.h} ${k.s}% ${gl}% / ${0.09*A})`);
   g.addColorStop(1, `hsl(${k.h} ${k.s}% ${gl}% / 0)`);
   ctx.fillStyle=g; ctx.beginPath(); ctx.arc(b.x,b.y,gr,0,7); ctx.fill();
@@ -478,19 +498,19 @@ function paintBody(b,t){
 
   // body — volumetric fill
   ctx.save();
-  blob(b,t);
-  const off = b.r*0.34;
-  const f = ctx.createRadialGradient(b.x-off, b.y-off, b.r*0.08, b.x, b.y, b.r*1.22);
+  blob(b,t,hs);
+  const off = b.r*hs*0.34;
+  const f = ctx.createRadialGradient(b.x-off, b.y-off, b.r*hs*0.08, b.x, b.y, b.r*hs*1.22);
   f.addColorStop(0, `hsl(${k.h} ${Math.min(100,k.s*1.05)}% ${Math.min(90,k.l+25)}% / ${A})`);
   f.addColorStop(0.55, `hsl(${k.h} ${k.s}% ${k.l}% / ${A})`);
   f.addColorStop(1, `hsl(${k.h} ${k.s*0.9}% ${Math.max(3,k.l-13)}% / ${A})`);
   ctx.fillStyle=f; ctx.fill();
 
   // rim light — carries Berlin, and edges everything else
-  ctx.lineWidth = Math.max(1, b.r*0.035);
+  ctx.lineWidth = Math.max(1, b.r*hs*0.035) * (1 + 0.6*(b.hov||0));
   ctx.strokeStyle = k.rim
-    ? `hsl(205 26% 84% / ${0.60*A})`
-    : `hsl(${k.h} ${Math.min(100,k.s+8)}% ${Math.min(90,k.l+34)}% / ${0.42*A})`;
+    ? `hsl(205 26% 88% / ${(0.60+0.35*(b.hov||0))*A})`
+    : `hsl(${k.h} ${Math.min(100,k.s+8)}% ${Math.min(92,k.l+34+10*(b.hov||0))}% / ${(0.42+0.45*(b.hov||0))*A})`;
   ctx.stroke();
   ctx.restore();
 
@@ -500,7 +520,7 @@ function paintBody(b,t){
     ctx.setLineDash([2, 5]);
     ctx.lineWidth = 1;
     ctx.strokeStyle = `hsl(45 60% 62% / ${0.34*A})`;
-    ctx.beginPath(); ctx.arc(b.x,b.y,b.r+7,0,7); ctx.stroke();
+    ctx.beginPath(); ctx.arc(b.x,b.y,b.r*hs+7,0,7); ctx.stroke();
     ctx.restore();
   }
   if(b.closed){
@@ -508,16 +528,37 @@ function paintBody(b,t){
     ctx.setLineDash([1, 4]);
     ctx.lineWidth = 1;
     ctx.strokeStyle = `hsl(0 0% 60% / ${0.30*A})`;
-    ctx.beginPath(); ctx.arc(b.x,b.y,b.r+6,0,7); ctx.stroke();
+    ctx.beginPath(); ctx.arc(b.x,b.y,b.r*hs+6,0,7); ctx.stroke();
     ctx.restore();
   }
   if(activeVenue===b.id){
     ctx.save();
     ctx.lineWidth = 1.5;
     ctx.strokeStyle = `hsl(0 0% 100% / ${0.85*A})`;
-    ctx.beginPath(); ctx.arc(b.x,b.y,b.r+11,0,7); ctx.stroke();
+    ctx.beginPath(); ctx.arc(b.x,b.y,b.r*hs+11,0,7); ctx.stroke();
     ctx.restore();
   }
+}
+
+function paintCore(b,t){
+  if(b.alpha<0.01) return;
+  const k=b.col, A=b.alpha, R=b.r*(1+0.04*(b.hov||0));
+  ctx.save();
+  // barely-there interior, so it reads as an opening rather than a hole
+  const f=ctx.createRadialGradient(b.x,b.y,0,b.x,b.y,R);
+  f.addColorStop(0, cssA(k,0.15*A)); f.addColorStop(1, cssA(k,0.02*A));
+  ctx.beginPath(); ctx.arc(b.x,b.y,R,0,7); ctx.fillStyle=f; ctx.fill();
+  // outer ring
+  ctx.lineWidth=1.25*(1+0.5*(b.hov||0));
+  ctx.strokeStyle=`hsl(${k.h} ${Math.min(90,k.s+10)}% ${k.rim?80:68}% / ${(0.52+0.30*(b.hov||0))*A})`;
+  ctx.stroke();
+  // slow inner dial - marks it as the hub, not a venue
+  ctx.beginPath(); ctx.arc(b.x,b.y,R*0.80,0,7);
+  ctx.setLineDash([1.5, 7]); ctx.lineDashOffset = REDUCED?0:-t*0.006;
+  ctx.lineWidth=1;
+  ctx.strokeStyle=`hsl(${k.h} ${Math.min(80,k.s)}% ${k.rim?72:64}% / ${0.34*A})`;
+  ctx.stroke();
+  ctx.restore();
 }
 
 let hoverId=null, last=0;
@@ -533,11 +574,19 @@ function frame(t){
   ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
 
   const core = bodies.find(b=>b.kind==="core");
-  if(core) for(const b of bodies) if(b.tether && b.alpha>0.02) tentacle(core,b,t,b.col,b.alpha);
+  if(core) for(const b of bodies){
+    if(!b.tether || b.alpha<=0.02) continue;
+    const dx=b.x-core.x, dy=b.y-core.y, d=Math.hypot(dx,dy)||1;
+    const mouth={ x:core.x+dx/d*core.r*0.94, y:core.y+dy/d*core.r*0.94, r:core.r*0.42, ph:core.ph };
+    tentacle(mouth,b,t,b.col,b.alpha*(1+0.9*(b.hov||0)));
+  }
 
-  for(const b of bodies) if(b.kind!=="venue" && b.kind!=="core") paintBody(b,t);
-  if(core) paintBody(core,t);
-  for(const b of bodies) if(b.kind==="venue") paintBody(b,t);
+  for(const b of bodies) if(b.kind==="city") paintBody(b,t);
+  if(core) paintCore(core,t);
+  // venues paint least-hovered first, so the hovered one always sits on top
+  const vs = bodies.filter(b=>b.kind==="venue")
+    .sort((p,q)=> ((p.hov||0)-(q.hov||0)) || (q.r-p.r));
+  for(const b of vs) paintBody(b,t);
 
   positionLabels();
 }
@@ -547,12 +596,16 @@ const lmap = new Map();
 function syncLabels(){
   const want = new Set();
   for(const b of bodies){
-    if(b.kind==="core") continue;
     if(b.kind==="city" && view==="city") continue;
     want.add(b.id);
     if(lmap.has(b.id)) continue;
     const el = document.createElement("div");
-    if(b.kind==="city"){
+    if(b.kind==="core"){
+      el.className="lbl lbl-core";
+      el.innerHTML = `<div class="n"></div><div class="c"></div>`;
+      el.querySelector(".n").textContent = CITIES[activeCity].name;
+      el.querySelector(".c").textContent = byCity(activeCity).length + " venues";
+    }else if(b.kind==="city"){
       el.className="lbl lbl-city";
       el.innerHTML = `<div class="n"></div><div class="c"></div>`;
       el.querySelector(".n").textContent = CITIES[b.id].name;
@@ -564,18 +617,58 @@ function syncLabels(){
       el.querySelector(".a").textContent = b.closed ? "closed" : (b.v.area||"");
     }
     labelsEl.appendChild(el); lmap.set(b.id, el);
+    el._w = el.offsetWidth; el._h = el.offsetHeight; el._vis = 0;   // measured once, never per frame
   }
   for(const [id,el] of lmap) if(!want.has(id)){ el.remove(); lmap.delete(id); }
 }
+
+const rectsHit = (a,b) => !(a.r < b.l || a.l > b.r || a.bt < b.t || a.t > b.bt);
+function rectHitsCircle(r, cx, cy, rad){
+  const nx = Math.max(r.l, Math.min(cx, r.r));
+  const ny = Math.max(r.t, Math.min(cy, r.bt));
+  return Math.hypot(cx-nx, cy-ny) < rad;
+}
+
 function positionLabels(){
+  const items = [];
   for(const b of bodies){
     const el = lmap.get(b.id); if(!el) continue;
     const a = b.alpha;
-    if(a<0.03){ el.style.transform="translate3d(-9999px,0,0)"; continue; }
-    const y = b.y + b.r + (b.kind==="city" ? 18 : 11);
-    el.style.transform = `translate3d(${(b.x)|0}px,${y|0}px,0) translate(-50%,0)`;
-    el.style.opacity = (b.closed?0.45:1) * a;
+    if(a < 0.03){ el.style.transform="translate3d(-9999px,0,0)"; el.style.opacity=0; continue; }
+    const R = b.r * (1 + 0.055*(b.hov||0));
+    if(b.kind === "core"){                       // sits inside the ring, always visible
+      el.style.transform = `translate3d(${b.x|0}px,${b.y|0}px,0) translate(-50%,-50%)`;
+      el.style.opacity = a;
+      continue;
+    }
+    const y = b.y + R + (b.kind==="city" ? 18 : 11);
+    const w = el._w||90, h = el._h||18;
+    el.style.transform = `translate3d(${b.x|0}px,${y|0}px,0) translate(-50%,0)`;
+    items.push({ b, el, R, a, rect:{ l:b.x-w/2, r:b.x+w/2, t:y, bt:y+h } });
   }
+
+  // hovered first, then the biggest rooms — a name never sits on someone else's bubble
+  items.sort((p,q)=> ((q.b.hov||0)-(p.b.hov||0)) || (q.R-p.R));
+  const taken = [];
+  for(const it of items){
+    let show = true;
+    for(const t of taken) if(rectsHit(it.rect, t)){ show = false; break; }
+    if(show) for(const o of items){
+      if(o === it) continue;
+      const higher = (o.b.hov||0) > (it.b.hov||0) || (o.R > it.R && (o.b.hov||0) >= (it.b.hov||0));
+      if(higher && rectHitsCircle(it.rect, o.b.x, o.b.y, o.R)){ show = false; break; }
+    }
+    if(show) taken.push(it.rect);
+    const target = show ? 1 : 0;
+    el_ease(it.el, target);
+    it.el.style.opacity = it.el._vis * (it.b.closed?0.45:1) * it.a;
+    it.el.style.zIndex = (it.b.hov||0) > 0.4 ? 3 : 1;
+    it.el.classList.toggle("is-hot", (it.b.hov||0) > 0.4);
+  }
+}
+function el_ease(el, target){
+  if(el._vis === undefined) el._vis = target;
+  el._vis += (target - el._vis) * 0.22;
 }
 
 /* ---------------- interaction ---------------- */
@@ -583,9 +676,8 @@ function hit(px,py){
   for(let i=bodies.length-1;i>=0;i--){
     const b=bodies[i];
     if(b.alpha<0.35) continue;
-    if(b.kind==="core") continue;
     if(view==="cities" && b.kind!=="city") continue;
-    if(view==="city" && b.kind!=="venue") continue;
+    if(view==="city" && b.kind!=="venue" && b.kind!=="core") continue;
     if(Math.hypot(px-b.x,py-b.y) <= b.r+10) return b;
   }
   return null;
@@ -615,13 +707,15 @@ cv.addEventListener("pointerup", e=>{
     const b=hit(e.clientX,e.clientY);
     if(b && b.kind==="city") openCity(b.id);
     else if(b && b.kind==="venue") openVenue(b.id);
+    else if(b && b.kind==="core") openCityInfo();
     else closePanel();
   }
   down=null;
 });
 cv.addEventListener("pointercancel", ()=>{ down=null; cv.classList.remove("grabbing"); });
+cv.addEventListener("pointerleave", ()=>{ hoverId=null; });
 addEventListener("keydown", e=>{
-  if(e.key==="Escape"){ if(activeVenue) closePanel(); else if(view==="city") goHome(); }
+  if(e.key==="Escape"){ if(panel.classList.contains("on")) closePanel(); else if(view==="city") goHome(); }
 });
 
 /* ---------------- views ---------------- */
@@ -637,7 +731,7 @@ function setCityVars(id){
 }
 
 function openCity(id){
-  activeCity=id; view="city"; activeVenue=null;
+  activeCity=id; view="city"; activeVenue=null; hoverId=null;
   setCityVars(id);
   layout(); syncLabels();
   backEl.classList.add("on"); legendEl.classList.add("on"); toolsEl.classList.add("on");
@@ -647,7 +741,7 @@ function openCity(id){
   history.replaceState(null,"","#"+id);
 }
 function goHome(){
-  view="cities"; activeCity=null; activeVenue=null;
+  view="cities"; activeCity=null; activeVenue=null; hoverId=null;
   setCityVars(null);
   layout(); syncLabels();
   backEl.classList.remove("on"); legendEl.classList.remove("on"); toolsEl.classList.remove("on");
@@ -671,12 +765,61 @@ function buildRamp(id){
 const panel=document.getElementById("panel"), pscroll=document.getElementById("pscroll");
 document.getElementById("pclose").onclick=()=>closePanel();
 function closePanel(){
-  if(!activeVenue) { panel.classList.remove("on"); panel.setAttribute("aria-hidden","true"); return; }
-  activeVenue=null; panel.classList.remove("on"); panel.setAttribute("aria-hidden","true");
-  if(view==="city") layout();
+  const had = activeVenue;
+  activeVenue = null;
+  panel.classList.remove("on"); panel.setAttribute("aria-hidden","true");
+  if(had && view==="city") layout();
 }
 const esc = s => String(s==null?"":s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 const INTENSITY_WORD = ["","light","easy","mid","heavy","brutal"];
+
+function openCityInfo(){
+  const c = CITIES[activeCity];
+  const open = byCity(activeCity), gone = closedIn(activeCity);
+  const dist = [1,2,3,4,5].map(i => open.filter(v=>(v.intensity||3)===i).length);
+  const peak = Math.max(1, ...dist);
+  activeVenue = null;
+
+  pscroll.innerHTML = `
+    <div class="p-eyebrow">City · ${esc(c.colourName)}</div>
+    <h1 class="p-name">${esc(c.name)}</h1>
+    ${c.blurb ? `<p class="p-line">${esc(c.blurb)}</p>` : ""}
+
+    <div class="p-h">How this city sits</div>
+    <div class="dist">
+      ${dist.map((n,i)=>{
+        const s = shade(activeCity, i+1);
+        return `<div class="dcol">
+          <div class="dbar" style="height:${Math.round(10 + (n/peak)*64)}px;background:${css(s)}${s.rim?";box-shadow:inset 0 0 0 1px hsl(205 26% 80% / .55)":""}"></div>
+          <div class="dn">${n}</div>
+          <div class="dk">${i+1}</div>
+        </div>`;
+      }).join("")}
+    </div>
+    <div class="dlegend"><span>light</span><span>heavy</span></div>
+
+    <dl class="p-facts">
+      <div><dt>Venues</dt><dd>${open.length}</dd></div>
+      <div><dt>Local time</dt><dd id="ci-clock">—</dd></div>
+      <div><dt>Colour</dt><dd style="text-transform:capitalize">${esc(c.colourName)}</dd></div>
+    </dl>
+
+    ${gone.length ? `<div class="p-h">Gone</div>
+      <ul class="nights">${gone.map(v=>`<li>${esc(v.name)}${v.area?" — "+esc(v.area):""}</li>`).join("")}</ul>` : ""}
+
+    <div class="erow" style="margin-top:26px">
+      <button class="btn-ghost" id="ci-back">← All cities</button>
+    </div>`;
+
+  const cl = document.getElementById("ci-clock");
+  if(cl) cl.textContent = new Intl.DateTimeFormat("en-GB",
+    {timeZone:c.tz, hour:"2-digit", minute:"2-digit", hour12:false}).format(new Date());
+  document.getElementById("ci-back").onclick = goHome;
+
+  panel.classList.add("on"); panel.setAttribute("aria-hidden","false");
+  pscroll.scrollTop = 0;
+  hintEl.style.opacity = "0";
+}
 
 function openVenue(id){
   const v = VENUES.find(x=>x.id===id); if(!v) return;
