@@ -406,22 +406,28 @@ function layoutCity(){
 
   // golden-angle spiral over an ellipse — wide screens have room sideways, not down
   const GA = Math.PI*(3-Math.sqrt(5));
-  const inner = core.tr*1.75;
+  const inner = core.tr*1.25;
   const grow = Math.min(1.34, 2 - dens);
   const base = Math.min(fieldW,H)*(wide?0.30:0.325)*grow;
-  const rx = Math.max(150, Math.min(fieldW/2 - 90, inner + base*(wide?1.55:1.02)));
-  const ry = Math.max(130, Math.min(H/2 - 104,     inner + base));
-  const u0 = inner/Math.max(rx,ry);
+  const rx = Math.max(170, Math.min(fieldW/2 - 90, inner + base*(wide?1.55:1.02)));
+  const ry = Math.max(150, Math.min(H/2 - 104,     inner + base));
 
   list.forEach((v,i)=>{
-    const b = keep.get(v.id) || mkBody({kind:"venue", id:v.id, x:core.x, y:core.y, r:1});
+    const tr = rOf(v);
+    const a  = i*GA - Math.PI/2;
+    const ca = Math.cos(a), sa = Math.sin(a);
+    // true polar radius: the ellipse edge in THIS direction, not a shared fraction of the
+    // long axis - that was letting near-vertical venues settle on top of the hub
+    const rOut = 1/Math.hypot(ca/rx, sa/ry);
+    const rIn  = inner + tr + 14;
+    const rad  = rIn + Math.sqrt((i+0.72)/list.length) * Math.max(46, rOut - rIn);
+    // new bubbles emerge from the rim of the hub, not its middle
+    const b = keep.get(v.id) || mkBody({kind:"venue", id:v.id,
+      x: core.x + ca*core.tr, y: core.y + sa*core.tr, r:1});
     b.kind="venue"; b.id=v.id; b.v=v;
-    const t = (i+0.72)/list.length;
-    const u = u0 + Math.sqrt(t)*(1-u0);
-    const a = i*GA - Math.PI/2;
-    b.tx = cx + Math.cos(a)*u*rx;
-    b.ty = cy + Math.sin(a)*u*ry;
-    b.tr = rOf(v);
+    b.tx = cx + ca*rad;
+    b.ty = cy + sa*rad;
+    b.tr = tr;
     b.col = shade(c, v.intensity);
     b.closed = v.status==="closed";
     b.unsure = v.status==="unsure";
@@ -462,11 +468,12 @@ function step(dt){
       const b=bodies[j]; if(b.kind==="city") continue;
       const dx=b.x-a.x, dy=b.y-a.y;
       let d=Math.hypot(dx,dy); if(d<0.01) d=0.01;
-      const min=(a.r+b.r)*1.32;
+      const coreish = a.kind==="core" || b.kind==="core";
+      const min = coreish ? (a.r+b.r+22) : (a.r+b.r)*1.32;
       if(d<min){
-        const push=(min-d)/min*1.9;
+        const push=(min-d)/min*(coreish?2.6:1.9);
         const ux=dx/d, uy=dy/d;
-        const ma = a.kind==="core"?0.15:1, mb = b.kind==="core"?0.15:1;
+        const ma = a.kind==="core"?0.02:1, mb = b.kind==="core"?0.02:1;
         a.vx-=ux*push*ma; a.vy-=uy*push*ma;
         b.vx+=ux*push*mb; b.vy+=uy*push*mb;
       }
