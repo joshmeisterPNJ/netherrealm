@@ -220,12 +220,22 @@ body{
 #esave{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);min-height:12px}
 
 /* city toolbar */
-#tools{position:fixed;left:calc(18px + env(safe-area-inset-left));bottom:calc(24px + env(safe-area-inset-bottom));z-index:6;display:none;gap:8px}
+#tools{position:fixed;left:calc(18px + env(safe-area-inset-left));bottom:calc(24px + env(safe-area-inset-bottom));
+  z-index:6;display:none;gap:8px;flex-wrap:wrap;max-width:calc(100vw - 36px);align-items:center}
 #tools.on{display:flex}
 #tools button{background:#0d0d10;border:1px solid var(--line);color:var(--ink-dim);cursor:pointer;
   padding:10px 13px;font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase}
 #tools button:hover{color:var(--ink);border-color:#3a3a48}
+#tools #btnOpen{display:inline-flex;align-items:center;gap:8px;padding:11px 15px;
+  color:var(--ink);border-color:#33333f}
+#tools #btnOpen .live{width:7px;height:7px;border-radius:50%;background:var(--ink-faint);flex:none}
+#tools #btnOpen.has-open .live{background:hsl(140 60% 55%);
+  box-shadow:0 0 0 3px hsl(140 60% 55% / .22)}
+#tools #btnOpen:hover{border-color:var(--city)}
 #tools #btnOpen[aria-pressed=true]{background:var(--city);color:#08080a;font-weight:500;border-color:var(--city)}
+#tools #btnOpen[aria-pressed=true] .live{background:#08080a;box-shadow:none}
+#tools .admin{opacity:.5}
+#tools .admin:hover{opacity:1}
 #views{display:inline-flex;border:1px solid var(--line);background:#0d0d10}
 #views button{border:0;background:none;padding:10px 14px}
 #views button[aria-pressed=true]{background:var(--city);color:#08080a;font-weight:500}
@@ -265,9 +275,9 @@ body{
     <button id="btnCluster" aria-pressed="true">Cluster</button>
     <button id="btnMap" aria-pressed="false">Map</button>
   </span>
-  <button id="btnOpen" aria-pressed="false">Open now</button>
-  <button id="btnAdd">+ Venue</button>
-  <button id="btnExport">Export JSON</button>
+  <button id="btnOpen" aria-pressed="false"><span class="live"></span>Open now</button>
+  <button id="btnAdd" class="admin">+ Venue</button>
+  <button id="btnExport" class="admin">Export JSON</button>
 </div>
 
 <div id="hint">Tap a city</div>
@@ -650,7 +660,13 @@ function applyOpenNow(){
       b.ta = 0.09; shut++;
     }
   }
+  if(!openNow){
+    const c2 = cityClock(CITIES[activeCity].tz);
+    const any = VENUES.some(v=>v.city===activeCity && venueState(v,c2).state==="open");
+    document.getElementById("btnOpen").classList.toggle("has-open", any);
+  }
   if(openNow){
+    document.getElementById("btnOpen").classList.toggle("has-open", open>0);
     hintEl.textContent = open+" open"+(closing?" ("+closing+" closing soon)":"")
       +" · "+unknown+" check listings · "+shut+" shut";
     hintEl.style.opacity = "";
