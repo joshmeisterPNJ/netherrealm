@@ -247,6 +247,16 @@ body{
   transition:opacity .25s,transform .25s}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 
+/* narrow screens: the controls wrap, so lift the count line clear of them
+   and move the intensity ramp up under the clock */
+/* the toolbar is bottom-left and the hint is centred, so they collide on any
+   screen narrower than about 1230px - lift the hint whenever the toolbar shows */
+#tools.on ~ #hint{bottom:calc(96px + env(safe-area-inset-bottom))}
+#hint{max-width:calc(100vw - 36px);text-align:center;line-height:1.6}
+@media (max-width:900px){
+  #hint{font-size:9px;letter-spacing:.14em}
+  #legend{top:calc(66px + env(safe-area-inset-top));bottom:auto}
+}
 :focus-visible{outline:2px solid var(--city);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){*{transition-duration:.01ms !important}}
 </style>
@@ -596,6 +606,7 @@ function paintLeaders(){
   ctx.save();
   for(const b of bodies){
     if(b.kind!=="venue" || b.alpha<0.05 || b.ax==null || !(b.lead>2)) continue;
+    if(openNow && b.ost==="closed") continue;
     const ax=b.ax+pan.x, ay=b.ay+pan.y;
     ctx.beginPath();
     ctx.moveTo(b.x, b.y); ctx.lineTo(ax, ay);
@@ -657,7 +668,7 @@ function applyOpenNow(){
     } else if(st.state==="unknown"){
       b.ta = 0.5; unknown++;
     } else {
-      b.ta = 0.09; shut++;
+      b.ta = 0.035; shut++;
     }
   }
   if(!openNow){
@@ -777,17 +788,22 @@ function paintBody(b,t){
   if(b.alpha<0.01 || b.r<0.5) return;
   const k = b.col, A = b.alpha, hs = 1 + 0.055*(b.hov||0);
 
+  const shut = openNow && b.ost==="closed";
+  const lit  = openNow && b.ost==="open";
+
   // outer glow
+  if(!shut){
   ctx.save();
   ctx.globalCompositeOperation = "lighter";
-  const gr = b.r*hs*(mode==="map"&&view==="city"?1.9:2.9);
+  const gr = b.r*hs*(mode==="map"&&view==="city"?1.9:2.9)*(lit?1.25:1);
   const g = ctx.createRadialGradient(b.x,b.y,b.r*0.3,b.x,b.y,gr);
   const gl = Math.min(72, k.l+26);
-  g.addColorStop(0, `hsl(${k.h} ${k.s}% ${gl}% / ${((mode==="map"&&view==="city"?0.22:0.36)+0.30*(b.hov||0))*A})`);
+  g.addColorStop(0, `hsl(${k.h} ${k.s}% ${gl}% / ${((mode==="map"&&view==="city"?0.22:0.36)+(lit?0.26:0)+0.30*(b.hov||0))*A})`);
   g.addColorStop(0.45, `hsl(${k.h} ${k.s}% ${gl}% / ${0.09*A})`);
   g.addColorStop(1, `hsl(${k.h} ${k.s}% ${gl}% / 0)`);
   ctx.fillStyle=g; ctx.beginPath(); ctx.arc(b.x,b.y,gr,0,7); ctx.fill();
   ctx.restore();
+  }
 
   // body — volumetric fill
   ctx.save();
@@ -810,7 +826,7 @@ function paintBody(b,t){
   paintDrain(b, t, hs);
 
   // draft ring
-  if(b.draft && !b.closed){
+  if(b.draft && !b.closed && !shut){
     ctx.save();
     ctx.setLineDash([2, 5]);
     ctx.lineWidth = 1;
@@ -876,6 +892,7 @@ function frame(t){
     if(!b.tether || b.alpha<=0.02) continue;
     const dx=b.x-core.x, dy=b.y-core.y, d=Math.hypot(dx,dy)||1;
     const mouth={ x:core.x+dx/d*core.r*0.94, y:core.y+dy/d*core.r*0.94, r:core.r*0.42, ph:core.ph };
+    if(openNow && b.ost==="closed") continue;
     tentacle(mouth,b,t,b.col,b.alpha*(1+0.9*(b.hov||0)));
   }
 
@@ -947,7 +964,8 @@ function positionLabels(){
   }
 
   // hovered first, then the biggest rooms — a name never sits on someone else's bubble
-  items.sort((p,q)=> ((q.b.hov||0)-(p.b.hov||0)) || (q.R-p.R));
+  const rank = b => openNow ? (b.ost==="open" ? 2 : b.ost==="unknown" ? 1 : 0) : 1;
+  items.sort((p,q)=> ((q.b.hov||0)-(p.b.hov||0)) || (rank(q.b)-rank(p.b)) || (q.R-p.R));
   const taken = [];
   for(const it of items){
     let show = true;
@@ -957,6 +975,7 @@ function positionLabels(){
       const higher = (o.b.hov||0) > (it.b.hov||0) || (o.R > it.R && (o.b.hov||0) >= (it.b.hov||0));
       if(higher && rectHitsCircle(it.rect, o.b.x, o.b.y, o.R)){ show = false; break; }
     }
+    if(openNow && it.b.ost==="closed") show = false;   // shut venues are not labelled
     if(show) taken.push(it.rect);
     const target = show ? 1 : 0;
     el_ease(it.el, target);
@@ -976,6 +995,7 @@ function hit(px,py){
   for(let i=bodies.length-1;i>=0;i--){
     const b=bodies[i];
     if(b.alpha<0.35) continue;
+    if(openNow && b.ost==="closed") continue;      // shut: not a target
     if(view==="cities" && b.kind!=="city") continue;
     if(view==="city" && b.kind!=="venue" && b.kind!=="core") continue;
     if(Math.hypot(px-b.x,py-b.y) <= b.r+10) return b;
