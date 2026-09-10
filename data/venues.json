@@ -2068,5 +2068,38 @@
       "map": "https://www.google.com/maps/search/Palais+de+Tokyo+13+Avenue+du+Pr%C3%A9sident+Wilson+Paris"
     },
     "status": "open"
+  },
+  {
+    "id": "zeralda",
+    "city": "paris",
+    "name": "Le Zeralda",
+    "area": "Bagnolet — 125 rue Gallieni",
+    "intensity": 5,
+    "cap": 350,
+    "hours": "Concerts, then afters",
+    "draft": false,
+    "line": "The most counter-cultural corner of the city, newly opened past the Porte.",
+    "note": "Opened September 2026 at Porte de Bagnolet, programming the quintessence of the most counter-cultural angle of music — experimental electro, noise, new wave and punk. Runs as a hybrid: concerts proper, then afters. L-Acoustics system. Home to afterparties for the Parisian techno-goth night Khaos.",
+    "tags": [
+      "experimental",
+      "noise",
+      "punk",
+      "newwave",
+      "industrial",
+      "afters",
+      "soundsystem",
+      "new"
+    ],
+    "rooms": [],
+    "nights": [
+      "Concerts, with afters attached",
+      "Khaos afterparties"
+    ],
+    "links": {
+      "ra": "https://ra.co/search?q=zeralda",
+      "map": "https://www.google.com/maps/search/125+rue+Gallieni+Bagnolet",
+      "press": "https://www.tsugi.fr/le-zeralda-une-nouvelle-salle-de-concert-a-la-programmation-defricheuse-vient-douvrir-a-bagnolet/"
+    },
+    "status": "open"
   }
 ]
