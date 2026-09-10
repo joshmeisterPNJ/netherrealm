@@ -549,7 +549,9 @@ function layoutMap(){
   const fieldW = W - panelW;
   buildProjection(c, fieldW, H);
 
-  const list = byCity(c).concat(closedIn(c)).filter(v=>v.lat!=null);
+  const full   = byCity(c).concat(closedIn(c));
+  const list   = full.filter(v=>v.lat!=null);
+  const nomads = full.filter(v=>v.lat==null);
   const core = bodies.find(b=>b.kind==="core");
   if(core){ core.ta = 0; core.tether = null; }
 
@@ -560,8 +562,9 @@ function layoutMap(){
   list.forEach(v=>{
     const b = keep.get(v.id) || mkBody({kind:"venue", id:v.id, r:1});
     b.kind="venue"; b.id=v.id; b.v=v;
+    b.nomad = false;
     b.ax = projX(v.lon); b.ay = projY(v.lat);          // the true point, never moves
-    b.tr = Math.max(9, rOfMap(v, list)) ;
+    b.tr = Math.max(9, rOfMap(v, full)) ;
     b.col = shade(c, v.intensity);
     b.closed = v.status==="closed";
     b.draft = !!v.draft;
@@ -595,6 +598,22 @@ function layoutMap(){
     if(!moved) break;
   }
   for(const b of placed){ b.tx = b.mx + pan.x; b.ty = b.my + pan.y; b.lead = Math.hypot(b.mx-b.ax, b.my-b.ay); }
+
+  // no fixed address: parked along the foot of the map, still tappable
+  nomads.forEach((v,i)=>{
+    const b = keep.get(v.id) || mkBody({kind:"venue", id:v.id, r:1});
+    b.kind="venue"; b.id=v.id; b.v=v;
+    b.ax = null; b.ay = null; b.lead = 0; b.nomad = true;
+    b.tr = Math.max(9, rOfMap(v, full));
+    b.col = shade(c, v.intensity);
+    b.closed = v.status==="closed";
+    b.draft = !!v.draft;
+    b.ta = b.closed ? .38 : 1;
+    b.tether = null;
+    b.tx = 46 + i*84 + pan.x;
+    b.ty = H - 150 + pan.y;
+    next.push(b);
+  });
 
   bodies.filter(b=>b.kind==="city").forEach(b=>{ b.ta=0; b.tether=null; next.push(b); });
   bodies = next;
@@ -1109,20 +1128,31 @@ function setCityVars(id){
 
 function openCity(id){
   activeCity=id; view="city"; activeVenue=null; hoverId=null;
+
+  // reset all view state BEFORE laying out, or the first layout uses the old mode
+  mode    = hasGeo(id) ? "map" : "cluster";
+  openNow = false;
+  timeAt  = null;
+  levels  = new Set([1,2,3,4,5]);
+  document.body.classList.toggle("mapmode", mode==="map");
+
   setCityVars(id);
   layout(); syncLabels();
+
   backEl.classList.add("on"); legendEl.classList.add("on"); toolsEl.classList.add("on");
-  hintEl.textContent="Tap a venue · drag to move the cluster";
+  hintEl.textContent = mode==="map"
+    ? "Lines point to the true address · drag to move"
+    : "Tap a venue · drag to move the cluster";
+  hintEl.style.opacity = "";
   buildRamp(id);
-  mode = "cluster";
-  openNow = false; timeAt = null; levels = new Set([1,2,3,4,5]);
+
   document.getElementById("timebar").classList.remove("on");
   document.getElementById("btnOpen").setAttribute("aria-pressed","false");
-  document.body.classList.remove("mapmode");
-  btnCluster.setAttribute("aria-pressed","true");
-  btnMap.setAttribute("aria-pressed","false");
+  btnCluster.setAttribute("aria-pressed", String(mode==="cluster"));
+  btnMap.setAttribute("aria-pressed", String(mode==="map"));
   btnMap.disabled = !hasGeo(id);
   btnMap.title = hasGeo(id) ? "" : "No coordinates for this city yet";
+
   closePanel(); tick();
   history.replaceState(null,"","#"+id);
 }
