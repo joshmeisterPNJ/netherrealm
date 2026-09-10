@@ -648,9 +648,9 @@ function applyOpenNow(){
       b.closing = st.left <= 60;
       b.ta = 1; open++; if(b.closing) closing++;
     } else if(st.state==="unknown"){
-      b.ta = 0.5; unknown++;
+      b.ta = 1; unknown++;                 // full brightness — dimming read as "closed-ish"
     } else {
-      b.ta = 0.035; shut++;
+      b.ta = 0; shut++;                    // gone
     }
   }
   if(!openNow){
@@ -666,24 +666,53 @@ function applyOpenNow(){
   }
 }
 
-// the drain: a venue empties as its night runs out
+// Time left is drawn by ADDING light to the charged portion, never by darkening.
+// An open venue is never dimmer than it is with the toggle off.
 function paintDrain(b, t, hs){
-  if(!openNow || b.fill==null || b.fill>=0.995) return;
-  const R = b.r*hs, top = b.y - R, h = R*2, y = top + h*(1-b.fill);
+  if(!openNow) return;
+
+  if(b.ost === "unknown"){                       // "check listings" — full brightness, marked
+    const R = b.r*hs;
+    ctx.save();
+    ctx.setLineDash([1, 4]);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = `hsl(${b.col.h} 30% 62% / ${0.5*b.alpha})`;
+    ctx.beginPath(); ctx.arc(b.x, b.y, R+5, 0, 7); ctx.stroke();
+    ctx.restore();
+    return;
+  }
+  if(b.ost !== "open" || b.fill == null) return;
+
+  const k = b.col, R = b.r*hs, top = b.y - R, h = R*2, y = top + h*(1-b.fill);
+  const amber = b.closing;
+
   ctx.save();
   blob(b, t, hs); ctx.clip();
-  ctx.fillStyle = "rgba(4,4,6,0.74)";
-  ctx.fillRect(b.x-R-2, top-2, R*2+4, (h*(1-b.fill))+2);
+  ctx.globalCompositeOperation = "lighter";
+  const g = ctx.createLinearGradient(0, y, 0, top + h);
+  if(amber){
+    g.addColorStop(0, "hsl(38 92% 58% / .50)");
+    g.addColorStop(1, "hsl(30 92% 50% / .20)");
+  }else{
+    g.addColorStop(0, `hsl(${k.h} ${Math.min(100,k.s+6)}% ${Math.min(74,k.l+20)}% / .52)`);
+    g.addColorStop(1, `hsl(${k.h} ${k.s}% ${Math.min(60,k.l+8)}% / .18)`);
+  }
+  ctx.fillStyle = g;
+  ctx.fillRect(b.x-R-2, y, R*2+4, h*b.fill + 2);
+  // the waterline
+  ctx.globalCompositeOperation = "source-over";
   ctx.beginPath(); ctx.moveTo(b.x-R-2, y); ctx.lineTo(b.x+R+2, y);
-  ctx.lineWidth = 1.3;
-  ctx.strokeStyle = b.closing ? "hsl(38 92% 62% / .95)" : cssA(b.col, 0.95);
+  ctx.lineWidth = 1.4;
+  ctx.strokeStyle = amber ? "hsl(38 96% 66% / .95)"
+                          : `hsl(${k.h} ${Math.min(100,k.s+10)}% ${Math.min(88,k.l+38)}% / .9)`;
   ctx.stroke();
   ctx.restore();
-  if(b.closing){
+
+  if(amber){
     ctx.save();
     ctx.beginPath(); ctx.arc(b.x, b.y, R+7, 0, 7);
-    ctx.lineWidth = 1.4;
-    const pulse = REDUCED ? .7 : .5 + .35*Math.sin(t*0.005);
+    ctx.lineWidth = 1.5;
+    const pulse = REDUCED ? .75 : .55 + .35*Math.sin(t*0.005);
     ctx.strokeStyle = `hsl(38 92% 62% / ${pulse*b.alpha})`;
     ctx.stroke();
     ctx.restore();
