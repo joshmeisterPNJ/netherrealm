@@ -51,7 +51,6 @@ body{
 }
 .mapmode .lbl-ven .a{display:none}
 .mapmode .lbl-ven .n{font-size:11.5px;font-variation-settings:"wdth" 92,"wght" 600}
-.lbl-ven.is-closing .n{color:hsl(38 92% 68%)}
 .lbl-ven.is-hot .n{color:#fff}
 .lbl-ven.is-hot .a{color:var(--ink-dim)}
 .dist{display:flex;align-items:flex-end;gap:6px;height:92px}
@@ -727,39 +726,23 @@ function paintDrain(b, t, hs){
   if(b.ost !== "open" || b.fill == null) return;
 
   const k = b.col, R = b.r*hs, top = b.y - R, h = R*2, y = top + h*(1-b.fill);
-  const amber = b.closing;
 
   ctx.save();
   blob(b, t, hs); ctx.clip();
   ctx.globalCompositeOperation = "lighter";
   const g = ctx.createLinearGradient(0, y, 0, top + h);
-  if(amber){
-    g.addColorStop(0, "hsl(38 92% 58% / .50)");
-    g.addColorStop(1, "hsl(30 92% 50% / .20)");
-  }else{
-    g.addColorStop(0, `hsl(${k.h} ${Math.min(100,k.s+6)}% ${Math.min(74,k.l+20)}% / .52)`);
-    g.addColorStop(1, `hsl(${k.h} ${k.s}% ${Math.min(60,k.l+8)}% / .18)`);
-  }
+  g.addColorStop(0, `hsl(${k.h} ${Math.min(100,k.s+6)}% ${Math.min(74,k.l+20)}% / .52)`);
+  g.addColorStop(1, `hsl(${k.h} ${k.s}% ${Math.min(60,k.l+8)}% / .18)`);
   ctx.fillStyle = g;
   ctx.fillRect(b.x-R-2, y, R*2+4, h*b.fill + 2);
   // the waterline
   ctx.globalCompositeOperation = "source-over";
   ctx.beginPath(); ctx.moveTo(b.x-R-2, y); ctx.lineTo(b.x+R+2, y);
   ctx.lineWidth = 1.4;
-  ctx.strokeStyle = amber ? "hsl(38 96% 66% / .95)"
-                          : `hsl(${k.h} ${Math.min(100,k.s+10)}% ${Math.min(88,k.l+38)}% / .9)`;
+  ctx.strokeStyle = `hsl(${k.h} ${Math.min(100,k.s+10)}% ${Math.min(88,k.l+38)}% / .9)`;
   ctx.stroke();
   ctx.restore();
 
-  if(amber){
-    ctx.save();
-    ctx.beginPath(); ctx.arc(b.x, b.y, R+7, 0, 7);
-    ctx.lineWidth = 1.5;
-    const pulse = REDUCED ? .75 : .55 + .35*Math.sin(t*0.005);
-    ctx.strokeStyle = `hsl(38 92% 62% / ${pulse*b.alpha})`;
-    ctx.stroke();
-    ctx.restore();
-  }
 }
 
 /* ---------------- physics ---------------- */
