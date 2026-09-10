@@ -9,7 +9,10 @@ const venues = JSON.parse(fs.readFileSync("data/venues.json", "utf8"));
 const geo    = JSON.parse(fs.readFileSync("data/geo.json", "utf8"));
 const tpl    = fs.readFileSync("src/app.html", "utf8");
 
-const app = tpl.replace("/*__DATA__*/", JSON.stringify({ cities, venues, geo }));
+const SHARE_BASE = "https://joshmeisterpnj.github.io/netherrealm/";
+const app = tpl
+  .replace("/*__DATA__*/", JSON.stringify({ cities, venues, geo }))
+  .replace("__SHARE_BASE__", SHARE_BASE);
 
 // ---- target 1: artifact fragment ----
 fs.mkdirSync("dist", { recursive: true });

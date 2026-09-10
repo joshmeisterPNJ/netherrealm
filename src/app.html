@@ -299,6 +299,7 @@ body{
     <button id="btnMap" aria-pressed="false">Map</button>
   </span>
   <button id="btnOpen" aria-pressed="false"><span class="live"></span>Open now</button>
+  <button id="btnShare" class="admin">Share view</button>
   <button id="btnAdd" class="admin">+ Venue</button>
   <button id="btnExport" class="admin">Export JSON</button>
 </div>
@@ -408,6 +409,9 @@ function layout(){
   if(view==="cities") layoutCities();
   else if(mode==="map" && hasGeo(activeCity)) layoutMap();
   else layoutCity();
+  // the layouts assign every venue a target alpha, which would wipe Open now
+  // and the intensity filter - so the filters always get the last word
+  if(view==="city" && activeCity) applyFilters();
 }
 
 function layoutCities(){
@@ -463,7 +467,7 @@ function layoutCity(){
   const grow = Math.min(1.34, 2 - dens);
   const base = Math.min(fieldW,H)*(wide?0.30:0.325)*grow;
   const rx = Math.max(170, Math.min(fieldW/2 - 90, inner + base*(wide?1.55:1.02)));
-  const ry = Math.max(150, Math.min(H/2 - 104,     inner + base));
+  const ry = Math.max(150, Math.min(H/2 - (openNow?152:104), inner + base));
 
   list.forEach((v,i)=>{
     const tr = rOf(v);
@@ -518,7 +522,7 @@ function buildProjection(cityId, fieldW, fieldH){
   const lat0=(latMin+latMax)/2, lon0=(lonMin+lonMax)/2;
   const kx = Math.cos(lat0*Math.PI/180);            // equirectangular, corrected for latitude
   const w = (lonMax-lonMin)*kx, h = (latMax-latMin);
-  const padX = fieldW*0.055 + 40, padY = fieldH*0.075 + 44;
+  const padX = fieldW*0.055 + 40, padY = fieldH*0.075 + (openNow?92:44);
   const k = Math.min((fieldW-padX*2)/w, (fieldH-padY*2)/h);
   PROJ = { k, kx, lat0, lon0, cx: fieldW/2, cy: fieldH/2 };
 }
@@ -1135,8 +1139,7 @@ function openCity(id){
   btnMap.disabled = !hasGeo(id);
   btnMap.title = hasGeo(id) ? "" : "No coordinates for this city yet";
 
-  closePanel(); tick();
-  history.replaceState(null,"","#"+id);
+  closePanel(); tick(); syncURL();
 }
 function goHome(){
   view="cities"; activeCity=null; activeVenue=null; hoverId=null;
@@ -1163,7 +1166,7 @@ function buildRamp(id){
     b.onclick = () => {
       if(levels.has(i)){ if(levels.size>1) levels.delete(i); }
       else levels.add(i);
-      applyFilters(); syncLabels();
+      applyFilters(); syncLabels(); syncURL();
     };
     r.appendChild(b);
   }
@@ -1188,7 +1191,7 @@ function buildTimebar(){
     b.onclick = () => {
       const hour = +document.getElementById("thour").value;
       timeAt = { day: d, mins: hour*60 };
-      syncTimebar(); applyFilters(); syncLabels(); tick();
+      syncTimebar(); applyFilters(); syncLabels(); tick(); syncURL();
     };
     wrap.appendChild(b);
   }
@@ -1215,7 +1218,7 @@ function closePanel(){
   activeVenue = null;
   panel.classList.remove("on"); panel.setAttribute("aria-hidden","true");
   if(had && view==="city") layout();
-  if(activeCity) history.replaceState(null,"","#"+activeCity);
+  if(activeCity) syncURL();
 }
 const esc = s => String(s==null?"":s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 const INTENSITY_WORD = ["","commercial","crossover","balanced","niche","deep underground"];
@@ -1357,7 +1360,7 @@ function openVenue(id){
   pscroll.scrollTop=0;
   if(W>820) layout();
   hintEl.style.opacity="0";
-  history.replaceState(null,"","#"+v.city+"/"+v.id);
+  syncURL();
 }
 
 /* ---------------- editor ---------------- */
@@ -1424,16 +1427,16 @@ function setMode(m){
   hintEl.textContent = m==="map"
     ? "Lines point to the true address · drag to move"
     : "Tap a venue · drag to move the cluster";
-  layout(); syncLabels(); applyFilters();
+  layout(); syncLabels(); applyFilters(); syncURL();
 }
 const btnOpen=document.getElementById("btnOpen");
 document.getElementById("tnow").onclick = ()=>{
-  timeAt = null; syncTimebar(); applyFilters(); syncLabels(); tick();
+  timeAt = null; syncTimebar(); applyFilters(); syncLabels(); tick(); syncURL();
 };
 document.getElementById("thour").oninput = function(){
   const now = realClock(CITIES[activeCity].tz);
   timeAt = { day: (timeAt||now).day, mins: (+this.value)*60 };
-  syncTimebar(); applyFilters(); syncLabels(); tick();
+  syncTimebar(); applyFilters(); syncLabels(); tick(); syncURL();
 };
 btnOpen.onclick = ()=>{
   openNow = !openNow;
@@ -1445,7 +1448,7 @@ btnOpen.onclick = ()=>{
       ? "Lines point to the true address · drag to move"
       : "Tap a venue · drag to move the cluster";
   }
-  applyFilters(); syncLabels();
+  applyFilters(); syncLabels(); syncURL();
 };
 btnCluster.onclick = ()=>setMode("cluster");
 btnMap.onclick     = ()=>setMode("map");
@@ -1458,6 +1461,7 @@ document.getElementById("btnAdd").onclick = async ()=>{
     line:"", note:"", tags:[], rooms:[], nights:[], links:{}, status:"open", draft:true});
   await persist(); rebuild(); toast("Added — tap it to fill in");
 };
+document.getElementById("btnShare").onclick = shareView;
 document.getElementById("btnExport").onclick = async ()=>{
   const out = JSON.stringify({cities:CITIES, venues:VENUES}, null, 2);
   try{ await navigator.clipboard.writeText(out); toast("JSON copied to clipboard"); }
@@ -1468,6 +1472,72 @@ function toast(msg){
   const el=document.getElementById("toast");
   el.textContent=msg; el.classList.add("on");
   clearTimeout(tt); tt=setTimeout(()=>el.classList.remove("on"),2200);
+}
+
+/* ---------------- shareable state ---------------- */
+// Public home, baked in at build time: inside the artifact sandbox location.href
+// is an internal URL, so copying that would hand someone a dead link.
+const SHARE_BASE = "__SHARE_BASE__";
+
+function encodeState(){
+  if(!activeCity) return "";
+  let h = activeCity;
+  if(activeVenue) h += "/" + activeVenue;
+  const p = [];
+  if(mode === "cluster" && hasGeo(activeCity)) p.push("v=cluster");   // map is the default
+  if(openNow) p.push("open=1");
+  if(timeAt)  p.push("t=" + timeAt.day + "-" + Math.floor(timeAt.mins/60));
+  if(levels.size < 5) p.push("lv=" + [...levels].sort().join(""));
+  return h + (p.length ? "?" + p.join("&") : "");
+}
+let muteURL = false;
+function syncURL(){
+  if(muteURL) return;
+  history.replaceState(null, "", "#" + encodeState());
+}
+function parseHash(){
+  const raw = location.hash.replace(/^#/, "");
+  const [path, query] = raw.split("?");
+  const [c, vid] = (path || "").split("/");
+  return { c, vid, q: new URLSearchParams(query || "") };
+}
+// Applied AFTER openCity, which resets everything to defaults.
+function applyStateParams(q){
+  const lv = q.get("lv");
+  if(lv){
+    const set = new Set(lv.split("").map(Number).filter(n => n>=1 && n<=5));
+    if(set.size) levels = set;
+  }
+  if(q.get("v") === "cluster" && mode !== "cluster"){
+    mode = "cluster";
+    document.body.classList.remove("mapmode");
+    btnCluster.setAttribute("aria-pressed","true");
+    btnMap.setAttribute("aria-pressed","false");
+    layout();
+  }
+  const t = q.get("t");
+  if(t){
+    const [d,h] = t.split("-").map(Number);
+    if(d>=0 && d<=6 && h>=0 && h<=23) timeAt = { day:d, mins:h*60 };
+  }
+  if(q.get("open") === "1"){
+    openNow = true;
+    document.getElementById("btnOpen").setAttribute("aria-pressed","true");
+    document.getElementById("timebar").classList.add("on");
+    buildTimebar();
+  }
+  hintEl.textContent = mode === "map"
+    ? "Lines point to the true address · drag to move"
+    : "Tap a venue · drag to move the cluster";
+  syncTimebar(); syncRamp(); applyFilters(); syncLabels(); tick();
+}
+async function shareView(){
+  const url = SHARE_BASE + "#" + encodeState();
+  try{
+    if(navigator.share){ await navigator.share({ title:"netherRealm", url }); return; }
+  }catch(e){ if(e && e.name === "AbortError") return; }
+  try{ await navigator.clipboard.writeText(url); toast("Link copied"); }
+  catch(e){ console.log(url); toast("Link in console"); }
 }
 
 /* ---------------- clock ---------------- */
@@ -1499,16 +1569,25 @@ setInterval(()=>{ if(openNow) applyFilters(); }, 30000);
 resize(); syncLabels(); tick(); setCityVars(null);
 requestAnimationFrame(frame);
 function route(){
-  const [c, vid] = location.hash.replace("#","").split("/");
+  const { c, vid, q } = parseHash();
   if(!CITIES[c]) return;
+  muteURL = true;
   openCity(c);
+  applyStateParams(q);
   if(vid && VENUES.some(v=>v.id===vid)) openVenue(vid);
+  muteURL = false;
+  syncURL();
 }
 route();
 addEventListener("hashchange", ()=>{
-  const [c, vid] = location.hash.replace("#","").split("/");
+  const { c, vid, q } = parseHash();
   if(!CITIES[c]){ if(view!=="cities") goHome(); return; }
-  if(c!==activeCity) openCity(c);
+  if(c!==activeCity || q.toString()){
+    muteURL = true;
+    if(c!==activeCity) openCity(c);
+    applyStateParams(q);
+    muteURL = false;
+  }
   if(vid && vid!==activeVenue && VENUES.some(v=>v.id===vid)) openVenue(vid);
   else if(!vid && activeVenue) closePanel();
 });
