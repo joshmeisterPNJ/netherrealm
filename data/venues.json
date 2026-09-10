@@ -1237,7 +1237,9 @@
       "map": "https://www.google.com/maps/search/La+Caserne+Paris+10e"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "lat": 48.8788,
+    "lon": 2.3592
   },
   {
     "id": "lastation",
@@ -1276,7 +1278,9 @@
       "map": "https://www.google.com/maps/search/La+Station+Gare+des+Mines+Paris"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "lat": 48.899,
+    "lon": 2.3706
   },
   {
     "id": "lamachine",
@@ -1321,7 +1325,9 @@
       "map": "https://www.google.com/maps/search/La+Machine+du+Moulin+Rouge+Paris"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "lat": 48.8841,
+    "lon": 2.3324
   },
   {
     "id": "glazart",
@@ -1361,7 +1367,9 @@
       "map": "https://www.google.com/maps/search/Glazart+Paris"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "lat": 48.8977,
+    "lon": 2.3872
   },
   {
     "id": "olympia",
@@ -1388,7 +1396,9 @@
       "map": "https://www.google.com/maps/search/L%27Olympia+Boulevard+des+Capucines+Paris"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "lat": 48.8703,
+    "lon": 2.3283
   },
   {
     "id": "elysee",
@@ -1426,7 +1436,9 @@
       "map": "https://www.google.com/maps/search/Elys%C3%A9e+Montmartre+Boulevard+de+Rochechouart+Paris"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "lat": 48.8825,
+    "lon": 2.3447
   },
   {
     "id": "virage",
@@ -1456,7 +1468,9 @@
       "map": "https://www.google.com/maps/search/Virage+Paris+17e+p%C3%A9riph%C3%A9rique"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "lat": 48.8955,
+    "lon": 2.3155
   },
   {
     "id": "fvtvr",
@@ -1484,7 +1498,9 @@
       "map": "https://www.google.com/maps/search/FVTVR+34+Quai+d%27Austerlitz+Paris"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "lat": 48.839,
+    "lon": 2.37
   },
   {
     "id": "kilowatt",
@@ -1514,7 +1530,9 @@
       "map": "https://www.google.com/maps/search/Le+Kilowatt+Vitry-sur-Seine"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "lat": 48.7873,
+    "lon": 2.3925
   },
   {
     "id": "atelier",
@@ -1544,7 +1562,9 @@
       "map": "https://www.google.com/maps/search/Atelier+des+Lumi%C3%A8res+Paris"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "lat": 48.8602,
+    "lon": 2.3797
   },
   {
     "id": "rexclub",
@@ -1572,7 +1592,9 @@
       "map": "https://www.google.com/maps/search/Rex+Club+5+Boulevard+Poissonni%C3%A8re+Paris"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 48.8709,
+    "lon": 2.3466
   },
   {
     "id": "djoon",
@@ -1602,7 +1624,9 @@
       "map": "https://www.google.com/maps/search/Djoon+22+Boulevard+Vincent+Auriol+Paris"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "lat": 48.8368,
+    "lon": 2.3717
   },
   {
     "id": "badaboum",
@@ -1642,7 +1666,9 @@
       "map": "https://www.google.com/maps/search/Badaboum+2+bis+Rue+des+Taillandiers+Paris"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 48.8541,
+    "lon": 2.3757
   },
   {
     "id": "nuitsfauves",
@@ -1679,7 +1705,9 @@
       "map": "https://www.google.com/maps/search/Nuits+Fauves+Paris"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 48.8412,
+    "lon": 2.3672
   },
   {
     "id": "lajava",
@@ -1706,7 +1734,9 @@
       "map": "https://www.google.com/maps/search/La+Java+105+Rue+du+Faubourg+du+Temple+Paris"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 48.8713,
+    "lon": 2.3737
   },
   {
     "id": "petitbain",
@@ -1745,7 +1775,9 @@
       "map": "https://www.google.com/maps/search/Petit+Bain+Paris"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 48.834,
+    "lon": 2.3757
   },
   {
     "id": "dehorsbrut",
@@ -1772,7 +1804,9 @@
       "map": "https://www.google.com/maps/search/Dehors+Brut+Bercy+Paris"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 48.833,
+    "lon": 2.3866
   },
   {
     "id": "silencio",
@@ -1801,7 +1835,9 @@
       "map": "https://www.google.com/maps/search/Silencio+142+Rue+Montmartre+Paris"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 48.8693,
+    "lon": 2.3428
   },
   {
     "id": "t7",
@@ -1829,7 +1865,9 @@
       "map": "https://www.google.com/maps/search/T7+Paris+Expo+Porte+de+Versailles"
     },
     "status": "open",
-    "draft": false
+    "draft": false,
+    "lat": 48.8322,
+    "lon": 2.2877
   },
   {
     "id": "concrete",
@@ -1856,7 +1894,9 @@
       "map": "https://www.google.com/maps/search/Port+de+la+Rap%C3%A9e+Paris"
     },
     "status": "closed",
-    "draft": true
+    "draft": true,
+    "lat": 48.845,
+    "lon": 2.3665
   },
   {
     "id": "thuishaven",
@@ -2067,7 +2107,9 @@
       "ra": "https://ra.co/search?q=yoyo%20palais%20de%20tokyo",
       "map": "https://www.google.com/maps/search/Palais+de+Tokyo+13+Avenue+du+Pr%C3%A9sident+Wilson+Paris"
     },
-    "status": "open"
+    "status": "open",
+    "lat": 48.8643,
+    "lon": 2.2967
   },
   {
     "id": "zeralda",
@@ -2100,6 +2142,8 @@
       "map": "https://www.google.com/maps/search/125+rue+Gallieni+Bagnolet",
       "press": "https://www.tsugi.fr/le-zeralda-une-nouvelle-salle-de-concert-a-la-programmation-defricheuse-vient-douvrir-a-bagnolet/"
     },
-    "status": "open"
+    "status": "open",
+    "lat": 48.8655,
+    "lon": 2.413
   }
 ]

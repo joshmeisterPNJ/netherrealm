@@ -49,6 +49,8 @@ body{
   .lbl-core .n{font-size:10px;letter-spacing:.1em;font-variation-settings:"wdth" 92,"wght" 700}
   .lbl-core .c{display:none}
 }
+.mapmode .lbl-ven .a{display:none}
+.mapmode .lbl-ven .n{font-size:11.5px;font-variation-settings:"wdth" 92,"wght" 600}
 .lbl-ven.is-hot .n{color:#fff}
 .lbl-ven.is-hot .a{color:var(--ink-dim)}
 .dist{display:flex;align-items:flex-end;gap:6px;height:92px}
@@ -203,6 +205,11 @@ body{
 #tools button{background:#0d0d10;border:1px solid var(--line);color:var(--ink-dim);cursor:pointer;
   padding:10px 13px;font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase}
 #tools button:hover{color:var(--ink);border-color:#3a3a48}
+#views{display:inline-flex;border:1px solid var(--line);background:#0d0d10}
+#views button{border:0;background:none;padding:10px 14px}
+#views button[aria-pressed=true]{background:var(--city);color:#08080a;font-weight:500}
+#views button[disabled]{opacity:.32;cursor:not-allowed}
+#views button[disabled]:hover{color:var(--ink-dim)}
 #toast{position:fixed;left:50%;bottom:76px;transform:translate(-50%,8px);z-index:30;opacity:0;
   background:#16161b;border:1px solid var(--line);padding:11px 16px;pointer-events:none;
   font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);
@@ -230,6 +237,10 @@ body{
 </div>
 
 <div id="tools">
+  <span id="views" role="group" aria-label="View">
+    <button id="btnCluster" aria-pressed="true">Cluster</button>
+    <button id="btnMap" aria-pressed="false">Map</button>
+  </span>
   <button id="btnAdd">+ Venue</button>
   <button id="btnExport">Export JSON</button>
 </div>
@@ -336,7 +347,9 @@ function mkBody(o){
 }
 
 function layout(){
-  if(view==="cities") layoutCities(); else layoutCity();
+  if(view==="cities") layoutCities();
+  else if(mode==="map" && hasGeo(activeCity)) layoutMap();
+  else layoutCity();
 }
 
 function layoutCities(){
@@ -431,6 +444,136 @@ function layoutCity(){
   bodies = next;
 }
 
+/* ---------------- map mode ---------------- */
+const GEO = RAW.geo || {};
+let mode = "cluster";                 // cluster | map
+const hasGeo = id => !!GEO[id] && VENUES.some(v=>v.city===id && v.lat!=null);
+
+let PROJ = null;                      // {ox,oy,k,lat0,lon0}
+function buildProjection(cityId, fieldW, fieldH){
+  const g = GEO[cityId];
+  const pts = VENUES.filter(v=>v.city===cityId && v.lat!=null).map(v=>[v.lat,v.lon])
+    .concat(g ? g.periph : []);
+  const lats = pts.map(p=>p[0]), lons = pts.map(p=>p[1]);
+  const latMin=Math.min(...lats), latMax=Math.max(...lats);
+  const lonMin=Math.min(...lons), lonMax=Math.max(...lons);
+  const lat0=(latMin+latMax)/2, lon0=(lonMin+lonMax)/2;
+  const kx = Math.cos(lat0*Math.PI/180);            // equirectangular, corrected for latitude
+  const w = (lonMax-lonMin)*kx, h = (latMax-latMin);
+  const padX = fieldW*0.055 + 40, padY = fieldH*0.075 + 44;
+  const k = Math.min((fieldW-padX*2)/w, (fieldH-padY*2)/h);
+  PROJ = { k, kx, lat0, lon0, cx: fieldW/2, cy: fieldH/2 };
+}
+const projX = lon => PROJ.cx + (lon - PROJ.lon0)*PROJ.kx*PROJ.k;
+const projY = lat => PROJ.cy - (lat - PROJ.lat0)*PROJ.k;
+
+function layoutMap(){
+  const c = activeCity, wide = W>820;
+  const panelW = (wide && activeVenue) ? Math.min(460, W*0.42) : 0;
+  const fieldW = W - panelW;
+  buildProjection(c, fieldW, H);
+
+  const list = byCity(c).concat(closedIn(c)).filter(v=>v.lat!=null);
+  const core = bodies.find(b=>b.kind==="core");
+  if(core){ core.ta = 0; core.tether = null; }
+
+  const keep = new Map(bodies.filter(b=>b.kind==="venue").map(b=>[b.id,b]));
+  const next = core ? [core] : [];
+  const placed = [];
+
+  list.forEach(v=>{
+    const b = keep.get(v.id) || mkBody({kind:"venue", id:v.id, r:1});
+    b.kind="venue"; b.id=v.id; b.v=v;
+    b.ax = projX(v.lon); b.ay = projY(v.lat);          // the true point, never moves
+    b.tr = Math.max(9, rOfMap(v, list)) ;
+    b.col = shade(c, v.intensity);
+    b.closed = v.status==="closed";
+    b.draft = !!v.draft;
+    b.ta = b.closed ? .38 : 1;
+    b.tether = null;
+    placed.push(b);
+    next.push(b);
+  });
+
+  // relax overlaps off the anchors, then leave a leader line back to the truth
+  for(const b of placed){ b.mx = b.ax; b.my = b.ay; }
+  const MAX_LEAD = 46 * SC;                 // a bubble may never lie further than this from the truth
+  for(let iter=0; iter<120; iter++){
+    let moved = false;
+    for(let i=0;i<placed.length;i++) for(let j=i+1;j<placed.length;j++){
+      const a=placed[i], b=placed[j];
+      let dx=b.mx-a.mx, dy=b.my-a.my, d=Math.hypot(dx,dy);
+      if(d<0.001){ dx=Math.random()-.5; dy=Math.random()-.5; d=1; }
+      const min=(a.tr+b.tr)*1.0 + 3;
+      if(d<min){
+        const push=(min-d)*0.35, ux=dx/d, uy=dy/d;
+        a.mx-=ux*push; a.my-=uy*push; b.mx+=ux*push; b.my+=uy*push;
+        moved = true;
+      }
+    }
+    for(const b of placed){
+      b.mx += (b.ax-b.mx)*0.055; b.my += (b.ay-b.my)*0.055;  // pull home
+      const lx=b.mx-b.ax, ly=b.my-b.ay, l=Math.hypot(lx,ly);
+      if(l>MAX_LEAD){ b.mx = b.ax + lx/l*MAX_LEAD; b.my = b.ay + ly/l*MAX_LEAD; }
+    }
+    if(!moved) break;
+  }
+  for(const b of placed){ b.tx = b.mx + pan.x; b.ty = b.my + pan.y; b.lead = Math.hypot(b.mx-b.ax, b.my-b.ay); }
+
+  bodies.filter(b=>b.kind==="city").forEach(b=>{ b.ta=0; b.tether=null; next.push(b); });
+  bodies = next;
+}
+function rOfMap(v, list){
+  const caps = list.map(x=>Math.log(Math.max(60,x.cap||300)));
+  const lo=Math.min(...caps), hi=Math.max(...caps);
+  const s=Math.log(Math.max(60,v.cap||300));
+  const t = hi>lo ? (s-lo)/(hi-lo) : .5;
+  return (7 + t*12) * SC * (W>820?1.0:0.9);
+}
+
+function paintMapGround(t){
+  const g = GEO[activeCity]; if(!g || !PROJ) return;
+  const k = shade(activeCity, 3);
+  ctx.save();
+  ctx.lineJoin = "round"; ctx.lineCap = "round";
+
+  // the Seine — drawn first, sits under everything
+  ctx.beginPath();
+  g.seine.forEach((p,i)=>{ const x=projX(p[1])+pan.x, y=projY(p[0])+pan.y; i?ctx.lineTo(x,y):ctx.moveTo(x,y); });
+  ctx.lineWidth = Math.max(2.5, 7*SC);
+  ctx.strokeStyle = `hsl(${k.h} ${Math.min(60,k.s*0.5)}% ${k.rim?26:22}% / .55)`;
+  ctx.stroke();
+
+  // the périphérique — the boundary that actually changes your night
+  ctx.beginPath();
+  g.periph.forEach((p,i)=>{ const x=projX(p[1])+pan.x, y=projY(p[0])+pan.y; i?ctx.lineTo(x,y):ctx.moveTo(x,y); });
+  ctx.closePath();
+  ctx.fillStyle = `hsl(${k.h} ${Math.min(50,k.s*0.4)}% ${k.rim?10:9}% / .34)`;
+  ctx.fill();
+  ctx.setLineDash([]);
+  ctx.lineWidth = 1.1;
+  ctx.strokeStyle = `hsl(${k.h} ${Math.min(70,k.s*0.6)}% ${k.rim?54:46}% / .40)`;
+  ctx.stroke();
+  ctx.restore();
+}
+
+function paintLeaders(){
+  ctx.save();
+  for(const b of bodies){
+    if(b.kind!=="venue" || b.alpha<0.05 || b.ax==null || !(b.lead>2)) continue;
+    const ax=b.ax+pan.x, ay=b.ay+pan.y;
+    ctx.beginPath();
+    ctx.moveTo(b.x, b.y); ctx.lineTo(ax, ay);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = cssA(b.col, 0.42*b.alpha);
+    ctx.stroke();
+    ctx.beginPath(); ctx.arc(ax, ay, 2.1, 0, 7);
+    ctx.fillStyle = cssA(b.col, 0.85*b.alpha);
+    ctx.fill();
+  }
+  ctx.restore();
+}
+
 /* ---------------- physics ---------------- */
 function step(dt){
   const K = 0.052, D = 0.855;
@@ -444,6 +587,7 @@ function step(dt){
     b.hov = (b.hov||0) + ((hoverId===b.id?1:0) - (b.hov||0))*0.18;
   }
   // repulsion — only among venue bubbles, keeps the cluster jostling
+  if(mode==="map" && view==="city") { pan.x += (pan.tx-pan.x)*0.16; pan.y += (pan.ty-pan.y)*0.16; return; }
   for(let i=0;i<bodies.length;i++){
     const a=bodies[i]; if(a.kind==="city") continue;
     for(let j=i+1;j<bodies.length;j++){
@@ -513,10 +657,10 @@ function paintBody(b,t){
   // outer glow
   ctx.save();
   ctx.globalCompositeOperation = "lighter";
-  const gr = b.r*hs*2.9;
+  const gr = b.r*hs*(mode==="map"&&view==="city"?1.9:2.9);
   const g = ctx.createRadialGradient(b.x,b.y,b.r*0.3,b.x,b.y,gr);
   const gl = Math.min(72, k.l+26);
-  g.addColorStop(0, `hsl(${k.h} ${k.s}% ${gl}% / ${(0.36+0.30*(b.hov||0))*A})`);
+  g.addColorStop(0, `hsl(${k.h} ${k.s}% ${gl}% / ${((mode==="map"&&view==="city"?0.22:0.36)+0.30*(b.hov||0))*A})`);
   g.addColorStop(0.45, `hsl(${k.h} ${k.s}% ${gl}% / ${0.09*A})`);
   g.addColorStop(1, `hsl(${k.h} ${k.s}% ${gl}% / 0)`);
   ctx.fillStyle=g; ctx.beginPath(); ctx.arc(b.x,b.y,gr,0,7); ctx.fill();
@@ -599,8 +743,11 @@ function frame(t){
   bg.addColorStop(0,"#0a0a0d"); bg.addColorStop(1,"#050506");
   ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
 
+  const mapping = mode==="map" && view==="city" && hasGeo(activeCity);
+  if(mapping){ paintMapGround(t); paintLeaders(); }
+
   const core = bodies.find(b=>b.kind==="core");
-  if(core) for(const b of bodies){
+  if(core && !mapping) for(const b of bodies){
     if(!b.tether || b.alpha<=0.02) continue;
     const dx=b.x-core.x, dy=b.y-core.y, d=Math.hypot(dx,dy)||1;
     const mouth={ x:core.x+dx/d*core.r*0.94, y:core.y+dy/d*core.r*0.94, r:core.r*0.42, ph:core.ph };
@@ -608,7 +755,7 @@ function frame(t){
   }
 
   for(const b of bodies) if(b.kind==="city") paintBody(b,t);
-  if(core) paintCore(core,t);
+  if(core && !mapping) paintCore(core,t);
   // venues paint least-hovered first, so the hovered one always sits on top
   const vs = bodies.filter(b=>b.kind==="venue")
     .sort((p,q)=> ((p.hov||0)-(q.hov||0)) || (q.r-p.r));
@@ -623,6 +770,7 @@ function syncLabels(){
   const want = new Set();
   for(const b of bodies){
     if(b.kind==="city" && view==="city") continue;
+    if(b.kind==="core" && mode==="map") continue;
     want.add(b.id);
     if(lmap.has(b.id)) continue;
     const el = document.createElement("div");
@@ -763,6 +911,12 @@ function openCity(id){
   backEl.classList.add("on"); legendEl.classList.add("on"); toolsEl.classList.add("on");
   hintEl.textContent="Tap a venue · drag to move the cluster";
   buildRamp(id);
+  mode = "cluster";
+  document.body.classList.remove("mapmode");
+  btnCluster.setAttribute("aria-pressed","true");
+  btnMap.setAttribute("aria-pressed","false");
+  btnMap.disabled = !hasGeo(id);
+  btnMap.title = hasGeo(id) ? "" : "No coordinates for this city yet";
   closePanel();
   history.replaceState(null,"","#"+id);
 }
@@ -977,6 +1131,22 @@ function rebuild(silent){
 }
 
 /* ---------------- add + export ---------------- */
+const btnCluster=document.getElementById("btnCluster"), btnMap=document.getElementById("btnMap");
+function setMode(m){
+  if(m==="map" && !hasGeo(activeCity)) return;
+  mode = m;
+  document.body.classList.toggle("mapmode", m==="map");
+  btnCluster.setAttribute("aria-pressed", String(m==="cluster"));
+  btnMap.setAttribute("aria-pressed", String(m==="map"));
+  pan.tx=0; pan.ty=0;
+  hintEl.textContent = m==="map"
+    ? "Lines point to the true address · drag to move"
+    : "Tap a venue · drag to move the cluster";
+  layout(); syncLabels();
+}
+btnCluster.onclick = ()=>setMode("cluster");
+btnMap.onclick     = ()=>setMode("map");
+
 document.getElementById("btnAdd").onclick = async ()=>{
   const name = prompt("Venue name");
   if(!name) return;

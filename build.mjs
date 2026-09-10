@@ -6,9 +6,10 @@ import { icon } from "./tools/mkicon.mjs";
 
 const cities = JSON.parse(fs.readFileSync("data/cities.json", "utf8"));
 const venues = JSON.parse(fs.readFileSync("data/venues.json", "utf8"));
+const geo    = JSON.parse(fs.readFileSync("data/geo.json", "utf8"));
 const tpl    = fs.readFileSync("src/app.html", "utf8");
 
-const app = tpl.replace("/*__DATA__*/", JSON.stringify({ cities, venues }));
+const app = tpl.replace("/*__DATA__*/", JSON.stringify({ cities, venues, geo }));
 
 // ---- target 1: artifact fragment ----
 fs.mkdirSync("dist", { recursive: true });
