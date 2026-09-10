@@ -226,6 +226,33 @@ body{
 #views button[aria-pressed=true]{background:var(--city);color:#08080a;font-weight:500}
 #views button[disabled]{opacity:.32;cursor:not-allowed}
 #views button[disabled]:hover{color:var(--ink-dim)}
+#legend .ramp{gap:4px}
+#legend .ramp button{width:15px;height:15px;border-radius:50%;border:0;padding:0;cursor:pointer;
+  display:block;transition:transform .15s,opacity .15s}
+#legend .ramp button[aria-pressed=false]{opacity:.2;transform:scale(.68)}
+#legend .ramp button:hover{transform:scale(1.18)}
+#legend.filtered{color:var(--city-soft)}
+
+#timebar{position:fixed;left:calc(18px + env(safe-area-inset-left));
+  bottom:calc(68px + env(safe-area-inset-bottom));z-index:6;display:none;gap:6px;align-items:center;
+  flex-wrap:wrap;max-width:calc(100vw - 36px)}
+#timebar.on{display:flex}
+#timebar button{background:#0d0d10;border:1px solid var(--line);color:var(--ink-dim);cursor:pointer;
+  padding:7px 10px;font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase}
+#timebar button:hover{color:var(--ink)}
+#timebar button[aria-pressed=true]{background:var(--city);color:#08080a;border-color:var(--city)}
+#tdays{display:inline-flex;gap:4px;flex-wrap:wrap}
+#thourwrap{display:inline-flex;align-items:center;padding:0 8px;height:29px;
+  background:#0d0d10;border:1px solid var(--line)}
+#thour{-webkit-appearance:none;appearance:none;width:104px;height:3px;background:#2a2a33;outline:none}
+#thour::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;
+  background:var(--city);cursor:pointer;border:0}
+#thour::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:var(--city);cursor:pointer;border:0}
+#tread{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-faint);padding-left:2px;min-width:58px}
+#timebar.travelling #tread{color:var(--city-soft)}
+#tools.on ~ #hint{bottom:calc(96px + env(safe-area-inset-bottom))}
+#timebar.on ~ #hint{bottom:calc(140px + env(safe-area-inset-bottom))}
 #toast{position:fixed;left:50%;bottom:76px;transform:translate(-50%,8px);z-index:30;opacity:0;
   background:#16161b;border:1px solid var(--line);padding:11px 16px;pointer-events:none;
   font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);
@@ -236,7 +263,6 @@ body{
    and move the intensity ramp up under the clock */
 /* the toolbar is bottom-left and the hint is centred, so they collide on any
    screen narrower than about 1230px - lift the hint whenever the toolbar shows */
-#tools.on ~ #hint{bottom:calc(96px + env(safe-area-inset-bottom))}
 #hint{max-width:calc(100vw - 36px);text-align:center;line-height:1.6}
 @media (max-width:900px){
   #hint{font-size:9px;letter-spacing:.14em}
@@ -262,6 +288,12 @@ body{
   <span>underground</span>
 </div>
 
+<div id="timebar">
+  <button id="tnow" type="button" aria-pressed="true">Now</button>
+  <span id="tdays"></span>
+  <label id="thourwrap"><input id="thour" type="range" min="0" max="23" step="1" value="22" aria-label="Hour"></label>
+  <span id="tread">now</span>
+</div>
 <div id="tools">
   <span id="views" role="group" aria-label="View">
     <button id="btnCluster" aria-pressed="true">Cluster</button>
@@ -480,7 +512,7 @@ let PROJ = null;                      // {ox,oy,k,lat0,lon0}
 function buildProjection(cityId, fieldW, fieldH){
   const g = GEO[cityId];
   const pts = VENUES.filter(v=>v.city===cityId && v.lat!=null).map(v=>[v.lat,v.lon])
-    .concat(g ? g.periph : []);
+    .concat(g ? g.boundary : []);
   const lats = pts.map(p=>p[0]), lons = pts.map(p=>p[1]);
   const latMin=Math.min(...lats), latMax=Math.max(...lats);
   const lonMin=Math.min(...lons), lonMax=Math.max(...lons);
@@ -564,16 +596,16 @@ function paintMapGround(t){
   ctx.save();
   ctx.lineJoin = "round"; ctx.lineCap = "round";
 
-  // the Seine — drawn first, sits under everything
+  // water first, it sits under everything
   ctx.beginPath();
-  g.seine.forEach((p,i)=>{ const x=projX(p[1])+pan.x, y=projY(p[0])+pan.y; i?ctx.lineTo(x,y):ctx.moveTo(x,y); });
+  g.water.forEach((p,i)=>{ const x=projX(p[1])+pan.x, y=projY(p[0])+pan.y; i?ctx.lineTo(x,y):ctx.moveTo(x,y); });
   ctx.lineWidth = Math.max(2.5, 7*SC);
   ctx.strokeStyle = `hsl(${k.h} ${Math.min(60,k.s*0.5)}% ${k.rim?26:22}% / .55)`;
   ctx.stroke();
 
-  // the périphérique — the boundary that actually changes your night
+  // the boundary that actually changes your night: périph, Ringbahn, Zone 1, A10
   ctx.beginPath();
-  g.periph.forEach((p,i)=>{ const x=projX(p[1])+pan.x, y=projY(p[0])+pan.y; i?ctx.lineTo(x,y):ctx.moveTo(x,y); });
+  g.boundary.forEach((p,i)=>{ const x=projX(p[1])+pan.x, y=projY(p[0])+pan.y; i?ctx.lineTo(x,y):ctx.moveTo(x,y); });
   ctx.closePath();
   ctx.fillStyle = `hsl(${k.h} ${Math.min(50,k.s*0.4)}% ${k.rim?10:9}% / .34)`;
   ctx.fill();
@@ -602,18 +634,23 @@ function paintLeaders(){
   ctx.restore();
 }
 
-/* ---------------- open now ---------------- */
+/* ---------------- filters: intensity, open now, time travel ---------------- */
 let openNow = false;
-const DRAIN_OVER = 360;               // a venue reads "full" with 6h or more left
+let timeAt  = null;                              // {day, mins} — null means right now
+let levels  = new Set([1,2,3,4,5]);              // which intensities are showing
+const DRAIN_OVER = 360;                          // "full" means six hours or more left
 
-function cityClock(tz){
+function realClock(tz){
   const p = new Intl.DateTimeFormat("en-GB",
     { timeZone: tz, weekday:"short", hour:"2-digit", minute:"2-digit", hourCycle:"h23" })
     .formatToParts(new Date());
   const g = t => p.find(x=>x.type===t).value;
-  const day = {Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[g("weekday")];
-  return { day, mins: (+g("hour"))*60 + (+g("minute")) };
+  return { day: {Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[g("weekday")],
+           mins: (+g("hour"))*60 + (+g("minute")) };
 }
+function cityClock(tz){ return timeAt || realClock(tz); }
+const DAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const hhmm = m => String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0");
 
 // A session is keyed on the day it STARTS and may run past midnight, so look back
 // far enough to catch Berlin's weekend-long runs.
@@ -633,15 +670,19 @@ const fmtLeft = m => m>=120 ? Math.round(m/60)+"h left"
                  : m===60  ? "1h left"
                  : m+"m left";
 
-function applyOpenNow(){
+function applyFilters(){
   if(!activeCity) return;
   const clock = cityClock(CITIES[activeCity].tz);
-  let open=0, closing=0, unknown=0, shut=0;
+  let open=0, closing=0, unknown=0, shut=0, hidden=0;
   for(const b of bodies){
     if(b.kind!=="venue" || !b.v) continue;
     const st = venueState(b.v, clock);
     b.ost = st.state; b.oleft = st.left;
     b.fill = null; b.closing = false;
+
+    b.filtered = !levels.has(Math.min(5, Math.max(1, b.v.intensity||3)));
+    if(b.filtered){ b.ta = 0; hidden++; continue; }
+
     if(!openNow){ b.ta = b.closed ? .38 : 1; continue; }
     if(st.state==="open"){
       b.fill = Math.max(0.07, Math.min(1, st.left/DRAIN_OVER));
@@ -653,17 +694,19 @@ function applyOpenNow(){
       b.ta = 0; shut++;                    // gone
     }
   }
-  if(!openNow){
-    const c2 = cityClock(CITIES[activeCity].tz);
-    const any = VENUES.some(v=>v.city===activeCity && venueState(v,c2).state==="open");
-    document.getElementById("btnOpen").classList.toggle("has-open", any);
-  }
+  const btn = document.getElementById("btnOpen");
   if(openNow){
-    document.getElementById("btnOpen").classList.toggle("has-open", open>0);
+    btn.classList.toggle("has-open", open>0);
     hintEl.textContent = open+" open"+(closing?" ("+closing+" closing soon)":"")
-      +" · "+unknown+" check listings · "+shut+" shut";
+      + " · " + unknown + " check listings · " + shut + " shut"
+      + (hidden ? " · " + hidden + " filtered out" : "");
     hintEl.style.opacity = "";
+  }else{
+    const any = VENUES.some(v=>v.city===activeCity && venueState(v,clock).state==="open");
+    btn.classList.toggle("has-open", any);
+    if(hidden){ hintEl.textContent = hidden+" filtered out · tap the scale to change"; }
   }
+  syncRamp();
 }
 
 // Time left is drawn by ADDING light to the charged portion, never by darkening.
@@ -986,6 +1029,7 @@ function positionLabels(){
       const higher = (o.b.hov||0) > (it.b.hov||0) || (o.R > it.R && (o.b.hov||0) >= (it.b.hov||0));
       if(higher && rectHitsCircle(it.rect, o.b.x, o.b.y, o.R)){ show = false; break; }
     }
+    if(it.b.filtered) show = false;
     if(openNow && it.b.ost==="closed") show = false;   // shut venues are not labelled
     if(show) taken.push(it.rect);
     const target = show ? 1 : 0;
@@ -1006,6 +1050,7 @@ function hit(px,py){
   for(let i=bodies.length-1;i>=0;i--){
     const b=bodies[i];
     if(b.alpha<0.35) continue;
+    if(b.filtered) continue;                       // filtered out: not a target
     if(openNow && b.ost==="closed") continue;      // shut: not a target
     if(view==="cities" && b.kind!=="city") continue;
     if(view==="city" && b.kind!=="venue" && b.kind!=="core") continue;
@@ -1069,14 +1114,15 @@ function openCity(id){
   hintEl.textContent="Tap a venue · drag to move the cluster";
   buildRamp(id);
   mode = "cluster";
-  openNow = false;
+  openNow = false; timeAt = null; levels = new Set([1,2,3,4,5]);
+  document.getElementById("timebar").classList.remove("on");
   document.getElementById("btnOpen").setAttribute("aria-pressed","false");
   document.body.classList.remove("mapmode");
   btnCluster.setAttribute("aria-pressed","true");
   btnMap.setAttribute("aria-pressed","false");
   btnMap.disabled = !hasGeo(id);
   btnMap.title = hasGeo(id) ? "" : "No coordinates for this city yet";
-  closePanel();
+  closePanel(); tick();
   history.replaceState(null,"","#"+id);
 }
 function goHome(){
@@ -1085,19 +1131,67 @@ function goHome(){
   layout(); syncLabels();
   backEl.classList.remove("on"); legendEl.classList.remove("on"); toolsEl.classList.remove("on");
   hintEl.textContent="Tap a city"; hintEl.style.opacity="";
-  closePanel();
+  closePanel(); tick();
   history.replaceState(null,"","#");
 }
 backEl.onclick=goHome;
 
+/* ---------------- intensity scale as a filter ---------------- */
 function buildRamp(id){
-  const r=document.getElementById("ramp"); r.innerHTML="";
+  const r = document.getElementById("ramp"); r.innerHTML = "";
   for(let i=1;i<=5;i++){
-    const s=shade(id,i); const el=document.createElement("i");
-    el.style.background=css(s);
-    if(s.rim) el.style.boxShadow="inset 0 0 0 1px hsl(205 26% 80% / .55)";
-    r.appendChild(el);
+    const s = shade(id,i);
+    const b = document.createElement("button");
+    b.type = "button"; b.dataset.lv = i;
+    b.title = INTENSITY_WORD[i];
+    b.setAttribute("aria-label", INTENSITY_WORD[i]);
+    b.style.background = css(s);
+    if(s.rim) b.style.boxShadow = "inset 0 0 0 1px hsl(205 26% 80% / .55)";
+    b.onclick = () => {
+      if(levels.has(i)){ if(levels.size>1) levels.delete(i); }
+      else levels.add(i);
+      applyFilters(); syncLabels();
+    };
+    r.appendChild(b);
   }
+  syncRamp();
+}
+function syncRamp(){
+  document.querySelectorAll("#ramp button").forEach(b=>{
+    b.setAttribute("aria-pressed", String(levels.has(+b.dataset.lv)));
+  });
+  document.getElementById("legend").classList.toggle("filtered", levels.size<5);
+}
+
+/* ---------------- time travel ---------------- */
+function buildTimebar(){
+  const wrap = document.getElementById("tdays"); wrap.innerHTML = "";
+  const now = realClock(CITIES[activeCity].tz);
+  for(let i=0;i<7;i++){
+    const d = (now.day + i) % 7;
+    const b = document.createElement("button");
+    b.type = "button"; b.dataset.day = d;
+    b.textContent = i===0 ? "Today" : i===1 ? "Tomorrow" : DAYS[d];
+    b.onclick = () => {
+      const hour = +document.getElementById("thour").value;
+      timeAt = { day: d, mins: hour*60 };
+      syncTimebar(); applyFilters(); syncLabels(); tick();
+    };
+    wrap.appendChild(b);
+  }
+  syncTimebar();
+}
+function syncTimebar(){
+  const now = realClock(CITIES[activeCity].tz);
+  const cur = timeAt || now;
+  document.querySelectorAll("#tdays button").forEach(b=>
+    b.setAttribute("aria-pressed", String(!!timeAt && +b.dataset.day===cur.day)));
+  const h = document.getElementById("thour");
+  if(document.activeElement !== h) h.value = Math.floor(cur.mins/60);
+  document.getElementById("tnow").setAttribute("aria-pressed", String(!timeAt));
+  document.getElementById("tread").textContent =
+    timeAt ? DAYS[cur.day] + " " + hhmm(Math.floor(cur.mins/60)*60) : "now";
+  document.getElementById("timebar").classList.toggle("travelling", !!timeAt);
 }
 
 /* ---------------- panel ---------------- */
@@ -1108,6 +1202,7 @@ function closePanel(){
   activeVenue = null;
   panel.classList.remove("on"); panel.setAttribute("aria-hidden","true");
   if(had && view==="city") layout();
+  if(activeCity) history.replaceState(null,"","#"+activeCity);
 }
 const esc = s => String(s==null?"":s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 const INTENSITY_WORD = ["","commercial","crossover","balanced","niche","deep underground"];
@@ -1249,6 +1344,7 @@ function openVenue(id){
   pscroll.scrollTop=0;
   if(W>820) layout();
   hintEl.style.opacity="0";
+  history.replaceState(null,"","#"+v.city+"/"+v.id);
 }
 
 /* ---------------- editor ---------------- */
@@ -1315,18 +1411,28 @@ function setMode(m){
   hintEl.textContent = m==="map"
     ? "Lines point to the true address · drag to move"
     : "Tap a venue · drag to move the cluster";
-  layout(); syncLabels(); applyOpenNow();
+  layout(); syncLabels(); applyFilters();
 }
 const btnOpen=document.getElementById("btnOpen");
+document.getElementById("tnow").onclick = ()=>{
+  timeAt = null; syncTimebar(); applyFilters(); syncLabels(); tick();
+};
+document.getElementById("thour").oninput = function(){
+  const now = realClock(CITIES[activeCity].tz);
+  timeAt = { day: (timeAt||now).day, mins: (+this.value)*60 };
+  syncTimebar(); applyFilters(); syncLabels(); tick();
+};
 btnOpen.onclick = ()=>{
   openNow = !openNow;
   btnOpen.setAttribute("aria-pressed", String(openNow));
+  document.getElementById("timebar").classList.toggle("on", openNow);
+  if(openNow) buildTimebar(); else { timeAt = null; syncTimebar(); tick(); }
   if(!openNow){
     hintEl.textContent = mode==="map"
       ? "Lines point to the true address · drag to move"
       : "Tap a venue · drag to move the cluster";
   }
-  applyOpenNow(); syncLabels();
+  applyFilters(); syncLabels();
 };
 btnCluster.onclick = ()=>setMode("cluster");
 btnMap.onclick     = ()=>setMode("map");
@@ -1361,6 +1467,12 @@ function phaseOf(h){
 }
 function tick(){
   const tz = activeCity ? CITIES[activeCity].tz : "Europe/London";
+  if(timeAt && activeCity){
+    document.getElementById("clockT").textContent =
+      DAYS[timeAt.day]+" "+hhmm(Math.floor(timeAt.mins/60)*60)+" "+CITIES[activeCity].name.slice(0,3).toUpperCase();
+    document.getElementById("clockP").textContent = "time travel";
+    return;
+  }
   const now = new Date();
   const s = new Intl.DateTimeFormat("en-GB",{timeZone:tz,hour:"2-digit",minute:"2-digit",hour12:false}).format(now);
   const h = +new Intl.DateTimeFormat("en-GB",{timeZone:tz,hour:"2-digit",hour12:false}).format(now);
@@ -1368,11 +1480,23 @@ function tick(){
   document.getElementById("clockP").textContent = phaseOf(h);
 }
 setInterval(tick, 20000);
-setInterval(()=>{ if(openNow) applyOpenNow(); }, 30000);
+setInterval(()=>{ if(openNow) applyFilters(); }, 30000);
 
 /* ---------------- boot ---------------- */
 resize(); syncLabels(); tick(); setCityVars(null);
 requestAnimationFrame(frame);
-const h = location.hash.replace("#","");
-if(CITIES[h]) openCity(h);
+function route(){
+  const [c, vid] = location.hash.replace("#","").split("/");
+  if(!CITIES[c]) return;
+  openCity(c);
+  if(vid && VENUES.some(v=>v.id===vid)) openVenue(vid);
+}
+route();
+addEventListener("hashchange", ()=>{
+  const [c, vid] = location.hash.replace("#","").split("/");
+  if(!CITIES[c]){ if(view!=="cities") goHome(); return; }
+  if(c!==activeCity) openCity(c);
+  if(vid && vid!==activeVenue && VENUES.some(v=>v.id===vid)) openVenue(vid);
+  else if(!vid && activeVenue) closePanel();
+});
 </script>

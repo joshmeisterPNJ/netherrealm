@@ -54,7 +54,9 @@
         1380,
         1920
       ]
-    }
+    },
+    "lat": 51.5195,
+    "lon": -0.1025
   },
   {
     "id": "corsica",
@@ -104,7 +106,9 @@
         1320,
         1800
       ]
-    }
+    },
+    "lat": 51.493,
+    "lon": -0.0995
   },
   {
     "id": "fold",
@@ -143,7 +147,15 @@
       "map": "https://www.google.com/maps/search/FOLD+Canning+Town+London"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 51.5175,
+    "lon": 0.008,
+    "open": {
+      "5": [
+        1320,
+        3240
+      ]
+    }
   },
   {
     "id": "phonox",
@@ -182,7 +194,9 @@
         1260,
         1680
       ]
-    }
+    },
+    "lat": 51.463,
+    "lon": -0.1145
   },
   {
     "id": "xoyo",
@@ -232,7 +246,9 @@
         1260,
         1680
       ]
-    }
+    },
+    "lat": 51.5255,
+    "lon": -0.0855
   },
   {
     "id": "villageunderground",
@@ -270,7 +286,9 @@
         1320,
         1680
       ]
-    }
+    },
+    "lat": 51.5245,
+    "lon": -0.08
   },
   {
     "id": "drumsheds",
@@ -303,7 +321,9 @@
       "map": "https://www.google.com/maps/search/Drumsheds+Meridian+Water+London"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 51.612,
+    "lon": -0.057
   },
   {
     "id": "venuemot",
@@ -331,7 +351,19 @@
       "map": "https://www.google.com/maps/search/Venue+MOT+Unit+18+Bermondsey+London"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 51.488,
+    "lon": -0.064,
+    "open": {
+      "5": [
+        1380,
+        1800
+      ],
+      "6": [
+        1380,
+        1800
+      ]
+    }
   },
   {
     "id": "colourfactory",
@@ -368,7 +400,9 @@
         1320,
         1680
       ]
-    }
+    },
+    "lat": 51.5385,
+    "lon": -0.0225
   },
   {
     "id": "e1",
@@ -416,7 +450,9 @@
         1380,
         1800
       ]
-    }
+    },
+    "lat": 51.5075,
+    "lon": -0.062
   },
   {
     "id": "brilliantcorners",
@@ -470,7 +506,9 @@
         1080,
         1500
       ]
-    }
+    },
+    "lat": 51.545,
+    "lon": -0.076
   },
   {
     "id": "ormside",
@@ -497,7 +535,19 @@
       "map": "https://www.google.com/maps/search/Ormside+Projects+London"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 51.483,
+    "lon": -0.059,
+    "open": {
+      "5": [
+        1380,
+        1800
+      ],
+      "6": [
+        1380,
+        1800
+      ]
+    }
   },
   {
     "id": "printworks",
@@ -525,7 +575,9 @@
       "map": "https://www.google.com/maps/search/Printworks+London+Surrey+Quays+Road"
     },
     "status": "unsure",
-    "draft": true
+    "draft": true,
+    "lat": 51.493,
+    "lon": -0.049
   },
   {
     "id": "berghain",
@@ -579,7 +631,9 @@
         1439,
         3479
       ]
-    }
+    },
+    "lat": 52.511,
+    "lon": 13.443
   },
   {
     "id": "tresor",
@@ -638,7 +692,9 @@
         1380,
         1920
       ]
-    }
+    },
+    "lat": 52.509,
+    "lon": 13.42
   },
   {
     "id": "aboutblank",
@@ -693,7 +749,9 @@
         1380,
         3180
       ]
-    }
+    },
+    "lat": 52.503,
+    "lon": 13.468
   },
   {
     "id": "sisyphos",
@@ -740,7 +798,9 @@
         1380,
         5040
       ]
-    }
+    },
+    "lat": 52.498,
+    "lon": 13.489
   },
   {
     "id": "rso",
@@ -780,7 +840,19 @@
       "map": "https://www.google.com/maps/search/RSO+Berlin+Sch%C3%B6neweide"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 52.462,
+    "lon": 13.509,
+    "open": {
+      "5": [
+        1380,
+        2040
+      ],
+      "6": [
+        1380,
+        2040
+      ]
+    }
   },
   {
     "id": "kitkat",
@@ -809,7 +881,19 @@
       "map": "https://www.google.com/maps/search/KitKatClub+K%C3%B6penicker+Stra%C3%9Fe+Berlin"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 52.5085,
+    "lon": 13.4215,
+    "open": {
+      "5": [
+        1380,
+        2040
+      ],
+      "6": [
+        1380,
+        2040
+      ]
+    }
   },
   {
     "id": "cdv",
@@ -879,7 +963,9 @@
         840,
         1680
       ]
-    }
+    },
+    "lat": 52.497,
+    "lon": 13.449
   },
   {
     "id": "renate",
@@ -934,7 +1020,9 @@
         1380,
         3180
       ]
-    }
+    },
+    "lat": 52.502,
+    "lon": 13.468
   },
   {
     "id": "ohm",
@@ -962,7 +1050,19 @@
       "map": "https://www.google.com/maps/search/OHM+Berlin+K%C3%B6penicker+Stra%C3%9Fe"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 52.5092,
+    "lon": 13.4205,
+    "open": {
+      "5": [
+        1380,
+        1920
+      ],
+      "6": [
+        1380,
+        1920
+      ]
+    }
   },
   {
     "id": "traumabar",
@@ -990,7 +1090,19 @@
       "map": "https://www.google.com/maps/search/Trauma+Bar+und+Kino+Berlin"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 52.532,
+    "lon": 13.369,
+    "open": {
+      "5": [
+        1380,
+        1920
+      ],
+      "6": [
+        1380,
+        1920
+      ]
+    }
   },
   {
     "id": "else",
@@ -1017,7 +1129,9 @@
       "map": "https://www.google.com/maps/search/Else+Berlin+Treptow"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 52.496,
+    "lon": 13.452
   },
   {
     "id": "panke",
@@ -1060,7 +1174,9 @@
         1140,
         1620
       ]
-    }
+    },
+    "lat": 52.545,
+    "lon": 13.372
   },
   {
     "id": "watergate",
@@ -1087,7 +1203,9 @@
       "map": "https://www.google.com/maps/search/Watergate+Falckensteinstra%C3%9Fe+Berlin"
     },
     "status": "closed",
-    "draft": true
+    "draft": true,
+    "lat": 52.501,
+    "lon": 13.445
   },
   {
     "id": "deschool",
@@ -1145,7 +1263,19 @@
     },
     "status": "open",
     "draft": false,
-    "equiv": "lastation"
+    "equiv": "lastation",
+    "lat": 52.39,
+    "lon": 4.927,
+    "open": {
+      "5": [
+        1380,
+        1740
+      ],
+      "6": [
+        1380,
+        1740
+      ]
+    }
   },
   {
     "id": "parallel",
@@ -1173,7 +1303,19 @@
     },
     "status": "open",
     "draft": false,
-    "equiv": "lamachine"
+    "equiv": "lamachine",
+    "lat": 52.3845,
+    "lon": 4.9,
+    "open": {
+      "5": [
+        1380,
+        1740
+      ],
+      "6": [
+        1380,
+        1740
+      ]
+    }
   },
   {
     "id": "radion",
@@ -1207,7 +1349,9 @@
         1380,
         3540
       ]
-    }
+    },
+    "lat": 52.348,
+    "lon": 4.809
   },
   {
     "id": "paradiso",
@@ -1246,7 +1390,23 @@
     },
     "status": "open",
     "draft": false,
-    "equiv": "olympia"
+    "equiv": "olympia",
+    "lat": 52.3625,
+    "lon": 4.8835,
+    "open": {
+      "4": [
+        1140,
+        1620
+      ],
+      "5": [
+        1140,
+        1620
+      ],
+      "6": [
+        1140,
+        1620
+      ]
+    }
   },
   {
     "id": "melkweg",
@@ -1285,7 +1445,27 @@
     },
     "status": "open",
     "draft": false,
-    "equiv": "elysee"
+    "equiv": "elysee",
+    "lat": 52.3645,
+    "lon": 4.8815,
+    "open": {
+      "3": [
+        1140,
+        1620
+      ],
+      "4": [
+        1140,
+        1620
+      ],
+      "5": [
+        1140,
+        1620
+      ],
+      "6": [
+        1140,
+        1620
+      ]
+    }
   },
   {
     "id": "lofi",
@@ -1314,7 +1494,19 @@
     },
     "status": "open",
     "draft": false,
-    "equiv": "virage"
+    "equiv": "virage",
+    "lat": 52.396,
+    "lon": 4.833,
+    "open": {
+      "5": [
+        1380,
+        1800
+      ],
+      "6": [
+        1380,
+        1800
+      ]
+    }
   },
   {
     "id": "shelter",
@@ -1343,7 +1535,19 @@
     },
     "status": "open",
     "draft": false,
-    "equiv": "fvtvr"
+    "equiv": "fvtvr",
+    "lat": 52.3845,
+    "lon": 4.901,
+    "open": {
+      "5": [
+        1380,
+        2100
+      ],
+      "6": [
+        1380,
+        2100
+      ]
+    }
   },
   {
     "id": "ndsm",
@@ -1372,7 +1576,9 @@
     },
     "status": "open",
     "draft": false,
-    "equiv": "kilowatt"
+    "equiv": "kilowatt",
+    "lat": 52.401,
+    "lon": 4.893
   },
   {
     "id": "amaze",
@@ -1400,7 +1606,9 @@
     },
     "status": "open",
     "draft": false,
-    "equiv": "atelier"
+    "equiv": "atelier",
+    "lat": 52.4,
+    "lon": 4.896
   },
   {
     "id": "carbone",
@@ -1431,7 +1639,17 @@
     "status": "open",
     "draft": false,
     "lat": 48.8788,
-    "lon": 2.3592
+    "lon": 2.3592,
+    "open": {
+      "5": [
+        1439,
+        1859
+      ],
+      "6": [
+        1439,
+        1859
+      ]
+    }
   },
   {
     "id": "lastation",
@@ -1472,7 +1690,17 @@
     "status": "open",
     "draft": false,
     "lat": 48.899,
-    "lon": 2.3706
+    "lon": 2.3706,
+    "open": {
+      "5": [
+        1380,
+        1800
+      ],
+      "6": [
+        1380,
+        1800
+      ]
+    }
   },
   {
     "id": "lamachine",
@@ -1519,7 +1747,17 @@
     "status": "open",
     "draft": false,
     "lat": 48.8841,
-    "lon": 2.3324
+    "lon": 2.3324,
+    "open": {
+      "5": [
+        1410,
+        1800
+      ],
+      "6": [
+        1410,
+        1800
+      ]
+    }
   },
   {
     "id": "glazart",
@@ -1561,7 +1799,17 @@
     "status": "open",
     "draft": false,
     "lat": 48.8977,
-    "lon": 2.3872
+    "lon": 2.3872,
+    "open": {
+      "5": [
+        1380,
+        1800
+      ],
+      "6": [
+        1380,
+        1800
+      ]
+    }
   },
   {
     "id": "olympia",
@@ -1590,7 +1838,29 @@
     "status": "open",
     "draft": false,
     "lat": 48.8703,
-    "lon": 2.3283
+    "lon": 2.3283,
+    "open": {
+      "2": [
+        1170,
+        1410
+      ],
+      "3": [
+        1170,
+        1410
+      ],
+      "4": [
+        1170,
+        1410
+      ],
+      "5": [
+        1170,
+        1410
+      ],
+      "6": [
+        1170,
+        1410
+      ]
+    }
   },
   {
     "id": "elysee",
@@ -1630,7 +1900,21 @@
     "status": "open",
     "draft": false,
     "lat": 48.8825,
-    "lon": 2.3447
+    "lon": 2.3447,
+    "open": {
+      "4": [
+        1170,
+        1500
+      ],
+      "5": [
+        1170,
+        1500
+      ],
+      "6": [
+        1170,
+        1500
+      ]
+    }
   },
   {
     "id": "virage",
@@ -1662,7 +1946,17 @@
     "status": "open",
     "draft": false,
     "lat": 48.8955,
-    "lon": 2.3155
+    "lon": 2.3155,
+    "open": {
+      "5": [
+        1080,
+        1680
+      ],
+      "6": [
+        1080,
+        1680
+      ]
+    }
   },
   {
     "id": "fvtvr",
@@ -1692,7 +1986,17 @@
     "status": "open",
     "draft": false,
     "lat": 48.839,
-    "lon": 2.37
+    "lon": 2.37,
+    "open": {
+      "5": [
+        1439,
+        1859
+      ],
+      "6": [
+        1439,
+        1859
+      ]
+    }
   },
   {
     "id": "kilowatt",
@@ -2035,7 +2339,25 @@
     "status": "open",
     "draft": true,
     "lat": 48.834,
-    "lon": 2.3757
+    "lon": 2.3757,
+    "open": {
+      "3": [
+        1140,
+        1560
+      ],
+      "4": [
+        1140,
+        1560
+      ],
+      "5": [
+        1140,
+        1560
+      ],
+      "6": [
+        1140,
+        1560
+      ]
+    }
   },
   {
     "id": "dehorsbrut",
@@ -2105,7 +2427,21 @@
     "status": "open",
     "draft": true,
     "lat": 48.8693,
-    "lon": 2.3428
+    "lon": 2.3428,
+    "open": {
+      "4": [
+        1380,
+        1680
+      ],
+      "5": [
+        1380,
+        1680
+      ],
+      "6": [
+        1380,
+        1680
+      ]
+    }
   },
   {
     "id": "t7",
@@ -2135,7 +2471,17 @@
     "status": "open",
     "draft": false,
     "lat": 48.8322,
-    "lon": 2.2877
+    "lon": 2.2877,
+    "open": {
+      "5": [
+        1410,
+        1860
+      ],
+      "6": [
+        1410,
+        1860
+      ]
+    }
   },
   {
     "id": "concrete",
@@ -2211,7 +2557,9 @@
         840,
         3480
       ]
-    }
+    },
+    "lat": 52.402,
+    "lon": 4.848
   },
   {
     "id": "doka",
@@ -2270,7 +2618,9 @@
         1200,
         1680
       ]
-    }
+    },
+    "lat": 52.354,
+    "lon": 4.911
   },
   {
     "id": "ot301",
@@ -2298,7 +2648,9 @@
       "map": "https://www.google.com/maps/search/OT301+Overtoom+Amsterdam"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 52.36,
+    "lon": 4.862
   },
   {
     "id": "sexyland",
@@ -2326,7 +2678,9 @@
       "map": "https://www.google.com/maps/search/Sexyland+World+Amsterdam+Noord"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 52.403,
+    "lon": 4.913
   },
   {
     "id": "bitterzoet",
@@ -2372,7 +2726,9 @@
         1320,
         1680
       ]
-    }
+    },
+    "lat": 52.3775,
+    "lon": 4.893
   },
   {
     "id": "elementenstraat",
@@ -2400,7 +2756,9 @@
       "map": "https://www.google.com/maps/search/Elementenstraat+Amsterdam"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "lat": 52.393,
+    "lon": 4.818
   },
   {
     "id": "yoyo",
