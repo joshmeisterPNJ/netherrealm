@@ -51,6 +51,7 @@ body{
 }
 .mapmode .lbl-ven .a{display:none}
 .mapmode .lbl-ven .n{font-size:11.5px;font-variation-settings:"wdth" 92,"wght" 600}
+.lbl-ven.is-closing .n{color:hsl(38 92% 68%)}
 .lbl-ven.is-hot .n{color:#fff}
 .lbl-ven.is-hot .a{color:var(--ink-dim)}
 .dist{display:flex;align-items:flex-end;gap:6px;height:92px}
@@ -170,6 +171,10 @@ body{
 .links a:hover{border-color:var(--city);background:#141419}
 .links a::after{content:"↗";opacity:.4;font-size:11px}
 
+.nowbar{display:flex;align-items:center;gap:9px;margin:20px 0 0;padding:11px 13px;border:1px solid var(--line);background:#0a0a0d}
+.nowbar .dot{width:7px;height:7px;border-radius:50%;flex:none}
+.nowbar b{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:500}
+.nowbar em{font-family:var(--read);font-style:normal;font-size:13.5px;color:var(--ink-dim)}
 .flagbar{display:flex;gap:9px;align-items:flex-start;margin:22px 0 0;padding:12px 13px;
   border:1px solid #2a2410;background:#14120a}
 .flagbar .k{width:6px;height:6px;border-radius:50%;border:1px solid var(--warn);margin-top:5px;flex:none}
@@ -205,6 +210,7 @@ body{
 #tools button{background:#0d0d10;border:1px solid var(--line);color:var(--ink-dim);cursor:pointer;
   padding:10px 13px;font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase}
 #tools button:hover{color:var(--ink);border-color:#3a3a48}
+#tools #btnOpen[aria-pressed=true]{background:var(--city);color:#08080a;font-weight:500;border-color:var(--city)}
 #views{display:inline-flex;border:1px solid var(--line);background:#0d0d10}
 #views button{border:0;background:none;padding:10px 14px}
 #views button[aria-pressed=true]{background:var(--city);color:#08080a;font-weight:500}
@@ -241,6 +247,7 @@ body{
     <button id="btnCluster" aria-pressed="true">Cluster</button>
     <button id="btnMap" aria-pressed="false">Map</button>
   </span>
+  <button id="btnOpen" aria-pressed="false">Open now</button>
   <button id="btnAdd">+ Venue</button>
   <button id="btnExport">Export JSON</button>
 </div>
@@ -574,6 +581,88 @@ function paintLeaders(){
   ctx.restore();
 }
 
+/* ---------------- open now ---------------- */
+let openNow = false;
+const DRAIN_OVER = 360;               // a venue reads "full" with 6h or more left
+
+function cityClock(tz){
+  const p = new Intl.DateTimeFormat("en-GB",
+    { timeZone: tz, weekday:"short", hour:"2-digit", minute:"2-digit", hourCycle:"h23" })
+    .formatToParts(new Date());
+  const g = t => p.find(x=>x.type===t).value;
+  const day = {Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[g("weekday")];
+  return { day, mins: (+g("hour"))*60 + (+g("minute")) };
+}
+
+// A session is keyed on the day it STARTS and may run past midnight, so look back
+// far enough to catch Berlin's weekend-long runs.
+function venueState(v, clock){
+  if(v.status === "closed") return { state:"gone" };
+  if(!v.open) return { state:"unknown" };
+  for(let back=0; back<=3; back++){
+    const d = (clock.day - back + 7) % 7;
+    const s = v.open[d]; if(!s) continue;
+    const elapsed = back*1440 + clock.mins;
+    if(elapsed >= s[0] && elapsed < s[1]) return { state:"open", left: s[1]-elapsed };
+  }
+  return { state:"closed" };
+}
+const fmtLeft = m => m>=120 ? Math.round(m/60)+"h left"
+                 : m>60    ? "1h "+(m-60)+"m left"
+                 : m===60  ? "1h left"
+                 : m+"m left";
+
+function applyOpenNow(){
+  if(!activeCity) return;
+  const clock = cityClock(CITIES[activeCity].tz);
+  let open=0, closing=0, unknown=0, shut=0;
+  for(const b of bodies){
+    if(b.kind!=="venue" || !b.v) continue;
+    const st = venueState(b.v, clock);
+    b.ost = st.state; b.oleft = st.left;
+    b.fill = null; b.closing = false;
+    if(!openNow){ b.ta = b.closed ? .38 : 1; continue; }
+    if(st.state==="open"){
+      b.fill = Math.max(0.07, Math.min(1, st.left/DRAIN_OVER));
+      b.closing = st.left <= 60;
+      b.ta = 1; open++; if(b.closing) closing++;
+    } else if(st.state==="unknown"){
+      b.ta = 0.5; unknown++;
+    } else {
+      b.ta = 0.09; shut++;
+    }
+  }
+  if(openNow){
+    hintEl.textContent = open+" open"+(closing?" ("+closing+" closing soon)":"")
+      +" · "+unknown+" check listings · "+shut+" shut";
+    hintEl.style.opacity = "";
+  }
+}
+
+// the drain: a venue empties as its night runs out
+function paintDrain(b, t, hs){
+  if(!openNow || b.fill==null || b.fill>=0.995) return;
+  const R = b.r*hs, top = b.y - R, h = R*2, y = top + h*(1-b.fill);
+  ctx.save();
+  blob(b, t, hs); ctx.clip();
+  ctx.fillStyle = "rgba(4,4,6,0.74)";
+  ctx.fillRect(b.x-R-2, top-2, R*2+4, (h*(1-b.fill))+2);
+  ctx.beginPath(); ctx.moveTo(b.x-R-2, y); ctx.lineTo(b.x+R+2, y);
+  ctx.lineWidth = 1.3;
+  ctx.strokeStyle = b.closing ? "hsl(38 92% 62% / .95)" : cssA(b.col, 0.95);
+  ctx.stroke();
+  ctx.restore();
+  if(b.closing){
+    ctx.save();
+    ctx.beginPath(); ctx.arc(b.x, b.y, R+7, 0, 7);
+    ctx.lineWidth = 1.4;
+    const pulse = REDUCED ? .7 : .5 + .35*Math.sin(t*0.005);
+    ctx.strokeStyle = `hsl(38 92% 62% / ${pulse*b.alpha})`;
+    ctx.stroke();
+    ctx.restore();
+  }
+}
+
 /* ---------------- physics ---------------- */
 function step(dt){
   const K = 0.052, D = 0.855;
@@ -683,6 +772,8 @@ function paintBody(b,t){
     : `hsl(${k.h} ${Math.min(100,k.s+8)}% ${Math.min(92,k.l+34+10*(b.hov||0))}% / ${(0.42+0.45*(b.hov||0))*A})`;
   ctx.stroke();
   ctx.restore();
+
+  paintDrain(b, t, hs);
 
   // draft ring
   if(b.draft && !b.closed){
@@ -838,6 +929,7 @@ function positionLabels(){
     it.el.style.opacity = it.el._vis * (it.b.closed?0.45:1) * it.a;
     it.el.style.zIndex = (it.b.hov||0) > 0.4 ? 3 : 1;
     it.el.classList.toggle("is-hot", (it.b.hov||0) > 0.4);
+    it.el.classList.toggle("is-closing", !!it.b.closing);
   }
 }
 function el_ease(el, target){
@@ -912,6 +1004,8 @@ function openCity(id){
   hintEl.textContent="Tap a venue · drag to move the cluster";
   buildRamp(id);
   mode = "cluster";
+  openNow = false;
+  document.getElementById("btnOpen").setAttribute("aria-pressed","false");
   document.body.classList.remove("mapmode");
   btnCluster.setAttribute("aria-pressed","true");
   btnMap.setAttribute("aria-pressed","false");
@@ -1018,6 +1112,20 @@ function openVenue(id){
     <div class="p-meter"><span class="bars">${bars}</span>
       <span class="cap">${INTENSITY_WORD[Math.min(5,Math.max(1,v.intensity||3))]} · ${v.intensity||"?"}/5</span></div>
 
+    ${(()=>{
+      const st = venueState(v, cityClock(CITIES[v.city].tz));
+      if(st.state==="gone") return "";
+      const hot = st.state==="open" && st.left<=60;
+      const m = {
+        open:    ["Open now",       "hsl(140 60% 58%)", st.left!=null?fmtLeft(st.left):""],
+        closed:  ["Closed now",     "var(--ink-faint)", "by its usual hours"],
+        unknown: ["Check listings", "var(--warn)",      "opens for events, not on a weekly rota"]
+      }[st.state];
+      const col = hot ? "hsl(38 92% 62%)" : m[1];
+      return `<div class="nowbar"><span class="dot" style="background:${col}"></span>
+        <b style="color:${col}">${hot ? "Closing soon" : m[0]}</b>
+        <em>${esc(hot ? fmtLeft(st.left) : m[2])}</em></div>`;
+    })()}
     <dl class="p-facts">
       <div><dt>Capacity</dt><dd>${v.cap?Number(v.cap).toLocaleString():"—"}</dd></div>
       <div><dt>Hours</dt><dd style="font-size:12px">${esc(v.hours||"—")}</dd></div>
@@ -1142,8 +1250,19 @@ function setMode(m){
   hintEl.textContent = m==="map"
     ? "Lines point to the true address · drag to move"
     : "Tap a venue · drag to move the cluster";
-  layout(); syncLabels();
+  layout(); syncLabels(); applyOpenNow();
 }
+const btnOpen=document.getElementById("btnOpen");
+btnOpen.onclick = ()=>{
+  openNow = !openNow;
+  btnOpen.setAttribute("aria-pressed", String(openNow));
+  if(!openNow){
+    hintEl.textContent = mode==="map"
+      ? "Lines point to the true address · drag to move"
+      : "Tap a venue · drag to move the cluster";
+  }
+  applyOpenNow(); syncLabels();
+};
 btnCluster.onclick = ()=>setMode("cluster");
 btnMap.onclick     = ()=>setMode("map");
 
@@ -1184,6 +1303,7 @@ function tick(){
   document.getElementById("clockP").textContent = phaseOf(h);
 }
 setInterval(tick, 20000);
+setInterval(()=>{ if(openNow) applyOpenNow(); }, 30000);
 
 /* ---------------- boot ---------------- */
 resize(); syncLabels(); tick(); setCityVars(null);

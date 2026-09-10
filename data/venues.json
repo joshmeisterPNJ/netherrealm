@@ -44,7 +44,17 @@
       "map": "https://www.google.com/maps/search/fabric+77a+Charterhouse+Street+London"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "open": {
+      "5": [
+        1380,
+        1800
+      ],
+      "6": [
+        1380,
+        1920
+      ]
+    }
   },
   {
     "id": "corsica",
@@ -84,7 +94,17 @@
       "map": "https://www.google.com/maps/search/Corsica+Studios+London"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "open": {
+      "5": [
+        1320,
+        1800
+      ],
+      "6": [
+        1320,
+        1800
+      ]
+    }
   },
   {
     "id": "fold",
@@ -152,7 +172,17 @@
       "map": "https://www.google.com/maps/search/Phonox+Brixton+London"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "open": {
+      "5": [
+        1260,
+        1680
+      ],
+      "6": [
+        1260,
+        1680
+      ]
+    }
   },
   {
     "id": "xoyo",
@@ -192,7 +222,17 @@
       "map": "https://www.google.com/maps/search/XOYO+Shoreditch+London"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "open": {
+      "5": [
+        1260,
+        1680
+      ],
+      "6": [
+        1260,
+        1680
+      ]
+    }
   },
   {
     "id": "villageunderground",
@@ -220,7 +260,17 @@
       "map": "https://www.google.com/maps/search/Village+Underground+Shoreditch+London"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "open": {
+      "5": [
+        1320,
+        1680
+      ],
+      "6": [
+        1320,
+        1680
+      ]
+    }
   },
   {
     "id": "drumsheds",
@@ -308,7 +358,17 @@
       "map": "https://www.google.com/maps/search/Colour+Factory+Hackney+Wick+London"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "open": {
+      "5": [
+        1320,
+        1680
+      ],
+      "6": [
+        1320,
+        1680
+      ]
+    }
   },
   {
     "id": "e1",
@@ -346,7 +406,17 @@
       "map": "https://www.google.com/maps/search/E1+Wapping+London"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "open": {
+      "5": [
+        1380,
+        1800
+      ],
+      "6": [
+        1380,
+        1800
+      ]
+    }
   },
   {
     "id": "brilliantcorners",
@@ -374,7 +444,33 @@
       "map": "https://www.google.com/maps/search/Brilliant+Corners+Dalston+London"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "open": {
+      "0": [
+        1080,
+        1500
+      ],
+      "2": [
+        1080,
+        1500
+      ],
+      "3": [
+        1080,
+        1500
+      ],
+      "4": [
+        1080,
+        1500
+      ],
+      "5": [
+        1080,
+        1500
+      ],
+      "6": [
+        1080,
+        1500
+      ]
+    }
   },
   {
     "id": "ormside",
@@ -477,7 +573,13 @@
       "map": "https://www.google.com/maps/search/Berghain+Am+Wriezener+Bahnhof+Berlin"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "open": {
+      "6": [
+        1439,
+        3479
+      ]
+    }
   },
   {
     "id": "tresor",
@@ -522,7 +624,21 @@
       "map": "https://www.google.com/maps/search/Tresor+K%C3%B6penicker+Stra%C3%9Fe+Berlin"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "open": {
+      "3": [
+        1380,
+        1920
+      ],
+      "5": [
+        1380,
+        1920
+      ],
+      "6": [
+        1380,
+        1920
+      ]
+    }
   },
   {
     "id": "aboutblank",
@@ -567,7 +683,17 @@
       "map": "https://www.google.com/maps/search/about+blank+Markgrafendamm+Berlin"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "open": {
+      "5": [
+        1380,
+        3180
+      ],
+      "6": [
+        1380,
+        3180
+      ]
+    }
   },
   {
     "id": "sisyphos",
@@ -608,7 +734,13 @@
       "map": "https://www.google.com/maps/search/Sisyphos+Hauptstra%C3%9Fe+Berlin+Rummelsburg"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "open": {
+      "5": [
+        1380,
+        5040
+      ]
+    }
   },
   {
     "id": "rso",
@@ -717,7 +849,37 @@
       "map": "https://www.google.com/maps/search/Club+der+Vision%C3%A4re+Am+Flutgraben+Berlin"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "open": {
+      "0": [
+        840,
+        1680
+      ],
+      "1": [
+        840,
+        1680
+      ],
+      "2": [
+        840,
+        1680
+      ],
+      "3": [
+        840,
+        1680
+      ],
+      "4": [
+        840,
+        1680
+      ],
+      "5": [
+        840,
+        1680
+      ],
+      "6": [
+        840,
+        1680
+      ]
+    }
   },
   {
     "id": "renate",
@@ -762,7 +924,17 @@
       "map": "https://www.google.com/maps/search/Salon+zur+Wilden+Renate+Alt-Stralau+Berlin"
     },
     "status": "unsure",
-    "draft": true
+    "draft": true,
+    "open": {
+      "5": [
+        1380,
+        3180
+      ],
+      "6": [
+        1380,
+        3180
+      ]
+    }
   },
   {
     "id": "ohm",
@@ -874,7 +1046,21 @@
       "map": "https://www.google.com/maps/search/Panke+Gerichtstra%C3%9Fe+Berlin+Wedding"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "open": {
+      "4": [
+        1140,
+        1620
+      ],
+      "5": [
+        1140,
+        1620
+      ],
+      "6": [
+        1140,
+        1620
+      ]
+    }
   },
   {
     "id": "watergate",
@@ -1015,7 +1201,13 @@
     },
     "status": "open",
     "draft": false,
-    "equiv": "glazart"
+    "equiv": "glazart",
+    "open": {
+      "5": [
+        1380,
+        3540
+      ]
+    }
   },
   {
     "id": "paradiso",
@@ -1594,7 +1786,25 @@
     "status": "open",
     "draft": true,
     "lat": 48.8709,
-    "lon": 2.3466
+    "lon": 2.3466,
+    "open": {
+      "3": [
+        1410,
+        1800
+      ],
+      "4": [
+        1410,
+        1800
+      ],
+      "5": [
+        1410,
+        1800
+      ],
+      "6": [
+        1410,
+        1800
+      ]
+    }
   },
   {
     "id": "djoon",
@@ -1626,7 +1836,17 @@
     "status": "open",
     "draft": false,
     "lat": 48.8368,
-    "lon": 2.3717
+    "lon": 2.3717,
+    "open": {
+      "5": [
+        1410,
+        1800
+      ],
+      "6": [
+        1410,
+        1800
+      ]
+    }
   },
   {
     "id": "badaboum",
@@ -1668,7 +1888,25 @@
     "status": "open",
     "draft": true,
     "lat": 48.8541,
-    "lon": 2.3757
+    "lon": 2.3757,
+    "open": {
+      "3": [
+        1410,
+        1800
+      ],
+      "4": [
+        1410,
+        1800
+      ],
+      "5": [
+        1410,
+        1800
+      ],
+      "6": [
+        1410,
+        1800
+      ]
+    }
   },
   {
     "id": "nuitsfauves",
@@ -1707,7 +1945,17 @@
     "status": "open",
     "draft": true,
     "lat": 48.8412,
-    "lon": 2.3672
+    "lon": 2.3672,
+    "open": {
+      "5": [
+        1410,
+        1800
+      ],
+      "6": [
+        1410,
+        1800
+      ]
+    }
   },
   {
     "id": "lajava",
@@ -1736,7 +1984,17 @@
     "status": "open",
     "draft": true,
     "lat": 48.8713,
-    "lon": 2.3737
+    "lon": 2.3737,
+    "open": {
+      "5": [
+        1410,
+        1800
+      ],
+      "6": [
+        1410,
+        1800
+      ]
+    }
   },
   {
     "id": "petitbain",
@@ -1806,7 +2064,17 @@
     "status": "open",
     "draft": true,
     "lat": 48.833,
-    "lon": 2.3866
+    "lon": 2.3866,
+    "open": {
+      "0": [
+        840,
+        1440
+      ],
+      "6": [
+        840,
+        1440
+      ]
+    }
   },
   {
     "id": "silencio",
@@ -1937,7 +2205,13 @@
       "map": "https://www.google.com/maps/search/Thuishaven+Amsterdam"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "open": {
+      "6": [
+        840,
+        3480
+      ]
+    }
   },
   {
     "id": "doka",
@@ -1966,7 +2240,37 @@
       "map": "https://www.google.com/maps/search/Volkshotel+Doka+Amsterdam"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "open": {
+      "0": [
+        1200,
+        1680
+      ],
+      "1": [
+        1200,
+        1680
+      ],
+      "2": [
+        1200,
+        1680
+      ],
+      "3": [
+        1200,
+        1680
+      ],
+      "4": [
+        1200,
+        1680
+      ],
+      "5": [
+        1200,
+        1680
+      ],
+      "6": [
+        1200,
+        1680
+      ]
+    }
   },
   {
     "id": "ot301",
@@ -2050,7 +2354,25 @@
       "map": "https://www.google.com/maps/search/Bitterzoet+Amsterdam"
     },
     "status": "open",
-    "draft": true
+    "draft": true,
+    "open": {
+      "3": [
+        1320,
+        1680
+      ],
+      "4": [
+        1320,
+        1680
+      ],
+      "5": [
+        1320,
+        1680
+      ],
+      "6": [
+        1320,
+        1680
+      ]
+    }
   },
   {
     "id": "elementenstraat",
@@ -2109,7 +2431,21 @@
     },
     "status": "open",
     "lat": 48.8643,
-    "lon": 2.2967
+    "lon": 2.2967,
+    "open": {
+      "4": [
+        1380,
+        1740
+      ],
+      "5": [
+        1380,
+        1740
+      ],
+      "6": [
+        1380,
+        1740
+      ]
+    }
   },
   {
     "id": "zeralda",
