@@ -42,5 +42,16 @@
     "tz": "Europe/Amsterdam",
     "colourName": "yellow",
     "blurb": "The 24-hour licences moved everything out of the centre. Noord and West now."
+  },
+  "nantes": {
+    "name": "Nantes",
+    "hue": 145,
+    "sat": 58,
+    "lightLo": 62,
+    "lightHi": 18,
+    "rim": false,
+    "tz": "Europe/Paris",
+    "colourName": "green",
+    "blurb": "Almost all of it lands on one island. The Île de Nantes turned a shipyard into the whole scene."
   }
 }

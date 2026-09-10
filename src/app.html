@@ -275,7 +275,7 @@ body{
 <div id="labels"></div>
 
 <header id="top">
-  <div id="brand">netherRealm &nbsp;<b>4 cities</b></div>
+  <div id="brand">netherRealm &nbsp;<b id="brandCount">cities</b></div>
   <div id="clock"><div class="t" id="clockT">—</div><div class="ph" id="clockP"></div></div>
 </header>
 
@@ -562,14 +562,14 @@ function layoutMap(){
 
   // relax overlaps off the anchors, then leave a leader line back to the truth
   for(const b of placed){ b.mx = b.ax; b.my = b.ay; }
-  const MAX_LEAD = 46 * SC;                 // a bubble may never lie further than this from the truth
+  const MAX_LEAD = 74 * SC;                 // a bubble may never lie further than this from the truth
   for(let iter=0; iter<120; iter++){
     let moved = false;
     for(let i=0;i<placed.length;i++) for(let j=i+1;j<placed.length;j++){
       const a=placed[i], b=placed[j];
       let dx=b.mx-a.mx, dy=b.my-a.my, d=Math.hypot(dx,dy);
       if(d<0.001){ dx=Math.random()-.5; dy=Math.random()-.5; d=1; }
-      const min=(a.tr+b.tr)*1.0 + 3;
+      const min=(a.tr+b.tr)*1.15 + 9;
       if(d<min){
         const push=(min-d)*0.35, ux=dx/d, uy=dy/d;
         a.mx-=ux*push; a.my-=uy*push; b.mx+=ux*push; b.my+=uy*push;
@@ -1017,35 +1017,45 @@ function positionLabels(){
       el.style.opacity = a;
       continue;
     }
-    const y = b.y + R + (b.kind==="city" ? 18 : 11);
-    const w = el._w||90, h = el._h||18;
-    el.style.transform = `translate3d(${b.x|0}px,${y|0}px,0) translate(-50%,0)`;
-    items.push({ b, el, R, a, rect:{ l:b.x-w/2, r:b.x+w/2, t:y, bt:y+h } });
+    const w = el._w||90, hh = el._h||18;
+    const pad = b.kind==="city" ? 18 : 11;
+    items.push({ b, el, R, a, w, h:hh,
+      below: b.y + R + pad,
+      above: b.y - R - pad - hh });
   }
 
   // hovered first, then the biggest rooms — a name never sits on someone else's bubble
   const rank = b => openNow ? (b.ost==="open" ? 2 : b.ost==="unknown" ? 1 : 0) : 1;
   items.sort((p,q)=> ((q.b.hov||0)-(p.b.hov||0)) || (rank(q.b)-rank(p.b)) || (q.R-p.R));
+
   const taken = [];
-  for(const it of items){
-    let show = true;
-    for(const t of taken) if(rectsHit(it.rect, t)){ show = false; break; }
-    if(show) for(const o of items){
+  const fits = (it, y) => {
+    const r = { l: it.b.x - it.w/2, r: it.b.x + it.w/2, t: y, bt: y + it.h };
+    if(r.t < 2 || r.bt > H - 2) return null;
+    for(const t of taken) if(rectsHit(r, t)) return null;
+    for(const o of items){
       if(o === it) continue;
       const higher = (o.b.hov||0) > (it.b.hov||0) || (o.R > it.R && (o.b.hov||0) >= (it.b.hov||0));
-      if(higher && rectHitsCircle(it.rect, o.b.x, o.b.y, o.R)){ show = false; break; }
+      if(higher && rectHitsCircle(r, o.b.x, o.b.y, o.R)) return null;
     }
-    if(it.b.filtered) show = false;
-    if(openNow && it.b.ost==="closed") show = false;   // shut venues are not labelled
-    if(show) taken.push(it.rect);
-    const target = show ? 1 : 0;
-    el_ease(it.el, target);
+    return r;
+  };
+
+  for(const it of items){
+    let rect = null;
+    if(!(it.b.filtered) && !(openNow && it.b.ost==="closed")){
+      rect = fits(it, it.below) || fits(it, it.above);   // fall back to sitting above
+    }
+    if(rect) taken.push(rect);
+    const y = rect ? rect.t : it.below;
+    it.el.style.transform = `translate3d(${it.b.x|0}px,${y|0}px,0) translate(-50%,0)`;
+    el_ease(it.el, rect ? 1 : 0);
     it.el.style.opacity = it.el._vis * (it.b.closed?0.45:1) * it.a;
     it.el.style.zIndex = (it.b.hov||0) > 0.4 ? 3 : 1;
     it.el.classList.toggle("is-hot", (it.b.hov||0) > 0.4);
-    it.el.classList.toggle("is-closing", !!it.b.closing);
   }
 }
+
 function el_ease(el, target){
   if(el._vis === undefined) el._vis = target;
   el._vis += (target - el._vis) * 0.22;
@@ -1566,6 +1576,7 @@ setInterval(tick, 20000);
 setInterval(()=>{ if(openNow) applyFilters(); }, 30000);
 
 /* ---------------- boot ---------------- */
+document.getElementById("brandCount").textContent = Object.keys(CITIES).length + " cities";
 resize(); syncLabels(); tick(); setCityVars(null);
 requestAnimationFrame(frame);
 function route(){

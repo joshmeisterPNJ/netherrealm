@@ -2839,5 +2839,222 @@
     "status": "open",
     "lat": 48.8655,
     "lon": 2.413
+  },
+  {
+    "id": "warehouse",
+    "city": "nantes",
+    "name": "Warehouse",
+    "area": "Île de Nantes — Hangar à Bananes",
+    "intensity": 3,
+    "cap": 2500,
+    "hours": "Fri–Sat, late",
+    "lat": 47.202,
+    "lon": -1.572,
+    "draft": true,
+    "line": "A banana warehouse turned into the biggest floor in western France.",
+    "note": "3,500m² in the Hangar à Bananes, two rooms — a French-Italian MDC rig in the main, Funktion-One in the second. Ranked 55th in the DJ Mag Top 100 in 2025 and second in France. Programming runs melodic techno, industrial techno and house across nights like Under, Nantes Rave Techno and Terror Jungle.",
+    "tags": [
+      "techno",
+      "bigroom",
+      "industrial",
+      "soundsystem",
+      "house"
+    ],
+    "rooms": [
+      {
+        "name": "Main",
+        "intensity": 3,
+        "note": "MDC French-Italian system. The big one."
+      },
+      {
+        "name": "Room 2",
+        "intensity": 4,
+        "note": "Funktion-One. Harder, tighter."
+      }
+    ],
+    "nights": [
+      "Under · Nantes Rave Techno · Terror Jungle"
+    ],
+    "links": {
+      "ra": "https://ra.co/search?q=warehouse%20nantes",
+      "map": "https://www.google.com/maps/search/Warehouse+Hangar+%C3%A0+Bananes+Nantes"
+    },
+    "status": "open",
+    "open": {
+      "5": [
+        1439,
+        1799
+      ],
+      "6": [
+        1439,
+        1799
+      ]
+    }
+  },
+  {
+    "id": "stereolux",
+    "city": "nantes",
+    "name": "Stereolux",
+    "area": "Île de Nantes — Bd Léon Bureau",
+    "intensity": 2,
+    "cap": 1200,
+    "hours": "Thu–Sat, evenings",
+    "lat": 47.2045,
+    "lon": -1.5665,
+    "draft": true,
+    "line": "Publicly funded, seriously booked, and home to Scopitone.",
+    "note": "Opened on the Île de Nantes in 2011 as a venue for current music and digital arts. Two rooms — Maxi at around 1,200 and Micro at around 400 — running everything from post-punk to techno, plus the annual Scopitone festival and its Electronic Nights.",
+    "tags": [
+      "institution",
+      "digitalarts",
+      "festival",
+      "prestige",
+      "multiroom"
+    ],
+    "rooms": [
+      {
+        "name": "Maxi",
+        "intensity": 2,
+        "note": "~1,200. The main hall."
+      },
+      {
+        "name": "Micro",
+        "intensity": 3,
+        "note": "~400. Smaller, sharper bookings."
+      }
+    ],
+    "nights": [
+      "Electronic Nights · Scopitone festival"
+    ],
+    "links": {
+      "web": "https://stereolux.org",
+      "ra": "https://ra.co/search?q=stereolux",
+      "map": "https://www.google.com/maps/search/Stereolux+Nantes"
+    },
+    "status": "open",
+    "open": {
+      "4": [
+        1170,
+        1440
+      ],
+      "5": [
+        1170,
+        1440
+      ],
+      "6": [
+        1170,
+        1440
+      ]
+    }
+  },
+  {
+    "id": "ferrailleur",
+    "city": "nantes",
+    "name": "Le Ferrailleur",
+    "area": "Île de Nantes — Quai des Antilles",
+    "intensity": 4,
+    "cap": 500,
+    "hours": "Thu–Sat, late",
+    "lat": 47.2015,
+    "lon": -1.5745,
+    "draft": true,
+    "line": "Industrial room wedged under a Loire bridge.",
+    "note": "Electronic and dance music in an industrial space beneath a bridge over the Loire, on the Île de Nantes. One of the most respected club rooms in western France.",
+    "tags": [
+      "industrial",
+      "techno",
+      "riverside",
+      "respected"
+    ],
+    "rooms": [],
+    "nights": [],
+    "links": {
+      "ra": "https://ra.co/search?q=le%20ferrailleur%20nantes",
+      "map": "https://www.google.com/maps/search/Le+Ferrailleur+Quai+des+Antilles+Nantes"
+    },
+    "status": "open",
+    "open": {
+      "4": [
+        1380,
+        1740
+      ],
+      "5": [
+        1380,
+        1740
+      ],
+      "6": [
+        1380,
+        1740
+      ]
+    }
+  },
+  {
+    "id": "macadam",
+    "city": "nantes",
+    "name": "Macadam",
+    "area": "Chantenay — Bd de Chantenay",
+    "intensity": 5,
+    "cap": 500,
+    "hours": "Fri–Sat, late",
+    "lat": 47.205,
+    "lon": -1.588,
+    "draft": true,
+    "line": "Quadraphonic Funktion-One and no interest in anything else.",
+    "note": "Dedicated to electronic music and widely called the emblematic techno club of Nantes. 363m² on the ground floor, another 154m² above and a 200m² terrace, on a quadraphonic Funktion-One system.",
+    "tags": [
+      "techno",
+      "soundsystem",
+      "quadraphonic",
+      "outdoor",
+      "dedicated"
+    ],
+    "rooms": [],
+    "nights": [],
+    "links": {
+      "web": "https://www.macadam-nantes.fr",
+      "ra": "https://ra.co/search?q=macadam%20nantes",
+      "map": "https://www.google.com/maps/search/Macadam+Boulevard+de+Chantenay+Nantes"
+    },
+    "status": "open",
+    "open": {
+      "5": [
+        1380,
+        1740
+      ],
+      "6": [
+        1380,
+        1740
+      ]
+    }
+  },
+  {
+    "id": "lieuunique",
+    "city": "nantes",
+    "name": "Le Lieu Unique",
+    "area": "Centre — ancienne biscuiterie LU",
+    "intensity": 2,
+    "cap": 1000,
+    "hours": "",
+    "lat": 47.2162,
+    "lon": -1.5468,
+    "draft": true,
+    "line": "The old LU biscuit factory, tower and all, running techno between the exhibitions.",
+    "note": "Not a club by default, but it folds techno into exhibitions, live performance and whatever else is on, in the former LU biscuit works with its landmark tower. Event-led rather than a weekly rota.",
+    "tags": [
+      "institution",
+      "artschool",
+      "experimental",
+      "central"
+    ],
+    "rooms": [],
+    "nights": [
+      "Event-led"
+    ],
+    "links": {
+      "web": "https://www.lelieuunique.com",
+      "ra": "https://ra.co/search?q=lieu%20unique%20nantes",
+      "map": "https://www.google.com/maps/search/Le+Lieu+Unique+Nantes"
+    },
+    "status": "open"
   }
 ]
