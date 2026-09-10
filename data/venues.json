@@ -2812,9 +2812,9 @@
     "area": "Bagnolet — 125 rue Gallieni",
     "intensity": 5,
     "cap": 350,
-    "hours": "Concerts, then afters",
+    "hours": "06:00–00:00",
     "draft": false,
-    "line": "The most counter-cultural corner of the city, newly opened past the Porte.",
+    "line": "Opens at six in the morning, when everywhere else is shutting.",
     "note": "Opened September 2026 at Porte de Bagnolet, programming the quintessence of the most counter-cultural angle of music — experimental electro, noise, new wave and punk. Runs as a hybrid: concerts proper, then afters. L-Acoustics system. Home to afterparties for the Parisian techno-goth night Khaos.",
     "tags": [
       "experimental",
@@ -2838,7 +2838,17 @@
     },
     "status": "open",
     "lat": 48.8655,
-    "lon": 2.413
+    "lon": 2.413,
+    "open": {
+      "0": [
+        360,
+        1440
+      ],
+      "6": [
+        360,
+        1440
+      ]
+    }
   },
   {
     "id": "warehouse",
