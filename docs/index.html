@@ -1641,6 +1641,7 @@ function festDays(f){
 }
 const eventsOn = (f, date) => EVENTS
   .filter(e => e.festival === f.id && e.date === date)
+  .filter(e => e.venueId && VENUES.some(v => v.id === e.venueId))
   .map(e => {
     const s = toMin(e.start);
     let en = e.dur ? s + e.dur : toMin(e.end);
@@ -1705,8 +1706,11 @@ function renderProgramme(){
   // one row per venue, ordered by when that venue's first event starts
   const rows = [];
   evs.forEach(e => {
-    let r = rows.find(r => r.venue === e.venue);
-    if(!r) rows.push(r = { venue:e.venue, venueId:e.venueId, items:[], lanes:[] });
+    let r = rows.find(r => r.venueId === e.venueId);
+    if(!r){
+      const v = VENUES.find(v => v.id === e.venueId);
+      rows.push(r = { venue: v ? v.name : e.venue, venueId:e.venueId, items:[], lanes:[] });
+    }
     r.items.push(e);
   });
   const LH = 44;
