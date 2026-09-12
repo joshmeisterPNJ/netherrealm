@@ -1636,8 +1636,9 @@ function festDays(f){
 const eventsOn = (f, date) => EVENTS
   .filter(e => e.festival === f.id && e.date === date)
   .map(e => {
-    const s = toMin(e.start); let en = toMin(e.end);
-    if(en <= s) en += 1440;                       // runs past midnight
+    const s = toMin(e.start);
+    let en = e.dur ? s + e.dur : toMin(e.end);
+    if(!e.dur && en <= s) en += 1440;             // runs past midnight
     return Object.assign({}, e, { s, e: en });
   })
   .sort((a,b) => a.s - b.s || a.name.localeCompare(b.name));
@@ -1720,7 +1721,7 @@ function renderProgramme(){
               const st = PLAN[e.id] || "";
               return `<button class="ev ${st}" data-ev="${esc(e.id)}"
                 style="left:${x(e.s)}px;width:${Math.max(58, x(e.e)-x(e.s))}px">
-                <b>${esc(e.name)}</b><i>${e.start}–${e.end}</i></button>`;
+                <b>${esc(e.name)}</b><i>${e.start}–${e.endEst?"~":""}${e.end}</i></button>`;
             }).join("")}
           </div>
         </div>`).join("")}
@@ -1753,7 +1754,7 @@ function renderPlan(f){
   const lines = [];
   for(let i=0;i<mine.length;i++){
     const e = mine[i], dt = parseDay(e.date);
-    lines.push(`<div class="pl-ev"><span class="pl-t">${e.start}–${e.end}</span>
+    lines.push(`<div class="pl-ev"><span class="pl-t">${e.start}–${e.endEst?"~":""}${e.end}</span>
       <span class="pl-n"><b>${esc(e.name)}</b><i>${DAYNAME[dt.getUTCDay()]} · ${esc(e.venue)}</i></span></div>`);
     const n = mine[i+1];
     if(!n || n.date !== e.date) continue;
@@ -1782,7 +1783,7 @@ function renderPlan(f){
   box.innerHTML = `<div class="pl-head">Your night</div>${lines.join("")}` +
     (theirs.length ? `<div class="pl-head">Friends</div>` + theirs.map(t=>{
        const dt = parseDay(t.date);
-       return `<div class="pl-ev alt"><span class="pl-t">${t.start}–${t.end}</span>
+       return `<div class="pl-ev alt"><span class="pl-t">${t.start}–${t.endEst?"~":""}${t.end}</span>
          <span class="pl-n"><b>${esc(t.name)}</b><i>${DAYNAME[dt.getUTCDay()]} · ${esc(t.venue)}</i></span></div>`;
      }).join("") : "") +
     (conflicts.length ? `<div class="pl-gap">${conflicts.map(esc).join("<br>")}</div>` : "");

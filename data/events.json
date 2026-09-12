@@ -104,6 +104,252 @@
       "price": "€19.20",
       "note": "A/V performance — Umzimba. Live hardware percussion against a model turning sound into visuals.",
       "url": "https://www.paradiso.nl/en/program/state-offf-ade/2901627"
+    },
+    {
+      "id": "ade-malugi",
+      "festival": "ade2026",
+      "name": "Malugi",
+      "venueId": "paradiso",
+      "venue": "Paradiso",
+      "date": "2026-10-21",
+      "start": "17:00",
+      "end": "20:00",
+      "genres": [
+        "house"
+      ],
+      "lineup": [],
+      "note": "Early one. House, all night long billing.",
+      "endEst": true
+    },
+    {
+      "id": "ade-sirene",
+      "festival": "ade2026",
+      "name": "S!RENE",
+      "venueId": "paradiso",
+      "venue": "Paradiso",
+      "date": "2026-10-21",
+      "start": "20:30",
+      "end": "23:00",
+      "genres": [
+        "afrobeats",
+        "hip-hop",
+        "live"
+      ],
+      "lineup": [],
+      "note": "Live, intimate room. Afro, Latin & global.",
+      "endEst": true
+    },
+    {
+      "id": "ade-djsnake",
+      "festival": "ade2026",
+      "name": "DJ Snake",
+      "venueId": "paradiso",
+      "venue": "Paradiso",
+      "date": "2026-10-21",
+      "start": "23:59",
+      "end": "05:00",
+      "genres": [
+        "house",
+        "tech-house",
+        "hip-hop"
+      ],
+      "lineup": [
+        "DJ Snake"
+      ],
+      "note": "The big commercial draw of the opening night.",
+      "endEst": true
+    },
+    {
+      "id": "ade-masonics",
+      "festival": "ade2026",
+      "name": "MASONICS",
+      "venueId": "lofi",
+      "venue": "Lofi",
+      "date": "2026-10-21",
+      "start": "22:00",
+      "end": "05:00",
+      "genres": [
+        "techno"
+      ],
+      "lineup": [
+        "DJ Rush",
+        "Patrick Mason",
+        "Shinedoe",
+        "Laure Croft",
+        "Yasmin Regisford"
+      ],
+      "note": "Hard, proper techno bill to open the week.",
+      "endEst": true
+    },
+    {
+      "id": "ade-anjunadeep",
+      "festival": "ade2026",
+      "name": "Anjunadeep",
+      "venueId": "paradiso",
+      "venue": "Paradiso",
+      "date": "2026-10-22",
+      "start": "23:00",
+      "end": "06:00",
+      "genres": [
+        "melodic",
+        "trance",
+        "minimal-techno",
+        "techno"
+      ],
+      "lineup": [
+        "Jody Wisternoff",
+        "James Grant",
+        "Ezequiel Arias",
+        "Martin Roth",
+        "Because of Art",
+        "Kasper Koman",
+        "Kloyd",
+        "Nicky Elisabeth",
+        "Rromarin"
+      ],
+      "note": "All night long, in the church. The euphoric/melodic end, done properly.",
+      "endEst": true
+    },
+    {
+      "id": "ade-lawrencehart",
+      "festival": "ade2026",
+      "name": "Lawrence Hart",
+      "venueId": "paradiso",
+      "venue": "Paradiso",
+      "date": "2026-10-22",
+      "start": "22:00",
+      "end": "23:30",
+      "genres": [
+        "house",
+        "live"
+      ],
+      "lineup": [
+        "Lawrence Hart"
+      ],
+      "note": "Live set, early.",
+      "endEst": true
+    },
+    {
+      "id": "ade-lnr",
+      "festival": "ade2026",
+      "name": "LNR · ADE edition",
+      "venueId": "radion",
+      "venue": "Radion",
+      "date": "2026-10-22",
+      "start": "23:00",
+      "end": "08:00",
+      "genres": [
+        "techno"
+      ],
+      "lineup": [],
+      "note": "Techno at the 24-hour room.",
+      "endEst": true
+    },
+    {
+      "id": "ade-hotmeal",
+      "festival": "ade2026",
+      "name": "Hot Meal",
+      "venueId": "lofi",
+      "venue": "Lofi",
+      "date": "2026-10-22",
+      "start": "22:00",
+      "end": "05:00",
+      "genres": [
+        "hard dance",
+        "techno"
+      ],
+      "lineup": [
+        "Mija b2b MRD",
+        "Angel D'lite",
+        "Bad Boombox",
+        "Mischluft",
+        "Jessie Dols"
+      ],
+      "note": "Hard dance and fast techno.",
+      "endEst": true
+    },
+    {
+      "id": "ade-djbone",
+      "festival": "ade2026",
+      "name": "DJ Bone · FURTHER x Homeless Homies",
+      "venueId": "radion",
+      "venue": "Radion",
+      "date": "2026-10-23",
+      "start": "11:00",
+      "end": "23:00",
+      "genres": [
+        "detroit techno"
+      ],
+      "lineup": [
+        "DJ Bone"
+      ],
+      "note": "Daytime Detroit techno, twelve hours of it.",
+      "endEst": true
+    },
+    {
+      "id": "ade-aura",
+      "festival": "ade2026",
+      "name": "AURA ADE Special w/ Hayes Collective",
+      "venueId": "radion",
+      "venue": "Radion",
+      "date": "2026-10-23",
+      "start": "23:00",
+      "end": "08:00",
+      "genres": [
+        "techno"
+      ],
+      "lineup": [
+        "Hayes Collective"
+      ],
+      "note": "Runs into Saturday on the 24-hour licence.",
+      "endEst": true
+    },
+    {
+      "id": "ade-vbx",
+      "festival": "ade2026",
+      "name": "VBX",
+      "venueId": "lofi",
+      "venue": "Lofi",
+      "date": "2026-10-23",
+      "start": "23:30",
+      "end": "06:00",
+      "genres": [
+        "afro",
+        "latin & global",
+        "dub",
+        "house",
+        "techno"
+      ],
+      "lineup": [],
+      "note": "Afro, Latin and global crossed with dub, house and techno.",
+      "endEst": true
+    },
+    {
+      "id": "ade-breakfast",
+      "festival": "ade2026",
+      "name": "Breakfast Club · The Final Stretch",
+      "venueId": "garagenoord",
+      "venue": "Garage Noord",
+      "date": "2026-10-25",
+      "start": "18:00",
+      "end": "00:00",
+      "genres": [
+        "house",
+        "deep house",
+        "electro",
+        "wave"
+      ],
+      "lineup": [
+        "tINI",
+        "Angel D'lite",
+        "Akua",
+        "42nd Avenue b2b Mattie",
+        "Andy b2b Nathan Homan",
+        "Gusted"
+      ],
+      "note": "Thirty hours. The closing party, at the room with the best crowd in the city.",
+      "endEst": false,
+      "dur": 1800
     }
   ]
 }
