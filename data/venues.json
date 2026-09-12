@@ -3093,5 +3093,89 @@
       "map": "https://www.google.com/maps/search/AFAS+Live+Amsterdam"
     },
     "status": "open"
+  },
+  {
+    "city": "amsterdam",
+    "hours": "",
+    "draft": true,
+    "rooms": [],
+    "nights": [],
+    "links": {
+      "ra": "https://ra.co/search?q=The%20Loft%20amsterdam",
+      "map": "https://www.google.com/maps/search/The%20Loft%20Amsterdam"
+    },
+    "status": "open",
+    "id": "theloft",
+    "name": "The Loft",
+    "area": "Noord — A'DAM Toren, 16th floor",
+    "intensity": 2,
+    "cap": 350,
+    "lat": 52.3847,
+    "lon": 4.9012,
+    "line": "Sixteen floors above Shelter, in the same tower.",
+    "note": "A penthouse room on the 16th floor of the A'DAM Toren with seven-metre floor-to-ceiling windows over the IJ. Intimate at 350, and the polished end of the city's electronic programming — Shelter is in the basement of the same building.",
+    "tags": [
+      "panoramic",
+      "intimate",
+      "premium",
+      "house",
+      "techno"
+    ]
+  },
+  {
+    "city": "amsterdam",
+    "hours": "",
+    "draft": true,
+    "rooms": [],
+    "nights": [],
+    "links": {
+      "ra": "https://ra.co/search?q=BRET%20amsterdam",
+      "map": "https://www.google.com/maps/search/BRET%20Amsterdam"
+    },
+    "status": "open",
+    "id": "bret",
+    "name": "BRET",
+    "area": "West — Sloterdijk",
+    "intensity": 3,
+    "cap": 400,
+    "lat": 52.3885,
+    "lon": 4.8375,
+    "line": "Stacked shipping containers by the station, red as anything.",
+    "note": "Built from assembled shipping containers next to Sloterdijk station — restaurant and beer garden by day, electronic club once it goes dark. Running since 2015.",
+    "tags": [
+      "containers",
+      "outdoor",
+      "house",
+      "techno",
+      "westside"
+    ]
+  },
+  {
+    "city": "amsterdam",
+    "hours": "",
+    "draft": true,
+    "rooms": [],
+    "nights": [],
+    "links": {
+      "ra": "https://ra.co/search?q=Het%20Sieraad%20amsterdam",
+      "map": "https://www.google.com/maps/search/Het%20Sieraad%20Amsterdam"
+    },
+    "status": "open",
+    "id": "hetsieraad",
+    "name": "Het Sieraad",
+    "area": "West — Postjesweg",
+    "intensity": 3,
+    "cap": 1300,
+    "lat": 52.3663,
+    "lon": 4.8562,
+    "line": "A hundred-year-old craft school with a glass-roofed atrium.",
+    "note": "A former craft school on the canal in West, with a rounded façade and a big atrium under a glass roof. Programming runs melodic techno through to Afro house.",
+    "tags": [
+      "historic",
+      "atrium",
+      "melodic",
+      "afro house",
+      "techno"
+    ]
   }
 ]
