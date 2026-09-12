@@ -467,6 +467,7 @@ const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* ---------------- persistence ---------------- */
 let DB = null, EDITS = {}, ADDED = [];
+let PLAN = {};                       // eventId -> "going" | "friends" | "maybe"
 const LS = "nightform.v1";
 function loadLocal(){ try{ const s=JSON.parse(localStorage.getItem(LS)||"{}");
   EDITS=s.edits||{}; ADDED=s.added||[]; PLAN=s.plan||{}; }catch(e){} }
@@ -1683,7 +1684,6 @@ const EVENTS = (RAW.events && RAW.events.events)    || [];
 const DAYNAME = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const MONTH   = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
-let PLAN = {};                       // eventId -> "going" | "friends" | "maybe"
 let progDate = null;
 let progKind = "club";
 
