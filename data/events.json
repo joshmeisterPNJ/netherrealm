@@ -1333,6 +1333,28 @@
         "RUZE"
       ],
       "note": "Times not published; the night slot after Glitterbox."
+    },
+    {
+      "id": "ade-majorleague",
+      "festival": "ade2026",
+      "name": "Major League DJz · Echoes Of Tomorrow",
+      "venueId": "jimmywoo",
+      "venue": "Jimmy Woo",
+      "date": "2026-10-23",
+      "start": "23:00",
+      "end": "05:00",
+      "endEst": false,
+      "price": null,
+      "genres": [
+        "afrobeats",
+        "house",
+        "afro/latin & global"
+      ],
+      "lineup": [
+        "Major League DJz",
+        "KUKU"
+      ],
+      "note": "21+ on the door."
     }
   ]
 }

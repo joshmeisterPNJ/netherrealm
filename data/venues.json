@@ -3587,5 +3587,35 @@
         1620
       ]
     }
+  },
+  {
+    "id": "jimmywoo",
+    "city": "amsterdam",
+    "kind": "club",
+    "name": "Jimmy Woo",
+    "area": "Centrum — Korte Leidsedwarsstraat",
+    "intensity": 2,
+    "cap": 500,
+    "hours": "",
+    "draft": true,
+    "lat": 52.3638,
+    "lon": 4.883,
+    "line": "Leidseplein's glamour club, disco-ball ceiling and a door policy.",
+    "note": "Open since 2003 just off Leidseplein, with a lounge upstairs and a low dark room below under a ceiling of hundreds of lights. Exclusive rather than underground, and 21+ on the door.",
+    "tags": [
+      "central",
+      "exclusive",
+      "doorpolicy",
+      "house",
+      "21plus"
+    ],
+    "rooms": [],
+    "nights": [],
+    "status": "open",
+    "links": {
+      "web": "https://www.jimmywoo.com",
+      "ra": "https://ra.co/search?q=jimmy%20woo%20amsterdam",
+      "map": "https://www.google.com/maps/search/Jimmy+Woo+Korte+Leidsedwarsstraat+Amsterdam"
+    }
   }
 ]
