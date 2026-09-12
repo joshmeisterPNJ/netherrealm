@@ -270,7 +270,7 @@ body{
   #legend{top:calc(66px + env(safe-area-inset-top));bottom:auto}
 }
 #prog{position:fixed;inset:0;z-index:40;background:var(--void);display:none;
-  grid-template-rows:auto auto 1fr auto;overflow:hidden}
+  grid-template-rows:auto auto 1fr;overflow:hidden}
 #prog.on{display:grid}
 .prog-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
   padding:calc(18px + env(safe-area-inset-top)) 20px 12px}
@@ -282,7 +282,9 @@ body{
   background:#141419;color:var(--ink-dim);cursor:pointer;font-size:15px}
 #progClose:hover{color:var(--ink)}
 
-#progDays{display:flex;gap:6px;padding:0 20px 14px;overflow-x:auto}
+#progDays{display:flex;gap:6px;padding:0 20px 14px;overflow-x:auto;align-items:center}
+#progCount{margin:6px 0 0;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--city-soft)}
 #progDays button{flex:none;background:#0d0d10;border:1px solid var(--line);cursor:pointer;
   padding:9px 13px;display:flex;align-items:baseline;gap:7px;color:var(--ink-dim)}
 #progDays button b{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase}
@@ -293,20 +295,23 @@ body{
 #progDays button[aria-pressed=true] u{color:#08080a}
 
 #progBody{overflow:hidden;min-height:0}
-.grid-scroll{height:100%;overflow:auto;padding:0 20px 8px}
+.grid-scroll{height:100%;overflow:auto;padding:0 20px 24px}
 .grid{position:relative;min-height:100%}
-.ruler{position:relative;height:22px;margin-left:var(--lab)}
+.ruler{position:sticky;top:0;z-index:3;height:24px;margin-left:var(--lab);background:var(--void)}
 .ruler .tick{position:absolute;top:0;font-family:var(--mono);font-size:9px;
   letter-spacing:.1em;color:var(--ink-faint);transform:translateX(-50%)}
-.row{display:grid;grid-template-columns:var(--lab) 1fr;align-items:stretch;margin-bottom:7px}
-.rowlab{padding:8px 12px 8px 0;display:flex;align-items:center}
+.row{display:grid;grid-template-columns:var(--lab) 1fr;align-items:stretch;margin-bottom:5px}
+.rowlab{position:sticky;left:0;z-index:2;background:var(--void);padding:6px 12px 6px 0;
+  display:flex;align-items:flex-start}
+.rowlab b{padding-top:11px}
 .rowlab b{font-family:var(--disp);font-variation-settings:"wdth" 96,"wght" 600;font-size:12.5px;
   color:var(--ink-dim);line-height:1.25}
-.lane{position:relative;min-height:52px;border-left:1px solid var(--line)}
+.lane{position:relative;border-left:1px solid var(--line)}
 .lane .hour{position:absolute;top:0;bottom:0;border-right:1px solid #141419}
-.ev{position:absolute;top:4px;bottom:4px;border:1px solid var(--line);background:#101014;
-  cursor:pointer;text-align:left;padding:7px 9px;overflow:hidden;color:var(--ink-dim);
-  display:flex;flex-direction:column;gap:3px;transition:background .15s,border-color .15s}
+.ev{position:absolute;border:1px solid var(--line);background:#101014;
+  cursor:pointer;text-align:left;padding:6px 9px;overflow:hidden;color:var(--ink-dim);
+  display:flex;flex-direction:column;justify-content:center;gap:2px;
+  transition:background .15s,border-color .15s}
 .ev b{font-family:var(--disp);font-variation-settings:"wdth" 96,"wght" 600;font-size:12px;
   color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ev i{font-family:var(--mono);font-style:normal;font-size:9px;letter-spacing:.1em;color:var(--ink-faint)}
@@ -317,22 +322,6 @@ body{
   box-shadow:inset 3px 0 0 var(--city)}
 .ev.maybe{border-style:dashed;border-color:#3a3a48}
 
-#progPlan{border-top:1px solid var(--line);padding:14px 20px calc(18px + env(safe-area-inset-bottom));
-  max-height:38vh;overflow-y:auto;background:#0a0a0d}
-.pl-head{font-family:var(--mono);font-size:9px;letter-spacing:.24em;text-transform:uppercase;
-  color:var(--ink-faint);margin:0 0 10px}
-.pl-head+.pl-head,.pl-ev+.pl-head{margin-top:16px}
-.pl-ev{display:flex;gap:14px;align-items:baseline;padding:7px 0}
-.pl-ev.alt{opacity:.62}
-.pl-t{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--city-soft);
-  flex:none;min-width:92px;font-variant-numeric:tabular-nums}
-.pl-n b{display:block;font-family:var(--disp);font-variation-settings:"wdth" 100,"wght" 600;
-  font-size:13.5px;color:var(--ink)}
-.pl-n i{display:block;font-family:var(--mono);font-style:normal;font-size:9px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--ink-faint);margin-top:3px}
-.pl-gap{margin:2px 0 2px 106px;padding-left:14px;border-left:1px solid var(--line);
-  font-family:var(--read);font-size:13px;color:var(--ink-dim);padding-top:4px;padding-bottom:4px}
-.pl-gap.bad{border-left-color:var(--city);color:var(--city-soft)}
 .prog-empty{font-family:var(--read);font-size:14px;color:var(--ink-dim);margin:4px 0;max-width:56ch}
 #prog{--lab:132px}
 @media (max-width:700px){ #prog{--lab:96px} .pl-gap{margin-left:0} .pl-t{min-width:80px} }
@@ -385,12 +374,11 @@ body{
 
 <div id="prog" aria-hidden="true">
   <header class="prog-top">
-    <div><h2 id="progTitle">ADE</h2><p id="progSub"></p></div>
+    <div><h2 id="progTitle">ADE</h2><p id="progSub"></p><p id="progCount"></p></div>
     <button id="progClose" aria-label="Close">✕</button>
   </header>
   <nav id="progDays"></nav>
   <div id="progBody"></div>
-  <aside id="progPlan"></aside>
 </div>
 
 <aside id="panel" aria-hidden="true">
@@ -1687,8 +1675,8 @@ function renderProgramme(){
   const evs = eventsOn(f, progDate);
   const body = document.getElementById("progBody");
   if(!evs.length){
-    body.innerHTML = `<p class="prog-empty">Nothing listed for this day yet. Send me links and I'll add them.</p>`;
-    renderPlan(f); return;
+    body.innerHTML = `<p class="prog-empty">Nothing listed for this day yet.</p>`;
+    countMarks(); return;
   }
 
   const t0 = Math.floor(Math.min(...evs.map(e=>e.s))/60)*60;
@@ -1700,8 +1688,16 @@ function renderProgramme(){
   const rows = [];
   evs.forEach(e => {
     let r = rows.find(r => r.venue === e.venue);
-    if(!r) rows.push(r = { venue:e.venue, venueId:e.venueId, items:[] });
+    if(!r) rows.push(r = { venue:e.venue, venueId:e.venueId, items:[], lanes:[] });
     r.items.push(e);
+  });
+  const LH = 44;
+  rows.forEach(r => {
+    r.items.forEach(e => {
+      let i = r.lanes.findIndex(l => l.every(x => e.s >= x.e || e.e <= x.s));
+      if(i < 0){ r.lanes.push([e]); i = r.lanes.length - 1; } else r.lanes[i].push(e);
+      e.lane = i;
+    });
   });
 
   let ticks = "";
@@ -1714,13 +1710,13 @@ function renderProgramme(){
       ${rows.map(r => `
         <div class="row">
           <div class="rowlab"><b>${esc(r.venue)}</b></div>
-          <div class="lane">
+          <div class="lane" style="height:${r.lanes.length*LH}px">
             ${[...Array(Math.round((t1-t0)/60))].map((_,i)=>
               `<span class="hour" style="left:${i*pph}px;width:${pph}px"></span>`).join("")}
             ${r.items.map(e => {
               const st = PLAN[e.id] || "";
               return `<button class="ev ${st}" data-ev="${esc(e.id)}"
-                style="left:${x(e.s)}px;width:${Math.max(58, x(e.e)-x(e.s))}px">
+                style="left:${x(e.s)}px;width:${Math.max(58, x(e.e)-x(e.s))}px;top:${e.lane*LH+3}px;height:${LH-6}px">
                 <b>${esc(e.name)}</b><i>${e.start}–${e.endEst?"~":""}${e.end}</i></button>`;
             }).join("")}
           </div>
@@ -1732,61 +1728,18 @@ function renderProgramme(){
       const id = el.dataset.ev;
       const next = CYCLE[PLAN[id] || ""];
       if(next) PLAN[id] = next; else delete PLAN[id];
-      savePlan(); renderProgramme();
+      savePlan();
+      el.className = "ev " + (PLAN[id] || "");
+      countMarks();
     };
   });
-  renderPlan(f);
+  countMarks();
 }
-
-/* ---- what the picks add up to ---- */
-function renderPlan(f){
-  const mine = EVENTS.filter(e => PLAN[e.id] === "going")
-    .map(e => { const s=toMin(e.start); let en=toMin(e.end); if(en<=s) en+=1440;
-                return Object.assign({}, e, {s, e:en}); })
-    .sort((a,b) => a.date.localeCompare(b.date) || a.s - b.s);
-
-  const box = document.getElementById("progPlan");
-  if(!mine.length){
-    box.innerHTML = `<p class="prog-empty">Tap an event to cycle it: <b>going</b> → <b>friends</b> → <b>maybe</b>.
-      Your night builds up here, with clashes and travel between rooms.</p>`;
-    return;
-  }
-  const lines = [];
-  for(let i=0;i<mine.length;i++){
-    const e = mine[i], dt = parseDay(e.date);
-    lines.push(`<div class="pl-ev"><span class="pl-t">${e.start}–${e.endEst?"~":""}${e.end}</span>
-      <span class="pl-n"><b>${esc(e.name)}</b><i>${DAYNAME[dt.getUTCDay()]} · ${esc(e.venue)}</i></span></div>`);
-    const n = mine[i+1];
-    if(!n || n.date !== e.date) continue;
-    const gap = n.s - e.e;
-    const h = hop(e.venueId, n.venueId);
-    if(gap < 0){
-      lines.push(`<div class="pl-gap bad">Clashes with ${esc(n.name)} by ${-gap} min
-        — you cannot do both.</div>`);
-    }else{
-      const t = h ? `${h.km.toFixed(1)} km · about ${h.mins} min door to door` : "travel unknown";
-      const tight = h && gap < h.mins;
-      lines.push(`<div class="pl-gap${tight?" bad":""}">${gap} min gap · ${t}${
-        tight ? " — that is tighter than the journey" : ""}</div>`);
-    }
-  }
-  // other people's picks that collide with yours
-  const theirs = EVENTS.filter(e => PLAN[e.id] === "friends");
-  const conflicts = [];
-  for(const t of theirs){
-    let s=toMin(t.start), en=toMin(t.end); if(en<=s) en+=1440;
-    for(const m of mine){
-      if(t.date !== m.date) continue;
-      if(s < m.e && en > m.s) conflicts.push(t.name + " overlaps your " + m.name);
-    }
-  }
-  box.innerHTML = `<div class="pl-head">Your night</div>${lines.join("")}` +
-    (theirs.length ? `<div class="pl-head">Friends</div>` + theirs.map(t=>{
-       const dt = parseDay(t.date);
-       return `<div class="pl-ev alt"><span class="pl-t">${t.start}–${t.endEst?"~":""}${t.end}</span>
-         <span class="pl-n"><b>${esc(t.name)}</b><i>${DAYNAME[dt.getUTCDay()]} · ${esc(t.venue)}</i></span></div>`;
-     }).join("") : "") +
-    (conflicts.length ? `<div class="pl-gap">${conflicts.map(esc).join("<br>")}</div>` : "");
+function countMarks(){
+  const n = st => EVENTS.filter(e => PLAN[e.id] === st).length;
+  const g = n("going"), fr = n("friends"), m = n("maybe");
+  document.getElementById("progCount").textContent =
+    (g||fr||m) ? g+" going · "+fr+" friends · "+m+" maybe" : "tap to shortlist";
 }
 
 /* ---------------- shareable state ---------------- */
