@@ -1277,6 +1277,62 @@
         "Marlie"
       ],
       "note": "Raresh. The groove bill of the weekend."
+    },
+    {
+      "festival": "ade2026",
+      "venueId": "thuishaven",
+      "venue": "Thuishaven",
+      "price": null,
+      "id": "ade-thuis-thu-glitterbox",
+      "name": "Glitterbox ADE",
+      "date": "2026-10-22",
+      "start": "16:00",
+      "end": "23:00",
+      "endEst": false,
+      "genres": [
+        "disco",
+        "funk & soul",
+        "house"
+      ],
+      "lineup": [
+        "Horse Meat Disco",
+        "Carl Craig",
+        "Eliza Rose",
+        "The Shapeshifters",
+        "HoneyLuv",
+        "Melvo Baptiste",
+        "Bridge",
+        "Ella Knight",
+        "Makèz",
+        "Laura Meester",
+        "Tonno Disko"
+      ],
+      "note": "Listed as sold out."
+    },
+    {
+      "festival": "ade2026",
+      "venueId": "thuishaven",
+      "venue": "Thuishaven",
+      "price": null,
+      "id": "ade-thuis-thu-defected",
+      "name": "Defected ADE",
+      "date": "2026-10-22",
+      "start": "23:00",
+      "end": "06:00",
+      "endEst": true,
+      "genres": [
+        "house"
+      ],
+      "lineup": [
+        "Sam Divine",
+        "Melé",
+        "TSHA",
+        "Makèz",
+        "Joëlla Jackson",
+        "Ranger Trucco",
+        "RUZE"
+      ],
+      "note": "Times not published; the night slot after Glitterbox."
     }
   ]
 }
