@@ -294,6 +294,14 @@ body{
 .ev.tight i{display:none}
 .ev.tight b{white-space:normal;line-height:1.2;font-size:11px;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.ev .hd{display:flex;align-items:baseline;gap:7px;min-width:0}
+.ev .hd b{flex:0 1 auto}
+.ev u{flex:none;text-decoration:none;font-family:var(--mono);font-size:7.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-faint);border:1px solid var(--line);
+  padding:1px 4px;border-radius:2px;white-space:nowrap}
+.ev.going u{border-color:rgba(0,0,0,.35);color:rgba(0,0,0,.62)}
+.ev.tight u{display:none}
+.ev{position:relative}
 .ev.isopen{border-style:dashed}
 .ev.isopen b{color:var(--ink-dim)}
 #prog.on{display:grid}
@@ -363,7 +371,10 @@ body{
   font-family:var(--mono);font-size:9px;letter-spacing:.24em;text-transform:uppercase;
   color:var(--ink-faint);font-weight:400}
 .pk-day h4 span{color:var(--city-soft)}
-.pk{display:flex;gap:14px;align-items:baseline;padding:7px 0}
+.pk{display:flex;gap:14px;align-items:baseline;padding:7px 0;cursor:pointer;
+  border-radius:3px;transition:background .15s}
+.pk:hover{background:#121217}
+.pk:hover .pk-m::after{content:" ✕";color:var(--city)}
 .pk.friends,.pk.maybe{opacity:.55}
 .pk-t{flex:none;min-width:104px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;
   color:var(--city-soft);font-variant-numeric:tabular-nums}
@@ -1836,7 +1847,7 @@ function renderProgramme(){
               const w = Math.max(58, x(e.e)-x(e.s));
               return `<button class="ev ${st}${w<96?" tight":""}" data-ev="${esc(e.id)}"${e.isOpen?' data-open="1"':""}${w<96?' data-tight="1"':""}
                 style="left:${x(e.s)}px;width:${w}px;top:${e.lane*LH+3}px;height:${LH-6}px">
-                <b>${esc(e.name)}</b><i>${e.start}–${e.endEst?"~":""}${e.end}${e.price?" · "+esc(e.price):""}${(e.genres&&e.genres.length)?" · "+esc(e.genres.slice(0,2).join(", ")):""}</i></button>`;
+                <span class="hd"><b>${esc(e.name)}</b>${PLAN[e.id]?`<u>${PLAN[e.id]}</u>`:""}</span><i>${e.start}–${e.endEst?"~":""}${e.end}${e.price?" · "+esc(e.price):""}${(e.genres&&e.genres.length)?" · "+esc(e.genres.slice(0,2).join(", ")):""}</i></button>`;
             }).join("")}
           </div>
         </div>`).join("")}
@@ -1848,8 +1859,14 @@ function renderProgramme(){
       const next = CYCLE[PLAN[id] || ""];
       if(next) PLAN[id] = next; else delete PLAN[id];
       savePlan();
-      el.className = "ev " + (PLAN[id] || "") + (el.dataset.open ? " isopen" : "")
+      const mark = PLAN[id] || "";
+      el.className = "ev " + mark + (el.dataset.open ? " isopen" : "")
         + (el.dataset.tight ? " tight" : "");        // repaint in place, do not rebuild
+      let chip = el.querySelector("u");
+      if(mark){
+        if(!chip){ chip = document.createElement("u"); el.querySelector(".hd").appendChild(chip); }
+        chip.textContent = mark;
+      } else if(chip) chip.remove();
       countMarks();
     };
   });
@@ -1884,7 +1901,7 @@ function renderPlan(){
       const c = euros(p.price); if(p.mark === "going" && c) dayCost += c;
       const bits = [p.isOpen ? "open all evening" : p.venue, p.price || null,
         (p.genres && p.genres.length) ? p.genres.slice(0,2).join(", ") : null].filter(Boolean);
-      let block = `<div class="pk ${p.mark}">
+      let block = `<div class="pk ${p.mark}" data-drop="${esc(p.id)}" title="Tap to remove">
         <span class="pk-t">${p.start}–${p.endEst?"~":""}${p.end}</span>
         <span class="pk-b"><b>${esc(p.isOpen ? p.venue : p.name)}</b><i>${esc(bits.join("  ·  "))}</i></span>
         <span class="pk-m">${p.mark}</span></div>`;
@@ -1910,9 +1927,17 @@ function renderPlan(){
 
   const priced = picks.filter(p => p.mark === "going" && euros(p.price)).length;
   const going  = picks.filter(p => p.mark === "going").length;
-  body.innerHTML = out + (spend
+  const html = out + (spend
     ? `<div class="pk-total">€${spend.toFixed(2)} across ${priced} of ${going}
        — the rest have no price published</div>` : "");
+  body.innerHTML = html;
+  body.querySelectorAll("[data-drop]").forEach(row => {
+    row.onclick = () => {
+      delete PLAN[row.dataset.drop];
+      savePlan(); countMarks();
+      if(document.getElementById("prog").classList.contains("on")) renderProgramme();
+    };
+  });
 }
 
 function countMarks(){
