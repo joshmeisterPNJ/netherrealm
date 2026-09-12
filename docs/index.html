@@ -285,7 +285,7 @@ body{
   #legend{top:calc(66px + env(safe-area-inset-top));bottom:auto}
 }
 #prog{position:fixed;inset:0;z-index:40;background:var(--void);display:none;
-  grid-template-rows:auto auto auto 1fr;overflow:hidden}
+  grid-template-rows:auto auto auto 1fr auto;overflow:hidden}
 #progKinds{display:flex;gap:6px;padding:0 20px 12px}
 #progKinds button{background:#0d0d10;border:1px solid var(--line);color:var(--ink-dim);cursor:pointer;
   padding:9px 15px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase}
@@ -344,6 +344,39 @@ body{
   box-shadow:inset 3px 0 0 var(--city)}
 .ev.maybe{border-style:dashed;border-color:#3a3a48}
 
+#progPlan{border-top:1px solid var(--line);background:#0a0a0d;display:flex;flex-direction:column;
+  min-height:0;max-height:56vh}
+#progPlan.shut #planBody{display:none}
+#planToggle{flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  width:100%;background:none;border:0;cursor:pointer;color:var(--city-soft);
+  padding:15px 20px calc(15px + env(safe-area-inset-bottom));
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase}
+#progPlan:not(.shut) #planToggle{padding-bottom:13px;border-bottom:1px solid var(--line)}
+#planToggle .chev{transition:transform .2s;font-size:13px}
+#progPlan.shut #planToggle .chev{transform:rotate(180deg)}
+#planBody{overflow-y:auto;padding:4px 20px calc(18px + env(safe-area-inset-bottom))}
+.pk-day h4{margin:16px 0 8px;display:flex;justify-content:space-between;align-items:baseline;
+  font-family:var(--mono);font-size:9px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--ink-faint);font-weight:400}
+.pk-day h4 span{color:var(--city-soft)}
+.pk{display:flex;gap:14px;align-items:baseline;padding:7px 0}
+.pk.friends,.pk.maybe{opacity:.55}
+.pk-t{flex:none;min-width:104px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;
+  color:var(--city-soft);font-variant-numeric:tabular-nums}
+.pk-b{flex:1}
+.pk-b b{display:block;font-family:var(--disp);font-variation-settings:"wdth" 100,"wght" 600;
+  font-size:13.5px;color:var(--ink)}
+.pk-b i{display:block;font-family:var(--mono);font-style:normal;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-faint);margin-top:4px}
+.pk-m{flex:none;font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-faint)}
+.pk.going .pk-m{color:var(--city)}
+.pk-link{margin:1px 0 1px 118px;padding:4px 0 4px 14px;border-left:1px solid var(--line);
+  font-family:var(--read);font-size:12.5px;color:var(--ink-dim)}
+.pk-link.bad{border-left-color:var(--city);color:var(--city-soft)}
+.pk-total{margin:18px 0 4px;padding-top:12px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim)}
+@media (max-width:700px){ .pk-link{margin-left:0} .pk-t{min-width:88px} }
 .prog-empty{font-family:var(--read);font-size:14px;color:var(--ink-dim);margin:4px 0;max-width:56ch}
 #prog{--lab:132px}
 @media (max-width:700px){ #prog{--lab:96px} .pl-gap{margin-left:0} .pl-t{min-width:80px} }
@@ -408,6 +441,12 @@ body{
   </div>
   <nav id="progDays"></nav>
   <div id="progBody"></div>
+  <aside id="progPlan" class="shut">
+    <button id="planToggle" type="button" aria-expanded="false">
+      <span id="planSum">tap to shortlist</span><span class="chev">⌃</span>
+    </button>
+    <div id="planBody"></div>
+  </aside>
 </div>
 
 <aside id="panel" aria-hidden="true">
@@ -1580,6 +1619,11 @@ btnProg.onclick = ()=>{
       renderProgramme();
     };
   });
+document.getElementById("planToggle").onclick = ()=>{
+  const p = document.getElementById("progPlan");
+  const open = p.classList.toggle("shut");
+  document.getElementById("planToggle").setAttribute("aria-expanded", String(!open));
+};
 document.getElementById("progClose").onclick = ()=>{
   document.getElementById("prog").classList.remove("on");
   document.getElementById("prog").setAttribute("aria-hidden","true");
@@ -1797,11 +1841,73 @@ function renderProgramme(){
   });
   countMarks();
 }
+/* ---- the shortlist, on demand ---- */
+function euros(p){ const m = /([\d]+[.,]?\d*)/.exec(p||""); return m ? parseFloat(m[1].replace(",",".")) : null; }
+
+function renderPlan(){
+  const body = document.getElementById("planBody");
+  const picks = EVENTS
+    .filter(e => PLAN[e.id])
+    .map(e => { const s = toMin(e.start); let en = e.dur ? s + e.dur : toMin(e.end);
+                if(!e.dur && en <= s) en += 1440;
+                return Object.assign({}, e, { s, e: en, mark: PLAN[e.id] }); })
+    .sort((a,b) => a.date.localeCompare(b.date) || a.s - b.s);
+
+  if(!picks.length){
+    body.innerHTML = `<p class="prog-empty">Nothing shortlisted. Tap an event to cycle it
+      through going, friends and maybe.</p>`;
+    return;
+  }
+
+  const days = [...new Set(picks.map(p => p.date))];
+  let spend = 0;
+  const out = days.map(date => {
+    const dt = parseDay(date);
+    const onDay = picks.filter(p => p.date === date);
+    const mine  = onDay.filter(p => p.mark === "going");
+    let dayCost = 0;
+    const rows = onDay.map((p, i) => {
+      const c = euros(p.price); if(p.mark === "going" && c) dayCost += c;
+      const bits = [p.venue, p.price || null,
+        (p.genres && p.genres.length) ? p.genres.slice(0,2).join(", ") : null].filter(Boolean);
+      let block = `<div class="pk ${p.mark}">
+        <span class="pk-t">${p.start}–${p.endEst?"~":""}${p.end}</span>
+        <span class="pk-b"><b>${esc(p.name)}</b><i>${esc(bits.join("  ·  "))}</i></span>
+        <span class="pk-m">${p.mark}</span></div>`;
+      // logistics only between two things you are actually going to
+      if(p.mark !== "going") return block;
+      const nxt = mine[mine.indexOf(p) + 1];
+      if(!nxt) return block;
+      const gap = nxt.s - p.e, h = hop(p.venueId, nxt.venueId);
+      if(gap < 0){
+        block += `<div class="pk-link bad">overlaps ${esc(nxt.name)} by ${-gap} min</div>`;
+      }else{
+        const t = h ? `${h.km.toFixed(1)} km · about ${h.mins} min` : "distance unknown";
+        const tight = h && gap < h.mins;
+        block += `<div class="pk-link${tight ? " bad" : ""}">${gap} min · ${t}${
+          tight ? " · tighter than the journey" : ""}</div>`;
+      }
+      return block;
+    }).join("");
+    spend += dayCost;
+    return `<div class="pk-day"><h4>${DAYNAME[dt.getUTCDay()]} ${dt.getUTCDate()}
+      ${dayCost ? `<span>€${dayCost.toFixed(2)}</span>` : ""}</h4>${rows}</div>`;
+  }).join("");
+
+  const priced = picks.filter(p => p.mark === "going" && euros(p.price)).length;
+  const going  = picks.filter(p => p.mark === "going").length;
+  body.innerHTML = out + (spend
+    ? `<div class="pk-total">€${spend.toFixed(2)} across ${priced} of ${going}
+       — the rest have no price published</div>` : "");
+}
+
 function countMarks(){
   const n = st => EVENTS.filter(e => PLAN[e.id] === st).length;
   const g = n("going"), fr = n("friends"), m = n("maybe");
-  document.getElementById("progCount").textContent =
-    (g||fr||m) ? g+" going · "+fr+" friends · "+m+" maybe" : "tap to shortlist";
+  const txt = (g||fr||m) ? g+" going · "+fr+" friends · "+m+" maybe" : "tap to shortlist";
+  document.getElementById("progCount").textContent = txt;
+  document.getElementById("planSum").textContent = txt;
+  renderPlan();
 }
 
 /* ---------------- shareable state ---------------- */
