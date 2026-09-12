@@ -1189,6 +1189,94 @@
       "note": "",
       "endEst": false,
       "price": "€42"
+    },
+    {
+      "festival": "ade2026",
+      "venueId": "thuishaven",
+      "venue": "Thuishaven",
+      "price": null,
+      "endEst": false,
+      "id": "ade-thuis-fri-day",
+      "name": "Thuishaven ADE Friday Day",
+      "date": "2026-10-23",
+      "start": "16:00",
+      "end": "23:00",
+      "genres": [],
+      "lineup": [
+        "Salute",
+        "Diffrent",
+        "Bella Claxton"
+      ],
+      "note": "Daytime on the harbour edge."
+    },
+    {
+      "festival": "ade2026",
+      "venueId": "thuishaven",
+      "venue": "Thuishaven",
+      "price": null,
+      "endEst": false,
+      "id": "ade-thuis-fri-night",
+      "name": "Thuishaven ADE Friday Night",
+      "date": "2026-10-23",
+      "start": "23:00",
+      "end": "06:00",
+      "genres": [
+        "techno",
+        "electro",
+        "wave"
+      ],
+      "lineup": [
+        "Daria Kolosova",
+        "Tommy Holohan",
+        "Supergloss",
+        "Alec Dienaar"
+      ],
+      "note": ""
+    },
+    {
+      "festival": "ade2026",
+      "venueId": "thuishaven",
+      "venue": "Thuishaven",
+      "price": null,
+      "endEst": false,
+      "id": "ade-thuis-sat-day",
+      "name": "Thuishaven ADE Saturday Day",
+      "date": "2026-10-24",
+      "start": "13:00",
+      "end": "23:00",
+      "genres": [],
+      "lineup": [
+        "Michel de Hey",
+        "Philou Louzolo",
+        "Haven Trax",
+        "Jamback"
+      ],
+      "note": "Philou Louzolo is Amsterdam's own Afro-electronic producer."
+    },
+    {
+      "festival": "ade2026",
+      "venueId": "thuishaven",
+      "venue": "Thuishaven",
+      "price": null,
+      "endEst": false,
+      "id": "ade-thuis-sat-night",
+      "name": "Thuishaven ADE Saturday Night: AFTERJAM",
+      "date": "2026-10-24",
+      "start": "23:00",
+      "end": "05:00",
+      "genres": [
+        "house",
+        "tech-house"
+      ],
+      "lineup": [
+        "Raresh",
+        "Michel de Hey",
+        "Jamback",
+        "Jhobei",
+        "Laura de Greef",
+        "Marlie"
+      ],
+      "note": "Raresh. The groove bill of the weekend."
     }
   ]
 }
