@@ -3066,5 +3066,32 @@
       "map": "https://www.google.com/maps/search/Le+Lieu+Unique+Nantes"
     },
     "status": "open"
+  },
+  {
+    "id": "afaslive",
+    "city": "amsterdam",
+    "name": "AFAS Live",
+    "area": "Zuidoost — Arena Boulevard",
+    "intensity": 1,
+    "cap": 6000,
+    "hours": "",
+    "lat": 52.3122,
+    "lon": 4.9447,
+    "draft": true,
+    "line": "Arena-scale. Where the big-ticket ADE shows land.",
+    "note": "A 6,000-capacity arena out by the Johan Cruijff ArenA in Zuidoost. Not a club — a production venue, and the far commercial end of the scale. During ADE it takes the largest single-night shows.",
+    "tags": [
+      "arena",
+      "bigroom",
+      "production",
+      "commercial"
+    ],
+    "rooms": [],
+    "nights": [],
+    "links": {
+      "web": "https://www.afaslive.nl",
+      "map": "https://www.google.com/maps/search/AFAS+Live+Amsterdam"
+    },
+    "status": "open"
   }
 ]

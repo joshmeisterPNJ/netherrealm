@@ -1,0 +1,109 @@
+{
+  "festivals": {
+    "ade2026": {
+      "city": "amsterdam",
+      "short": "ADE",
+      "name": "Amsterdam Dance Event",
+      "from": "2026-10-21",
+      "to": "2026-10-25",
+      "showFrom": "2026-09-12"
+    }
+  },
+  "events": [
+    {
+      "id": "ade-shimza",
+      "festival": "ade2026",
+      "name": "DGTL ADE · Shimza & Co",
+      "venueId": "ndsm",
+      "venue": "NDSM Warehouse",
+      "date": "2026-10-24",
+      "start": "14:00",
+      "end": "22:30",
+      "genres": [
+        "afro house",
+        "house",
+        "techno"
+      ],
+      "lineup": [
+        "Shimza",
+        "Âme",
+        "AMÉMÉ",
+        "Bedouin",
+        "DESIREE",
+        "JAMIIE",
+        "Alex Wann",
+        "Arodes",
+        "Meera",
+        "Stoffela"
+      ],
+      "note": "Curated by Shimza. Daytime warehouse, deep hypnotic grooves and percussion.",
+      "url": "https://www.amsterdam-dance-event.nl/en/program/2026/dgtl-ade-shimza-co/2804073/"
+    },
+    {
+      "id": "ade-descendants",
+      "festival": "ade2026",
+      "name": "DESCENDANTS",
+      "venueId": "parallel",
+      "venue": "Parallel",
+      "date": "2026-10-24",
+      "start": "23:59",
+      "end": "06:00",
+      "genres": [
+        "afrobeats",
+        "amapiano",
+        "afro/latin & global"
+      ],
+      "lineup": [],
+      "note": "Club night at Parallel. Afro, Latin and global.",
+      "url": "https://www.amsterdam-dance-event.nl/en/program/2026/descendants/2805095/"
+    },
+    {
+      "id": "ade-zazu",
+      "festival": "ade2026",
+      "name": "ZAZU · SOLÈY by Francis Mercier",
+      "venueId": "afaslive",
+      "venue": "AFAS Live",
+      "date": "2026-10-24",
+      "start": "23:59",
+      "end": "07:00",
+      "genres": [
+        "afro-electronic",
+        "afro house"
+      ],
+      "lineup": [
+        "Francis Mercier",
+        "Da Capo b2b Enoo Napa",
+        "Nitefreak b2b Bun Xapa",
+        "Samm b2b Ajna",
+        "Van Zand b2b Breyth",
+        "Juno b2b Unfazed",
+        "Afrojack (special guest)"
+      ],
+      "price": "€45–100 GA",
+      "note": "Arena-scale Afro-electronic. The big-ticket one.",
+      "url": "https://www.afaslive.nl/agenda/zazu-presents-soley"
+    },
+    {
+      "id": "ade-stateofff",
+      "festival": "ade2026",
+      "name": "State OFFF",
+      "venueId": "paradiso",
+      "venue": "Paradiso — Upstairs",
+      "date": "2026-10-22",
+      "start": "19:30",
+      "end": "23:30",
+      "genres": [
+        "baile funk",
+        "baltimore club",
+        "london bass",
+        "gqom"
+      ],
+      "lineup": [
+        "State OFFF"
+      ],
+      "price": "€19.20",
+      "note": "A/V performance — Umzimba. Live hardware percussion against a model turning sound into visuals.",
+      "url": "https://www.paradiso.nl/en/program/state-offf-ade/2901627"
+    }
+  ]
+}
