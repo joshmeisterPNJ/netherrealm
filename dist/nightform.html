@@ -276,6 +276,9 @@ body{
   padding:9px 15px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase}
 #progKinds button:hover{color:var(--ink)}
 #progKinds button[aria-pressed=true]{background:var(--city);border-color:var(--city);color:#08080a}
+.ev.tight i{display:none}
+.ev.tight b{white-space:normal;line-height:1.2;font-size:11px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .ev.isopen{background:#0c0c10;border-style:dashed;cursor:default}
 .ev.isopen b{color:var(--ink-dim)}
 #prog.on{display:grid}
@@ -317,11 +320,12 @@ body{
 .lane .hour{position:absolute;top:0;bottom:0;border-right:1px solid #141419}
 .ev{position:absolute;border:1px solid var(--line);background:#101014;
   cursor:pointer;text-align:left;padding:6px 9px;overflow:hidden;color:var(--ink-dim);
-  display:flex;flex-direction:column;justify-content:center;gap:2px;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:2px;
   transition:background .15s,border-color .15s}
 .ev b{font-family:var(--disp);font-variation-settings:"wdth" 96,"wght" 600;font-size:12px;
-  color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ev i{font-family:var(--mono);font-style:normal;font-size:9px;letter-spacing:.1em;color:var(--ink-faint)}
+  color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:none}
+.ev i{font-family:var(--mono);font-style:normal;font-size:9px;letter-spacing:.1em;color:var(--ink-faint);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .ev:hover{border-color:var(--city)}
 .ev.going{background:var(--city);border-color:var(--city)}
 .ev.going b,.ev.going i{color:#08080a}
@@ -1803,8 +1807,9 @@ function renderProgramme(){
               `<span class="hour" style="left:${i*pph}px;width:${pph}px"></span>`).join("")}
             ${r.items.map(e => {
               const st = e.isOpen ? "isopen" : (PLAN[e.id] || "");
-              return `<button class="ev ${st}" data-ev="${esc(e.id)}"
-                style="left:${x(e.s)}px;width:${Math.max(58, x(e.e)-x(e.s))}px;top:${e.lane*LH+3}px;height:${LH-6}px">
+              const w = Math.max(58, x(e.e)-x(e.s));
+              return `<button class="ev ${st}${w<96?" tight":""}" data-ev="${esc(e.id)}"
+                style="left:${x(e.s)}px;width:${w}px;top:${e.lane*LH+3}px;height:${LH-6}px">
                 <b>${esc(e.name)}</b><i>${e.start}–${e.endEst?"~":""}${e.end}${e.price?" · "+esc(e.price):""}${(e.genres&&e.genres.length)?" · "+esc(e.genres.slice(0,2).join(", ")):""}</i></button>`;
             }).join("")}
           </div>
