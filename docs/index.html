@@ -294,7 +294,7 @@ body{
 .ev.tight i{display:none}
 .ev.tight b{white-space:normal;line-height:1.2;font-size:11px;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.ev.isopen{background:#0c0c10;border-style:dashed;cursor:default}
+.ev.isopen{border-style:dashed}
 .ev.isopen b{color:var(--ink-dim)}
 #prog.on{display:grid}
 .prog-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
@@ -1709,6 +1709,7 @@ function festDays(f){
 }
 const kindOf = id => { const v = VENUES.find(v => v.id === id); return v ? (v.kind||"club") : null; };
 // a bar's own opening window, so you can see what is simply open at 7pm
+const OPEN_INDEX = {};
 function openBars(date){
   const wd = parseDay(date).getUTCDay();
   const out = [];
@@ -1719,7 +1720,14 @@ function openBars(date){
                start:fmtMin(w[0]), end:fmtMin(w[1]), s:w[0], e:w[1],
                genres:(v.tags||[]).slice(0,2), price:null, isOpen:true });
   }
+  out.forEach(o => OPEN_INDEX[o.id] = o);
   return out;
+}
+// every shortlistable thing, events and opening windows alike
+function allItems(){
+  const f = activeFestival(activeCity);
+  if(f) festDays(f).forEach(d => openBars(d));
+  return EVENTS.concat(Object.values(OPEN_INDEX));
 }
 function itemsOn(f, date){
   const evs = eventsOn(f, date);
@@ -1824,9 +1832,9 @@ function renderProgramme(){
             ${[...Array(Math.round((t1-t0)/60))].map((_,i)=>
               `<span class="hour" style="left:${i*pph}px;width:${pph}px"></span>`).join("")}
             ${r.items.map(e => {
-              const st = e.isOpen ? "isopen" : (PLAN[e.id] || "");
+              const st = (PLAN[e.id] || "") + (e.isOpen ? " isopen" : "");
               const w = Math.max(58, x(e.e)-x(e.s));
-              return `<button class="ev ${st}${w<96?" tight":""}" data-ev="${esc(e.id)}"
+              return `<button class="ev ${st}${w<96?" tight":""}" data-ev="${esc(e.id)}"${e.isOpen?' data-open="1"':""}${w<96?' data-tight="1"':""}
                 style="left:${x(e.s)}px;width:${w}px;top:${e.lane*LH+3}px;height:${LH-6}px">
                 <b>${esc(e.name)}</b><i>${e.start}–${e.endEst?"~":""}${e.end}${e.price?" · "+esc(e.price):""}${(e.genres&&e.genres.length)?" · "+esc(e.genres.slice(0,2).join(", ")):""}</i></button>`;
             }).join("")}
@@ -1834,13 +1842,14 @@ function renderProgramme(){
         </div>`).join("")}
     </div></div>`;
 
-  body.querySelectorAll(".ev:not(.isopen)").forEach(el => {
+  body.querySelectorAll(".ev").forEach(el => {
     el.onclick = () => {
       const id = el.dataset.ev;
       const next = CYCLE[PLAN[id] || ""];
       if(next) PLAN[id] = next; else delete PLAN[id];
       savePlan();
-      el.className = "ev " + (PLAN[id] || "");
+      el.className = "ev " + (PLAN[id] || "") + (el.dataset.open ? " isopen" : "")
+        + (el.dataset.tight ? " tight" : "");        // repaint in place, do not rebuild
       countMarks();
     };
   });
@@ -1851,7 +1860,7 @@ function euros(p){ const m = /([\d]+[.,]?\d*)/.exec(p||""); return m ? parseFloa
 
 function renderPlan(){
   const body = document.getElementById("planBody");
-  const picks = EVENTS
+  const picks = allItems()
     .filter(e => PLAN[e.id])
     .map(e => { const s = toMin(e.start); let en = e.dur ? s + e.dur : toMin(e.end);
                 if(!e.dur && en <= s) en += 1440;
@@ -1869,18 +1878,18 @@ function renderPlan(){
   const out = days.map(date => {
     const dt = parseDay(date);
     const onDay = picks.filter(p => p.date === date);
-    const mine  = onDay.filter(p => p.mark === "going");
+    const mine  = onDay.filter(p => p.mark === "going" && !p.isOpen);
     let dayCost = 0;
     const rows = onDay.map((p, i) => {
       const c = euros(p.price); if(p.mark === "going" && c) dayCost += c;
-      const bits = [p.venue, p.price || null,
+      const bits = [p.isOpen ? "open all evening" : p.venue, p.price || null,
         (p.genres && p.genres.length) ? p.genres.slice(0,2).join(", ") : null].filter(Boolean);
       let block = `<div class="pk ${p.mark}">
         <span class="pk-t">${p.start}–${p.endEst?"~":""}${p.end}</span>
-        <span class="pk-b"><b>${esc(p.name)}</b><i>${esc(bits.join("  ·  "))}</i></span>
+        <span class="pk-b"><b>${esc(p.isOpen ? p.venue : p.name)}</b><i>${esc(bits.join("  ·  "))}</i></span>
         <span class="pk-m">${p.mark}</span></div>`;
       // logistics only between two things you are actually going to
-      if(p.mark !== "going") return block;
+      if(p.mark !== "going" || p.isOpen) return block;
       const nxt = mine[mine.indexOf(p) + 1];
       if(!nxt) return block;
       const gap = nxt.s - p.e, h = hop(p.venueId, nxt.venueId);
@@ -1907,7 +1916,7 @@ function renderPlan(){
 }
 
 function countMarks(){
-  const n = st => EVENTS.filter(e => PLAN[e.id] === st).length;
+  const n = st => allItems().filter(e => PLAN[e.id] === st).length;
   const g = n("going"), fr = n("friends"), m = n("maybe");
   const txt = (g||fr||m) ? g+" going · "+fr+" friends · "+m+" maybe" : "tap to shortlist";
   document.getElementById("progCount").textContent = txt;
