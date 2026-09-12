@@ -517,7 +517,8 @@
       "genres": [],
       "lineup": [],
       "note": "",
-      "endEst": false
+      "endEst": false,
+      "price": "Free"
     },
     {
       "id": "ade-21-together-the-other-",
@@ -556,10 +557,13 @@
       "date": "2026-10-21",
       "start": "22:00",
       "end": "05:00",
-      "genres": [],
+      "genres": [
+        "melodic house"
+      ],
       "lineup": [],
       "note": "",
-      "endEst": false
+      "endEst": false,
+      "price": "€42.50"
     },
     {
       "id": "ade-22-selador-x-sudbeat-ade-special-het-veroni",
@@ -598,10 +602,13 @@
       "date": "2026-10-22",
       "start": "17:00",
       "end": "22:30",
-      "genres": [],
+      "genres": [
+        "progressive house"
+      ],
       "lineup": [],
       "note": "",
-      "endEst": false
+      "endEst": false,
+      "price": "€44.33"
     },
     {
       "id": "ade-22-full-cycle-the-other-",
@@ -629,7 +636,8 @@
       "genres": [],
       "lineup": [],
       "note": "",
-      "endEst": false
+      "endEst": false,
+      "price": "€40"
     },
     {
       "id": "ade-22-slacker-gaiser-live-marc-houle-live-olive-f--bret",
@@ -643,7 +651,8 @@
       "genres": [],
       "lineup": [],
       "note": "",
-      "endEst": false
+      "endEst": false,
+      "price": "€37.50"
     },
     {
       "id": "ade-22-marginalia-x-ade-onderhans",
@@ -710,10 +719,13 @@
       "date": "2026-10-22",
       "start": "23:45",
       "end": "06:00",
-      "genres": [],
+      "genres": [
+        "melodic house"
+      ],
       "lineup": [],
       "note": "",
-      "endEst": false
+      "endEst": false,
+      "price": "€34.50"
     },
     {
       "id": "ade-23-mano-le-tough-presents-maeve-bret",
@@ -727,7 +739,8 @@
       "genres": [],
       "lineup": [],
       "note": "",
-      "endEst": false
+      "endEst": false,
+      "price": "€27.50"
     },
     {
       "id": "ade-23-we-are-lost-ade-westweelde",
@@ -811,7 +824,8 @@
       "genres": [],
       "lineup": [],
       "note": "",
-      "endEst": false
+      "endEst": false,
+      "price": "€45"
     },
     {
       "id": "ade-23-anz-mallaury-sherelle-bret",
@@ -825,7 +839,8 @@
       "genres": [],
       "lineup": [],
       "note": "",
-      "endEst": false
+      "endEst": false,
+      "price": "€30"
     },
     {
       "id": "ade-23-fabric-x-loud-contact-ade-westweelde",
@@ -895,7 +910,8 @@
       "genres": [],
       "lineup": [],
       "note": "",
-      "endEst": false
+      "endEst": false,
+      "price": "€40"
     },
     {
       "id": "ade-24-vbx-bret",
@@ -909,7 +925,8 @@
       "genres": [],
       "lineup": [],
       "note": "",
-      "endEst": false
+      "endEst": false,
+      "price": "€32.50"
     },
     {
       "id": "ade-24-feestgedruis-enters-het-veroni",
@@ -934,10 +951,13 @@
       "date": "2026-10-24",
       "start": "13:00",
       "end": "21:00",
-      "genres": [],
+      "genres": [
+        "progressive house"
+      ],
       "lineup": [],
       "note": "",
-      "endEst": false
+      "endEst": false,
+      "price": "€63.72"
     },
     {
       "id": "ade-24-komm-schon-alter-daytime-the-other-",
@@ -1046,7 +1066,9 @@
       "date": "2026-10-24",
       "start": "23:00",
       "end": "07:00",
-      "genres": [],
+      "genres": [
+        "techno"
+      ],
       "lineup": [],
       "note": "",
       "endEst": false
@@ -1063,7 +1085,8 @@
       "genres": [],
       "lineup": [],
       "note": "",
-      "endEst": false
+      "endEst": false,
+      "price": "€37.50"
     },
     {
       "id": "ade-25-todd-terry-friends-het-sieraa",
@@ -1074,7 +1097,9 @@
       "date": "2026-10-25",
       "start": "14:00",
       "end": "23:00",
-      "genres": [],
+      "genres": [
+        "house"
+      ],
       "lineup": [],
       "note": "",
       "endEst": false
@@ -1119,7 +1144,8 @@
       "genres": [],
       "lineup": [],
       "note": "",
-      "endEst": false
+      "endEst": false,
+      "price": "€45"
     },
     {
       "id": "ade-25-the-seekers-of-light-sunday-westweelde",
@@ -1161,7 +1187,8 @@
       "genres": [],
       "lineup": [],
       "note": "",
-      "endEst": false
+      "endEst": false,
+      "price": "€42"
     }
   ]
 }

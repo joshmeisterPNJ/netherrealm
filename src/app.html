@@ -270,7 +270,14 @@ body{
   #legend{top:calc(66px + env(safe-area-inset-top));bottom:auto}
 }
 #prog{position:fixed;inset:0;z-index:40;background:var(--void);display:none;
-  grid-template-rows:auto auto 1fr;overflow:hidden}
+  grid-template-rows:auto auto auto 1fr;overflow:hidden}
+#progKinds{display:flex;gap:6px;padding:0 20px 12px}
+#progKinds button{background:#0d0d10;border:1px solid var(--line);color:var(--ink-dim);cursor:pointer;
+  padding:9px 15px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+#progKinds button:hover{color:var(--ink)}
+#progKinds button[aria-pressed=true]{background:var(--city);border-color:var(--city);color:#08080a}
+.ev.isopen{background:#0c0c10;border-style:dashed;cursor:default}
+.ev.isopen b{color:var(--ink-dim)}
 #prog.on{display:grid}
 .prog-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
   padding:calc(18px + env(safe-area-inset-top)) 20px 12px}
@@ -303,7 +310,7 @@ body{
 .row{display:grid;grid-template-columns:var(--lab) 1fr;align-items:stretch;margin-bottom:5px}
 .rowlab{position:sticky;left:0;z-index:2;background:var(--void);padding:6px 12px 6px 0;
   display:flex;align-items:flex-start}
-.rowlab b{padding-top:11px}
+.rowlab b{padding-top:14px}
 .rowlab b{font-family:var(--disp);font-variation-settings:"wdth" 96,"wght" 600;font-size:12.5px;
   color:var(--ink-dim);line-height:1.25}
 .lane{position:relative;border-left:1px solid var(--line)}
@@ -377,6 +384,10 @@ body{
     <div><h2 id="progTitle">ADE</h2><p id="progSub"></p><p id="progCount"></p></div>
     <button id="progClose" aria-label="Close">✕</button>
   </header>
+  <div id="progKinds">
+    <button type="button" data-kind="club" aria-pressed="true">Clubs</button>
+    <button type="button" data-kind="bar" aria-pressed="false">Bars &amp; terraces</button>
+  </div>
   <nav id="progDays"></nav>
   <div id="progBody"></div>
 </div>
@@ -1543,6 +1554,14 @@ btnProg.onclick = ()=>{
   document.getElementById("prog").setAttribute("aria-hidden","false");
   renderProgramme();
 };
+  document.querySelectorAll("#progKinds button").forEach(b=>{
+    b.onclick = ()=>{
+      progKind = b.dataset.kind;
+      document.querySelectorAll("#progKinds button").forEach(x=>
+        x.setAttribute("aria-pressed", String(x.dataset.kind===progKind)));
+      renderProgramme();
+    };
+  });
 document.getElementById("progClose").onclick = ()=>{
   document.getElementById("prog").classList.remove("on");
   document.getElementById("prog").setAttribute("aria-hidden","true");
@@ -1600,6 +1619,7 @@ const MONTH   = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","No
 
 let PLAN = {};                       // eventId -> "going" | "friends" | "maybe"
 let progDate = null;
+let progKind = "club";
 
 const dayKey = d => d.toISOString().slice(0,10);
 const parseDay = s => new Date(s + "T12:00:00Z");
@@ -1621,9 +1641,29 @@ function festDays(f){
   for(let d = new Date(a); d <= b; d.setUTCDate(d.getUTCDate()+1)) out.push(dayKey(d));
   return out;
 }
+const kindOf = id => { const v = VENUES.find(v => v.id === id); return v ? (v.kind||"club") : null; };
+// a bar's own opening window, so you can see what is simply open at 7pm
+function openBars(date){
+  const wd = parseDay(date).getUTCDay();
+  const out = [];
+  for(const v of VENUES){
+    if(v.city !== activeCity || (v.kind||"club") !== "bar" || !v.open) continue;
+    const w = v.open[wd]; if(!w) continue;
+    out.push({ id:"open-"+v.id+"-"+date, name:"Open", venueId:v.id, venue:v.name, date,
+               start:fmtMin(w[0]), end:fmtMin(w[1]), s:w[0], e:w[1],
+               genres:(v.tags||[]).slice(0,2), price:null, isOpen:true });
+  }
+  return out;
+}
+function itemsOn(f, date){
+  const evs = eventsOn(f, date);
+  return progKind === "bar"
+    ? evs.concat(openBars(date)).sort((a,b) => a.s - b.s)
+    : evs;
+}
 const eventsOn = (f, date) => EVENTS
   .filter(e => e.festival === f.id && e.date === date)
-  .filter(e => e.venueId && VENUES.some(v => v.id === e.venueId))
+  .filter(e => e.venueId && kindOf(e.venueId) === progKind)
   .map(e => {
     const s = toMin(e.start);
     let en = e.dur ? s + e.dur : toMin(e.end);
@@ -1663,7 +1703,7 @@ function renderProgramme(){
   const tabs = document.getElementById("progDays");
   tabs.innerHTML = "";
   days.forEach(d => {
-    const dt = parseDay(d), n = eventsOn(f, d).length;
+    const dt = parseDay(d), n = itemsOn(f, d).length;
     const b = document.createElement("button");
     b.type = "button";
     b.setAttribute("aria-pressed", String(d === progDate));
@@ -1673,7 +1713,7 @@ function renderProgramme(){
     tabs.appendChild(b);
   });
 
-  const evs = eventsOn(f, progDate);
+  const evs = itemsOn(f, progDate);
   const body = document.getElementById("progBody");
   if(!evs.length){
     body.innerHTML = `<p class="prog-empty">Nothing listed for this day yet.</p>`;
@@ -1695,7 +1735,7 @@ function renderProgramme(){
     }
     r.items.push(e);
   });
-  const LH = 44;
+  const LH = 50;
   rows.forEach(r => {
     r.items.forEach(e => {
       let i = r.lanes.findIndex(l => l.every(x => e.s >= x.e || e.e <= x.s));
@@ -1718,16 +1758,16 @@ function renderProgramme(){
             ${[...Array(Math.round((t1-t0)/60))].map((_,i)=>
               `<span class="hour" style="left:${i*pph}px;width:${pph}px"></span>`).join("")}
             ${r.items.map(e => {
-              const st = PLAN[e.id] || "";
+              const st = e.isOpen ? "isopen" : (PLAN[e.id] || "");
               return `<button class="ev ${st}" data-ev="${esc(e.id)}"
                 style="left:${x(e.s)}px;width:${Math.max(58, x(e.e)-x(e.s))}px;top:${e.lane*LH+3}px;height:${LH-6}px">
-                <b>${esc(e.name)}</b><i>${e.start}–${e.endEst?"~":""}${e.end}</i></button>`;
+                <b>${esc(e.name)}</b><i>${e.start}–${e.endEst?"~":""}${e.end}${e.price?" · "+esc(e.price):""}${(e.genres&&e.genres.length)?" · "+esc(e.genres.slice(0,2).join(", ")):""}</i></button>`;
             }).join("")}
           </div>
         </div>`).join("")}
     </div></div>`;
 
-  body.querySelectorAll(".ev").forEach(el => {
+  body.querySelectorAll(".ev:not(.isopen)").forEach(el => {
     el.onclick = () => {
       const id = el.dataset.ev;
       const next = CYCLE[PLAN[id] || ""];

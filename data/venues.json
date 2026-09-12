@@ -56,7 +56,8 @@
       ]
     },
     "lat": 51.5195,
-    "lon": -0.1025
+    "lon": -0.1025,
+    "kind": "club"
   },
   {
     "id": "corsica",
@@ -108,7 +109,8 @@
       ]
     },
     "lat": 51.493,
-    "lon": -0.0995
+    "lon": -0.0995,
+    "kind": "club"
   },
   {
     "id": "fold",
@@ -155,7 +157,8 @@
         1320,
         3240
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "phonox",
@@ -196,7 +199,8 @@
       ]
     },
     "lat": 51.463,
-    "lon": -0.1145
+    "lon": -0.1145,
+    "kind": "club"
   },
   {
     "id": "xoyo",
@@ -248,7 +252,8 @@
       ]
     },
     "lat": 51.5255,
-    "lon": -0.0855
+    "lon": -0.0855,
+    "kind": "club"
   },
   {
     "id": "villageunderground",
@@ -288,7 +293,8 @@
       ]
     },
     "lat": 51.5245,
-    "lon": -0.08
+    "lon": -0.08,
+    "kind": "club"
   },
   {
     "id": "drumsheds",
@@ -323,7 +329,8 @@
     "status": "open",
     "draft": true,
     "lat": 51.612,
-    "lon": -0.057
+    "lon": -0.057,
+    "kind": "club"
   },
   {
     "id": "venuemot",
@@ -363,7 +370,8 @@
         1380,
         1800
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "colourfactory",
@@ -402,7 +410,8 @@
       ]
     },
     "lat": 51.5385,
-    "lon": -0.0225
+    "lon": -0.0225,
+    "kind": "club"
   },
   {
     "id": "e1",
@@ -452,7 +461,8 @@
       ]
     },
     "lat": 51.5075,
-    "lon": -0.062
+    "lon": -0.062,
+    "kind": "club"
   },
   {
     "id": "brilliantcorners",
@@ -508,7 +518,8 @@
       ]
     },
     "lat": 51.545,
-    "lon": -0.076
+    "lon": -0.076,
+    "kind": "club"
   },
   {
     "id": "ormside",
@@ -547,7 +558,8 @@
         1380,
         1800
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "printworks",
@@ -577,7 +589,8 @@
     "status": "unsure",
     "draft": true,
     "lat": 51.493,
-    "lon": -0.049
+    "lon": -0.049,
+    "kind": "club"
   },
   {
     "id": "berghain",
@@ -633,7 +646,8 @@
       ]
     },
     "lat": 52.511,
-    "lon": 13.443
+    "lon": 13.443,
+    "kind": "club"
   },
   {
     "id": "tresor",
@@ -694,7 +708,8 @@
       ]
     },
     "lat": 52.509,
-    "lon": 13.42
+    "lon": 13.42,
+    "kind": "club"
   },
   {
     "id": "aboutblank",
@@ -751,7 +766,8 @@
       ]
     },
     "lat": 52.503,
-    "lon": 13.468
+    "lon": 13.468,
+    "kind": "club"
   },
   {
     "id": "sisyphos",
@@ -800,7 +816,8 @@
       ]
     },
     "lat": 52.498,
-    "lon": 13.489
+    "lon": 13.489,
+    "kind": "club"
   },
   {
     "id": "rso",
@@ -852,7 +869,8 @@
         1380,
         2040
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "kitkat",
@@ -893,7 +911,8 @@
         1380,
         2040
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "cdv",
@@ -965,7 +984,8 @@
       ]
     },
     "lat": 52.497,
-    "lon": 13.449
+    "lon": 13.449,
+    "kind": "club"
   },
   {
     "id": "renate",
@@ -1022,7 +1042,8 @@
       ]
     },
     "lat": 52.502,
-    "lon": 13.468
+    "lon": 13.468,
+    "kind": "club"
   },
   {
     "id": "ohm",
@@ -1062,7 +1083,8 @@
         1380,
         1920
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "traumabar",
@@ -1102,7 +1124,8 @@
         1380,
         1920
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "else",
@@ -1131,7 +1154,8 @@
     "status": "open",
     "draft": true,
     "lat": 52.496,
-    "lon": 13.452
+    "lon": 13.452,
+    "kind": "club"
   },
   {
     "id": "panke",
@@ -1176,7 +1200,8 @@
       ]
     },
     "lat": 52.545,
-    "lon": 13.372
+    "lon": 13.372,
+    "kind": "club"
   },
   {
     "id": "watergate",
@@ -1205,7 +1230,8 @@
     "status": "closed",
     "draft": true,
     "lat": 52.501,
-    "lon": 13.445
+    "lon": 13.445,
+    "kind": "club"
   },
   {
     "id": "deschool",
@@ -1235,7 +1261,8 @@
     },
     "status": "open",
     "draft": false,
-    "equiv": "carbone"
+    "equiv": "carbone",
+    "kind": "club"
   },
   {
     "id": "garagenoord",
@@ -1275,7 +1302,8 @@
         1380,
         1740
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "parallel",
@@ -1315,7 +1343,8 @@
         1380,
         1740
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "radion",
@@ -1351,7 +1380,8 @@
       ]
     },
     "lat": 52.348,
-    "lon": 4.809
+    "lon": 4.809,
+    "kind": "club"
   },
   {
     "id": "paradiso",
@@ -1406,7 +1436,8 @@
         1140,
         1620
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "melkweg",
@@ -1465,7 +1496,8 @@
         1140,
         1620
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "lofi",
@@ -1506,7 +1538,8 @@
         1380,
         1800
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "shelter",
@@ -1547,7 +1580,8 @@
         1380,
         2100
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "ndsm",
@@ -1578,7 +1612,8 @@
     "draft": false,
     "equiv": "kilowatt",
     "lat": 52.401,
-    "lon": 4.893
+    "lon": 4.893,
+    "kind": "club"
   },
   {
     "id": "amaze",
@@ -1608,7 +1643,8 @@
     "draft": false,
     "equiv": "atelier",
     "lat": 52.4,
-    "lon": 4.896
+    "lon": 4.896,
+    "kind": "club"
   },
   {
     "id": "carbone",
@@ -1649,7 +1685,8 @@
         1439,
         1859
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "lastation",
@@ -1700,7 +1737,8 @@
         1380,
         1800
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "lamachine",
@@ -1757,7 +1795,8 @@
         1410,
         1800
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "glazart",
@@ -1809,7 +1848,8 @@
         1380,
         1800
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "olympia",
@@ -1860,7 +1900,8 @@
         1170,
         1410
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "elysee",
@@ -1914,7 +1955,8 @@
         1170,
         1500
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "virage",
@@ -1956,7 +1998,8 @@
         1080,
         1680
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "fvtvr",
@@ -1996,7 +2039,8 @@
         1439,
         1859
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "kilowatt",
@@ -2028,7 +2072,8 @@
     "status": "open",
     "draft": false,
     "lat": 48.7873,
-    "lon": 2.3925
+    "lon": 2.3925,
+    "kind": "club"
   },
   {
     "id": "atelier",
@@ -2060,7 +2105,8 @@
     "status": "open",
     "draft": false,
     "lat": 48.8602,
-    "lon": 2.3797
+    "lon": 2.3797,
+    "kind": "club"
   },
   {
     "id": "rexclub",
@@ -2108,7 +2154,8 @@
         1410,
         1800
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "djoon",
@@ -2150,7 +2197,8 @@
         1410,
         1800
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "badaboum",
@@ -2210,7 +2258,8 @@
         1410,
         1800
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "nuitsfauves",
@@ -2259,7 +2308,8 @@
         1410,
         1800
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "lajava",
@@ -2298,7 +2348,8 @@
         1410,
         1800
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "petitbain",
@@ -2357,7 +2408,8 @@
         1140,
         1560
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "dehorsbrut",
@@ -2396,7 +2448,8 @@
         840,
         1440
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "silencio",
@@ -2441,7 +2494,8 @@
         1380,
         1680
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "t7",
@@ -2481,7 +2535,8 @@
         1410,
         1860
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "concrete",
@@ -2510,7 +2565,8 @@
     "status": "closed",
     "draft": true,
     "lat": 48.845,
-    "lon": 2.3665
+    "lon": 2.3665,
+    "kind": "club"
   },
   {
     "id": "thuishaven",
@@ -2559,7 +2615,8 @@
       ]
     },
     "lat": 52.402,
-    "lon": 4.848
+    "lon": 4.848,
+    "kind": "club"
   },
   {
     "id": "doka",
@@ -2620,7 +2677,8 @@
       ]
     },
     "lat": 52.354,
-    "lon": 4.911
+    "lon": 4.911,
+    "kind": "club"
   },
   {
     "id": "ot301",
@@ -2650,7 +2708,8 @@
     "status": "open",
     "draft": true,
     "lat": 52.36,
-    "lon": 4.862
+    "lon": 4.862,
+    "kind": "club"
   },
   {
     "id": "sexyland",
@@ -2680,7 +2739,8 @@
     "status": "open",
     "draft": true,
     "lat": 52.403,
-    "lon": 4.913
+    "lon": 4.913,
+    "kind": "club"
   },
   {
     "id": "bitterzoet",
@@ -2728,7 +2788,8 @@
       ]
     },
     "lat": 52.3775,
-    "lon": 4.893
+    "lon": 4.893,
+    "kind": "club"
   },
   {
     "id": "elementenstraat",
@@ -2758,7 +2819,8 @@
     "status": "open",
     "draft": true,
     "lat": 52.393,
-    "lon": 4.818
+    "lon": 4.818,
+    "kind": "club"
   },
   {
     "id": "yoyo",
@@ -2803,7 +2865,8 @@
         1380,
         1740
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "zeralda",
@@ -2848,7 +2911,8 @@
         360,
         1440
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "warehouse",
@@ -2899,7 +2963,8 @@
         1439,
         1799
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "stereolux",
@@ -2955,7 +3020,8 @@
         1170,
         1440
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "ferrailleur",
@@ -2996,7 +3062,8 @@
         1380,
         1740
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "macadam",
@@ -3035,7 +3102,8 @@
         1380,
         1740
       ]
-    }
+    },
+    "kind": "club"
   },
   {
     "id": "lieuunique",
@@ -3065,7 +3133,8 @@
       "ra": "https://ra.co/search?q=lieu%20unique%20nantes",
       "map": "https://www.google.com/maps/search/Le+Lieu+Unique+Nantes"
     },
-    "status": "open"
+    "status": "open",
+    "kind": "club"
   },
   {
     "id": "afaslive",
@@ -3092,7 +3161,8 @@
       "web": "https://www.afaslive.nl",
       "map": "https://www.google.com/maps/search/AFAS+Live+Amsterdam"
     },
-    "status": "open"
+    "status": "open",
+    "kind": "club"
   },
   {
     "city": "amsterdam",
@@ -3120,7 +3190,8 @@
       "premium",
       "house",
       "techno"
-    ]
+    ],
+    "kind": "club"
   },
   {
     "city": "amsterdam",
@@ -3148,7 +3219,8 @@
       "house",
       "techno",
       "westside"
-    ]
+    ],
+    "kind": "club"
   },
   {
     "city": "amsterdam",
@@ -3176,6 +3248,344 @@
       "melodic",
       "afro house",
       "techno"
-    ]
+    ],
+    "kind": "club"
+  },
+  {
+    "city": "amsterdam",
+    "kind": "bar",
+    "intensity": 2,
+    "hours": "",
+    "draft": true,
+    "rooms": [],
+    "nights": [],
+    "status": "open",
+    "links": {
+      "ra": "https://ra.co/search?q=Pllek%20amsterdam",
+      "map": "https://www.google.com/maps/search/Pllek%20Amsterdam"
+    },
+    "id": "pllek",
+    "name": "Pllek",
+    "area": "Noord — NDSM wharf",
+    "lat": 52.4013,
+    "lon": 4.8927,
+    "cap": 600,
+    "line": "Containers on the water with sand, food and a sunset over the IJ.",
+    "note": "Built from shipping containers on the NDSM wharf, with a man-made beach facing the water. Restaurant and bar all day, DJs later, and the crowd is an even split of locals, creatives and whoever got off the ferry. Five minutes from NDSM Warehouse.",
+    "tags": [
+      "waterside",
+      "terrace",
+      "food",
+      "sunset",
+      "djs"
+    ],
+    "open": {
+      "0": [
+        660,
+        1500
+      ],
+      "1": [
+        660,
+        1500
+      ],
+      "2": [
+        660,
+        1500
+      ],
+      "3": [
+        660,
+        1500
+      ],
+      "4": [
+        660,
+        1560
+      ],
+      "5": [
+        660,
+        1620
+      ],
+      "6": [
+        660,
+        1620
+      ]
+    }
+  },
+  {
+    "city": "amsterdam",
+    "kind": "bar",
+    "intensity": 2,
+    "hours": "",
+    "draft": true,
+    "rooms": [],
+    "nights": [],
+    "status": "open",
+    "links": {
+      "ra": "https://ra.co/search?q=Noorderlicht%20amsterdam",
+      "map": "https://www.google.com/maps/search/Noorderlicht%20Amsterdam"
+    },
+    "id": "noorderlicht",
+    "name": "Noorderlicht",
+    "area": "Noord — NDSM wharf",
+    "lat": 52.4008,
+    "lon": 4.8945,
+    "cap": 400,
+    "line": "Greenhouse on the wharf, terrace out front.",
+    "note": "A greenhouse-ish café on the NDSM wharf with a big terrace and a steady run of live music and DJs. Scruffier and warmer than its neighbours.",
+    "tags": [
+      "waterside",
+      "terrace",
+      "greenhouse",
+      "live",
+      "djs"
+    ],
+    "open": {
+      "0": [
+        660,
+        1440
+      ],
+      "2": [
+        660,
+        1440
+      ],
+      "3": [
+        660,
+        1440
+      ],
+      "4": [
+        660,
+        1500
+      ],
+      "5": [
+        660,
+        1560
+      ],
+      "6": [
+        660,
+        1560
+      ]
+    }
+  },
+  {
+    "city": "amsterdam",
+    "kind": "bar",
+    "intensity": 2,
+    "hours": "",
+    "draft": true,
+    "rooms": [],
+    "nights": [],
+    "status": "open",
+    "links": {
+      "ra": "https://ra.co/search?q=Hannekes%20Boom%20amsterdam",
+      "map": "https://www.google.com/maps/search/Hannekes%20Boom%20Amsterdam"
+    },
+    "id": "hannekesboom",
+    "name": "Hannekes Boom",
+    "area": "Centrum — Dijksgracht",
+    "lat": 52.376,
+    "lon": 4.912,
+    "cap": 500,
+    "line": "Wooden shack on the water. The most mixed crowd in the city.",
+    "note": "A self-built wooden bar on the water near the Nemo, with a big outdoor deck. Beer in the afternoon, DJs at night, and everybody ends up there at some point.",
+    "tags": [
+      "waterside",
+      "terrace",
+      "central",
+      "djs",
+      "mixed"
+    ],
+    "open": {
+      "0": [
+        660,
+        1620
+      ],
+      "1": [
+        660,
+        1620
+      ],
+      "2": [
+        660,
+        1620
+      ],
+      "3": [
+        660,
+        1620
+      ],
+      "4": [
+        660,
+        1620
+      ],
+      "5": [
+        660,
+        1800
+      ],
+      "6": [
+        660,
+        1800
+      ]
+    }
+  },
+  {
+    "city": "amsterdam",
+    "kind": "bar",
+    "intensity": 2,
+    "hours": "",
+    "draft": true,
+    "rooms": [],
+    "nights": [],
+    "status": "open",
+    "links": {
+      "ra": "https://ra.co/search?q=Skatecaf%C3%A9%20amsterdam",
+      "map": "https://www.google.com/maps/search/Skatecaf%C3%A9%20Amsterdam"
+    },
+    "id": "skatecafe",
+    "name": "Skatecafé",
+    "area": "Noord — Papaverweg",
+    "lat": 52.3995,
+    "lon": 4.895,
+    "cap": 500,
+    "line": "Skate bowl at the front, club at the back.",
+    "note": "An old garage in Noord with a working skate bowl and a restaurant at the front, and a proper club room behind it. Easy to walk into, hard to leave.",
+    "tags": [
+      "skate",
+      "food",
+      "club",
+      "noord",
+      "djs"
+    ],
+    "open": {
+      "0": [
+        1020,
+        1500
+      ],
+      "3": [
+        1020,
+        1620
+      ],
+      "4": [
+        1020,
+        1620
+      ],
+      "5": [
+        1020,
+        1800
+      ],
+      "6": [
+        1020,
+        1800
+      ]
+    }
+  },
+  {
+    "city": "amsterdam",
+    "kind": "bar",
+    "intensity": 2,
+    "hours": "",
+    "draft": true,
+    "rooms": [],
+    "nights": [],
+    "status": "open",
+    "links": {
+      "ra": "https://ra.co/search?q=De%20Ceuvel%20amsterdam",
+      "map": "https://www.google.com/maps/search/De%20Ceuvel%20Amsterdam"
+    },
+    "id": "deceuvel",
+    "name": "De Ceuvel",
+    "area": "Noord — Korte Papaverweg",
+    "lat": 52.3965,
+    "lon": 4.8985,
+    "cap": 300,
+    "line": "Houseboats beached on a cleaned-up shipyard.",
+    "note": "A former shipyard turned into a sustainability experiment — old houseboats dragged onto polluted ground, now a café with a jetty and a terrace. Daytime mostly, with occasional music.",
+    "tags": [
+      "waterside",
+      "terrace",
+      "daytime",
+      "noord"
+    ],
+    "open": {
+      "0": [
+        660,
+        1380
+      ],
+      "2": [
+        660,
+        1380
+      ],
+      "3": [
+        660,
+        1380
+      ],
+      "4": [
+        660,
+        1380
+      ],
+      "5": [
+        660,
+        1440
+      ],
+      "6": [
+        660,
+        1440
+      ]
+    }
+  },
+  {
+    "city": "amsterdam",
+    "kind": "bar",
+    "intensity": 2,
+    "hours": "",
+    "draft": true,
+    "rooms": [],
+    "nights": [],
+    "status": "open",
+    "links": {
+      "ra": "https://ra.co/search?q=Waterkant%20amsterdam",
+      "map": "https://www.google.com/maps/search/Waterkant%20Amsterdam"
+    },
+    "id": "waterkant",
+    "name": "Waterkant",
+    "area": "West — Marnixstraat",
+    "lat": 52.372,
+    "lon": 4.879,
+    "cap": 600,
+    "line": "Canalside terrace under a car park. Everyone passes through.",
+    "note": "A big canalside terrace tucked under a multi-storey car park in West. Caribbean food, cheap beer, and a crowd that skews young and very mixed.",
+    "tags": [
+      "canalside",
+      "terrace",
+      "central",
+      "cheap",
+      "mixed"
+    ],
+    "open": {
+      "0": [
+        660,
+        1500
+      ],
+      "1": [
+        660,
+        1500
+      ],
+      "2": [
+        660,
+        1500
+      ],
+      "3": [
+        660,
+        1500
+      ],
+      "4": [
+        660,
+        1560
+      ],
+      "5": [
+        660,
+        1620
+      ],
+      "6": [
+        660,
+        1620
+      ]
+    }
   }
 ]
